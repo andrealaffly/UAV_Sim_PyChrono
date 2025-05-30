@@ -1,4 +1,6 @@
 # PyChrono script generated from SolidWorks using Chrono::SolidWorks add-in 
+# Assembly: C:\Users\mgramuglia\Desktop\JTARV\Mattia Drone\Drone_big_box_PY\drone_bb.SLDASM
+
 
 # X-8 Copter Motors enumeration and Global reference frame (Reference frame acquired by SolidWorks)
 #
@@ -43,7 +45,7 @@ chrono.ChCollisionModel.SetDefaultSuggestedEnvelope(0.003) #0.003
 chrono.ChCollisionModel.SetDefaultSuggestedMargin(0.003) #0.003
 chrono.ChCollisionSystemBullet.SetContactBreakingThreshold(0.002) #0.002
 
-shapes_dir = 'shapes/' 
+shapes_dir = 'drone_bb_shapes/' 
 
 if hasattr(builtins, 'exported_system_relpath'): 
     shapes_dir = builtins.exported_system_relpath + shapes_dir 
