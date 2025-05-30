@@ -73,7 +73,7 @@ Now you can try to run the demos to check if the installation is correct.
 For example,
 ```bash
 cd mbs/
-python3.9 demos_MBS_revolute.py
+python demos_MBS_revolute.py
 ```
 ## Step 6: Try to run the code
 Clone the repo and navigate to the project folder.
@@ -81,5 +81,5 @@ Clone the repo and navigate to the project folder.
 git clone https://github.com/andrealaffly/UAV_Sim_PyChrono.git
 cd UAV_Sim_PyChrono
 git checkout dev
-python3.9 main.py
+python main.py
 ```

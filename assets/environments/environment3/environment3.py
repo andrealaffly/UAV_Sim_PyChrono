@@ -1,5 +1,5 @@
 # PyChrono script generated from SolidWorks using Chrono::SolidWorks add-in 
-# Assembly: C:\Users\mgramuglia\Desktop\JTARV\Mattia Drone\SW_world\environmentA.SLDASM
+# Assembly: 
 
 
 import pychrono as chrono 
@@ -11,7 +11,7 @@ chrono.ChCollisionModel.SetDefaultSuggestedEnvelope(0.003)
 chrono.ChCollisionModel.SetDefaultSuggestedMargin(0.003)
 chrono.ChCollisionSystemBullet.SetContactBreakingThreshold(0.002)
 
-shapes_dir = 'environmentA_shapes/' 
+shapes_dir = 'shapes/' 
 
 if hasattr(builtins, 'exported_system_relpath'): 
     shapes_dir = builtins.exported_system_relpath + shapes_dir 
@@ -25,19 +25,21 @@ exported_items.append(body_0)
 
 # Rigid body part
 body_1= chrono.ChBodyAuxRef()
-body_1.SetName('environmentA-1')
-body_1.SetPos(chrono.ChVectorD(-3.7,0,0))
+body_1.SetName('environment1-1')
+body_1.SetPos(chrono.ChVectorD(-2,0,0))
 body_1.SetRot(chrono.ChQuaternionD(1,0,0,0))
-body_1.SetMass(2010)
-body_1.SetInertiaXX(chrono.ChVectorD(1168.14720149254,3382.48964552239,4058.23684701493))
-body_1.SetInertiaXY(chrono.ChVectorD(-174.915111940299,4.44557490469223e-13,-3.72506596464338e-14))
-body_1.SetFrame_COG_to_REF(chrono.ChFrameD(chrono.ChVectorD(7.03917910447761,0.895522388059702,0.3),chrono.ChQuaternionD(1,0,0,0)))
+body_1.SetMass(2068.75)
+body_1.SetInertiaXX(chrono.ChVectorD(1686.35839155337,2587.17447916667,2733.23339155338))
+body_1.SetInertiaXY(chrono.ChVectorD(5.13603929443284e-14,1.11109038636314e-13,-9.66819544831267e-14))
+body_1.SetFrame_COG_to_REF(chrono.ChFrameD(chrono.ChVectorD(6.125,0.839274924471298,-6.79214992406629e-17),chrono.ChQuaternionD(1,0,0,0)))
 body_1.SetBodyFixed(True)
 
-# Visualization shape 
+# # Visualization shape 
 # body_1_1_shape = chrono.ChObjFileShape() 
 # body_1_1_shape.SetFilename(shapes_dir +'body_1_1.obj') 
 # body_1.AddVisualShape(body_1_1_shape, chrono.ChFrameD(chrono.ChVectorD(0,0,0), chrono.ChQuaternionD(1,0,0,0)))
+# # body_1_1_shape.SetTexture(chrono.GetChronoDataFile("textures/light_gray.png"))
+# body_1_1_shape.SetColor(chrono.ChColor(1, 0, 0))
 
 # Attach a visualization shape
 # First load a .obj from disk into a ChTriangleMeshConnected:

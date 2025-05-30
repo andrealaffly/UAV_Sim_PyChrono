@@ -13,13 +13,16 @@
 # Ignore .vs folder
 .vs/
 
-# Ignore Flight-tests folder
-Flight-tests/
-
 # Ignore __pycache__ folder
 __pycache__/
 
 # Ignore all the csv files that start with DATA
 DATA*.csv
+
+# Ignore all the .mat files
+*.mat
+
+# Except the example file inside the logs directory
+!/logs/_example_workspace_log_20250517_172211.mat
 
 
