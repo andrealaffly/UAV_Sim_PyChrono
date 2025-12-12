@@ -21,5 +21,3 @@ __pycache__/
 *.cmd text eol=crlf
 
 
-assets/.DS_Store
-.DS_Store

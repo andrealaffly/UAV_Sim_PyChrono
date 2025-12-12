@@ -1,48 +1,48 @@
 import math
+import numpy as np
+from numpy import linalg as LA
+import scipy
+from scipy import linalg
 from acsl_pychrono.simulation.flight_params import FlightParams
 
 class PIDGains:
   def __init__(self, flight_params: FlightParams):
     # General vehicle properties
-    self.I_matrix_estimated = flight_params.uav.I_matrix_estimated
-    self.mass_total_estimated = flight_params.uav.mass_total_estimated
-    self.air_density_estimated = flight_params.uav.air_density_estimated
-    self.surface_area_estimated = flight_params.uav.surface_area_estimated
-    self.drag_coefficient_matrix_estimated = flight_params.uav.drag_coefficient_matrix_estimated
-
-    # Controller's numerical Parameters config filename
-    gains_config_filename = flight_params.uav.controller_config_filename
-    gains_config_file = flight_params.get_controller_config(gains_config_filename, flight_params.uav.name)
+    self.I_matrix_estimated = flight_params.I_matrix_estimated
+    self.mass_total_estimated = flight_params.mass_total_estimated
+    self.air_density_estimated = flight_params.air_density_estimated
+    self.surface_area_estimated = flight_params.surface_area_estimated
+    self.drag_coefficient_matrix_estimated = flight_params.drag_coefficient_matrix_estimated
 
     # Number of states to be integrated by RK4
     self.number_of_states = 10
+    # Length of the array vector that will be exported 
+    self.size_DATA = 50
     
     # **Translational** PID parameters 
-    self.KP_tran = flight_params.get_scaled_matrix_from_config(gains_config_file, "KP_tran")
-    self.KD_tran = flight_params.get_scaled_matrix_from_config(gains_config_file, "KD_tran")
-    self.KI_tran = flight_params.get_scaled_matrix_from_config(gains_config_file, "KI_tran")
+    self.KP_tran = np.matrix(1 * np.diag([5,5,6]))
+    self.KD_tran = np.matrix(1 * np.diag([8,8,3]))
+    self.KI_tran = np.matrix(1 * np.diag([1,1,1]))
 
     # **Rotational** PID parameters
-    self.KP_rot = flight_params.get_scaled_matrix_from_config(gains_config_file, "KP_rot")
-    self.KD_rot = flight_params.get_scaled_matrix_from_config(gains_config_file, "KD_rot")
-    self.KI_rot = flight_params.get_scaled_matrix_from_config(gains_config_file, "KI_rot")
+    self.KP_rot = np.matrix(1 * np.diag([100,100,50]))
+    self.KD_rot = np.matrix(1 * np.diag([50,50,50]))
+    self.KI_rot = np.matrix(1 * np.diag([20,20,10]))
     
     # ----------------------------------------------------------------
     #                   Safety Mechanism Parameters
     # ----------------------------------------------------------------
-    self.use_safety_mechanism = flight_params.get_scalar_from_config(gains_config_file, "use_safety_mechanism")
+    self.use_safety_mechanism = True
     
     # Mu - sphere intersection
-    self.sphereEpsilon = flight_params.get_scalar_from_config(gains_config_file, "sphereEpsilon")
-    self.maximumThrust = flight_params.get_scalar_from_config(gains_config_file, "maximumThrust") # [N] 85
+    self.sphereEpsilon = 1e-2
+    self.maximumThrust = 85 # [N] 85
     
     # Mu - elliptic cone intersection
-    self.EllipticConeEpsilon = flight_params.get_scalar_from_config(gains_config_file, "EllipticConeEpsilon")
-    self.maximumRollAngle = math.radians(flight_params.get_scalar_from_config(gains_config_file, "maximumRollAngle_deg")) # [rad] 25
-    self.maximumPitchAngle = math.radians(flight_params.get_scalar_from_config(gains_config_file, "maximumPitchAngle_deg")) # [rad] 25
+    self.EllipticConeEpsilon = 1e-2
+    self.maximumRollAngle = math.radians(60) # [rad] 25
+    self.maximumPitchAngle = math.radians(60) # [rad] 25
     
     # Mu - plane intersection
-    self.planeEpsilon = flight_params.get_scalar_from_config(gains_config_file, "planeEpsilon")
-    self.alphaPlane = flight_params.get_scalar_from_config(gains_config_file, "alphaPlane") # [-] coefficient for setting the 'height' of the bottom plane. Must be >0 and <1.
-    
-    print(f"[INFO] Successfully loaded PID Gains")
+    self.planeEpsilon = 1e-2
+    self.alphaPlane = 0.6 # [-] coefficient for setting the 'height' of the bottom plane. Must be >0 and <1.

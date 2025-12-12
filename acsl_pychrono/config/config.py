@@ -1,12 +1,10 @@
 import warnings
 from dataclasses import dataclass, field
-from typing import Any
-
 
 @dataclass
 class MissionConfig:
   # Total simulation duration in seconds
-  simulation_duration_seconds: float = 31.5
+  simulation_duration_seconds: float = 29.5 # 21.5
   # Run the simulator in Wrapper mode (more simulations automatically run sequentially)
   wrapper_flag: bool = False
   # If True, perform real-time rendering of the simulation with Irrlicht
@@ -21,7 +19,7 @@ class MissionConfig:
   # "orbit"
   # "follow_smooth"
   # "topdown"
-  camera_mode: str = "fixed"
+  camera_mode: str = "fpv"
   # Simulation timestep used by Chrono
   timestep: float = 0.005 #0.005
 
@@ -33,7 +31,7 @@ class MissionConfig:
   # "HybridMRAC",
   # "HybridTwoLayerMRAC",
   # "NonAdaptiveEBCI"
-  controller_type: str = "PID"
+  controller_type: str = "MRAC"
 
   # User-defined trajectory types:
   # "circular_trajectory",
@@ -46,9 +44,7 @@ class MissionConfig:
   # If the trajectory_type is "piecewise_polynomial_trajectory", then choose the trajectory file to run
   # Path relative to 'current_working_directory/params/user_defined_trajectory'
   # "bean_trajectory0p2.json"
-  # "rollercoaster_trajectory1p2.json"
-  # "stadium.json"
-  trajectory_data_path: str = "bean_trajectory0p2.json"
+  trajectory_data_path: str = "rollercoaster_trajectory1p2.json"
 
   # Time for which, after executing the "trajectory_data_path",
   # the vehicle is hovering before starting the landing phase
@@ -61,25 +57,7 @@ class MissionConfig:
   # "ten_steel_balls_in_two_lines"
   # "many_steel_balls_in_random_position"
   # "sling_ball_payload"
-  payload_type: str = "sling_ball_payload"
-
-  # Payload Dropping (only for "two_steel_balls" payload type)
-  drop_two_steel_balls: bool = False
-  two_steel_balls_drop_time: float = 1.0 # 3.7
-  
-  # Dropping multiple balls one after the other (only for payload types other than "two_steel_balls")
-  sequentially_drop_multiple_balls: bool = False
-  sequentially_drop_start_time: float = 1.0 # 3.0
-  sequentially_drop_interval: float = 0.10
-  
-  # Motor Failure parameters
-  apply_motor_failure: bool = False
-  motor_failure_time: float = 1.0 # 4.5
-  
-  # Apply External Forces
-  # Applying Aero-Dynamic force to the drone
-  apply_wind_force: bool = False
-  wind_force_vector: tuple[float, float, float] = (0.5, 0.0, 0.0) # [N] in global pychrono coordinate system
+  payload_type: str = "two_steel_balls"
 
   # Unique wrapper batch folder passed to the function used for running many parallel wrapper simulations 
   wrapper_batch_dir: str = "" # LEAVE BLANK!!!
@@ -94,26 +72,19 @@ class MissionConfig:
 
 @dataclass
 class VehicleConfig:
-  # UAV types:
-  # "X8"
-  uav_name: str = "X8"
+  # Path relative to 'current_working_directory/assets/vehicles'
+  model_relative_path: str = "x8copter/x8copter.py" 
 
 @dataclass
 class EnvironmentConfig:
   # Include external environment in the simulation
   include: bool = False
   # Path relative to 'current_working_directory/assets/environments'
-  # "environment3/environment3.py" 
-  # "environmentA/environmentA.py" 
-  model_relative_path: str = "environmentA/environmentA.py"
+  model_relative_path: str = "environmentA/environmentA.py" 
 
 @dataclass
 class WrapperParams: # Add here the params to be sweeped by the wrapper with their default values
   my_ball_density: float = 7850
-  # Optional fields used by GA tuner integrations
-  pid_params: list[float] | None = None
-  mrac_params: list[float] | None = None
-  external_controller_params: dict[str, Any] | None = None  # GA tuner parameters
 
 @dataclass
 class SimulationConfig:
