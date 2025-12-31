@@ -5,7 +5,7 @@
 
 ## Introduction
 
-The **UAV_Sim_PyChrono** is a high-fidelity PyChrono-based simulator designed for multi-rotor UAVs (Uncrewed Aerial Vehicles).
+The **UAV_Sim_PyChrono** is a high-fidelity PyChrono-based simulator designed for multi-rotor UAVs (uncrewed aerial vehicles).
 
 
 ## Outlook on the Control Architecture
@@ -19,18 +19,12 @@ Both loops are governed by nonlinear equations of motion.
 
 ### Available Control Solutions
 
-This software currently offers an array of control solutions, spanning from classical continuous-time feedback-linearizing control laws combined with a PID (Proportional-Integral-Derivative) control law to robust MRAC (model reference adaptive control) systems that can enforce user-defined constraints. For additional details, see our [Wiki](https://github.com/andrealaffly/UAV_Sim_PyChrono/wiki)
-
-For further details on these control architectures, refer to the publications found [here](https://www.acslstack.com/Journals).
-
-Future versions of the software will include additional control systems.
+This software currently offers an array of control solutions, spanning from classical continuous-time feedback-linearizing control laws combined with a PID (proportional-integral-derivative) control law to robust MRAC (model reference adaptive control) systems that can enforce user-defined constraints. For additional details, see our [Wiki](https://github.com/andrealaffly/UAV_Sim_PyChrono/wiki)
 
 ## Maintenance Team
 
 - [**Andrea L'Afflitto**](https://github.com/andrealaffly)
 - [**Mattia Gramuglia**](https://github.com/mattia-gramuglia)
-
-For more information, visit [acslstack.com](https://www.acslstack.com/).
 
 [![ACSL Flight Stack Logo](https://lafflitto.com/images/ACSL_Logo.jpg)](https://lafflitto.com/ACSL.html)
 
