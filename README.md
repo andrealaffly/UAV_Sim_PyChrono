@@ -19,10 +19,7 @@ Both loops are governed by nonlinear equations of motion.
 
 ### Available Control Solutions
 
-This software currently offers two control solutions for the inner and outer loops:
-
-1. **Continuous-Time Feedback-Linearizing Control Law** combined with a **PID (Proportional-Integral-Derivative) Control Law**.
-2. The above control law is augmented by a **Robust Model Reference Adaptive Control (MRAC) System**, incorporating a simplified quadratic-in-the-velocity aerodynamic model.
+This software currently offers an array of control solutions, spanning from classical continuous-time feedback-linearizing control laws combined with a PID (Proportional-Integral-Derivative) control law to robust MRAC (model reference adaptive control) systems that can enforce user-defined constraints.
 
 For further details on these control architectures, refer to the publications found [here](https://www.acslstack.com/Journals).
 
