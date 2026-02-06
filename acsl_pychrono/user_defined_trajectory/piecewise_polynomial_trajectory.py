@@ -215,9 +215,9 @@ class PiecewisePolynomialTrajectory(BaseUserDefinedTrajectory):
     
     for i in range(sampling_time_vector.size):
       (position, _, _)= self.computeUserDefinedTrajectory(sampling_time_vector[i])
-      pos_x[i] = position[0]
-      pos_y[i] = position[1]
-      pos_z[i] = position[2]
+      pos_x[i] = position[0].item()
+      pos_y[i] = position[1].item()
+      pos_z[i] = position[2].item()
     
     return (pos_x, pos_y, pos_z)
   
