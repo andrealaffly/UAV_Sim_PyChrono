@@ -1,7 +1,7 @@
 from main import *
 import time
 
-UAVS = ["QUAD1", "PURPLE_QUAD", "X8", "X8_DEFAULT", "X8"]
+UAVS = ["Q", "SQ", "X8", "X8", "X8"]
 CONTROLLERS = ["PID", "PID", "TwoLayerMRAC", "HybridTwoLayerMRAC", "NonAdaptiveEBCI"]
 ADD_PAYLOAD = [True, False, True, True, True]
 PAYLOAD_TYPE = ["sling_ball_payload", "two_steel_balls", "sling_ball_payload", "ten_steel_balls_in_two_lines", "many_steel_balls_in_random_position"]
