@@ -6,7 +6,7 @@ from typing import Any
 @dataclass
 class MissionConfig:
   # Total simulation duration in seconds
-  simulation_duration_seconds: float = 31.5
+  simulation_duration_seconds: float = 23.0
   # Run the simulator in Wrapper mode (more simulations automatically run sequentially)
   wrapper_flag: bool = False
   # If True, perform real-time rendering of the simulation with Irrlicht
@@ -32,8 +32,9 @@ class MissionConfig:
   # "FunnelMRAC",
   # "HybridMRAC",
   # "HybridTwoLayerMRAC",
-  # "NonAdaptiveEBCI"
-  controller_type: str = "PID"
+  # "NonAdaptiveEBCI",
+  # "FunnelTwoLayerMRAC",
+  controller_type: str = "FunnelTwoLayerMRAC"
 
   # User-defined trajectory types:
   # "circular_trajectory",
@@ -48,20 +49,20 @@ class MissionConfig:
   # "bean_trajectory0p2.json"
   # "rollercoaster_trajectory1p2.json"
   # "stadium.json"
-  trajectory_data_path: str = "bean_trajectory0p2.json"
+  trajectory_data_path: str = "rollercoaster_trajectory1p2.json"
 
   # Time for which, after executing the "trajectory_data_path",
   # the vehicle is hovering before starting the landing phase
   hover_after_trajectory_time_seconds: float = 5.0
 
   # Flag to add or remove the payload from the simulation
-  add_payload_flag: bool = False
+  add_payload_flag: bool = True
   # Payload types: 
   # "two_steel_balls"
   # "ten_steel_balls_in_two_lines"
   # "many_steel_balls_in_random_position"
   # "sling_ball_payload"
-  payload_type: str = "sling_ball_payload"
+  payload_type: str = "two_steel_balls"
 
   # Payload Dropping (only for "two_steel_balls" payload type)
   drop_two_steel_balls: bool = False
@@ -85,7 +86,7 @@ class MissionConfig:
   wrapper_batch_dir: str = "" # LEAVE BLANK!!!
 
   # Number of parallel simulations (one per CPU) to be run in "wrapper" mode
-  wrapper_max_parallel: int = 20
+  wrapper_max_parallel: int = 18
 
   def __post_init__(self):
     if self.wrapper_flag and self.visualization_flag:
@@ -95,6 +96,8 @@ class MissionConfig:
 @dataclass
 class VehicleConfig:
   # UAV types:
+  # "Q"
+  # "SQ"
   # "X8"
   uav_name: str = "X8"
 

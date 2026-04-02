@@ -6,7 +6,7 @@ import acsl_pychrono.uav as UAV_Module
 from acsl_pychrono.control.logging import Logging
 from acsl_pychrono.simulation.ode_input import OdeInput
 from acsl_pychrono.simulation.flight_params import FlightParams
-# from acsl_pychrono.ga_tuner.integration.controller_factory import instantiateControllerWithGA
+from acsl_pychrono.ga_tuner.integration.controller_factory import instantiateControllerWithGA
 
 def simulateMission(sim: Simulation, git_info: dict | None = None):
   
@@ -32,22 +32,22 @@ def simulateMission(sim: Simulation, git_info: dict | None = None):
   wrapper_params = getattr(getattr(sim, "simulation_config", None), "wrapper_params", None)
   external_params = getattr(wrapper_params, "external_controller_params", None) if wrapper_params else None
 
-  # if external_params:
-    # (gains, controller, logger) = instantiateControllerWithGA(
-    #   sim.mission_config.controller_type,
-    #   ode_input,
-    #   flight_params,
-    #   sim.mission_config.timestep,
-    #   wrapper_params=wrapper_params
-    # )
-  # else:
+  if external_params:
+    (gains, controller, logger) = instantiateControllerWithGA(
+      sim.mission_config.controller_type,
+      ode_input,
+      flight_params,
+      sim.mission_config.timestep,
+      wrapper_params=wrapper_params
+    )
+  else:
     # Instantiation of controller, gains, and logger
-  (gains, controller, logger) = Ctrl.instantiateController(
-    sim.mission_config.controller_type,
-    ode_input,
-    flight_params,
-    sim.mission_config.timestep
-  )
+    (gains, controller, logger) = Ctrl.instantiateController(
+      sim.mission_config.controller_type,
+      ode_input,
+      flight_params,
+      sim.mission_config.timestep
+    )
 
   sim.assignInstances(
     flight_params,

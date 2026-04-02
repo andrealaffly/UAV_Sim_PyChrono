@@ -1,0 +1,246 @@
+# ----------------------------------------------------------------
+#                     Baseline Parameters
+# ----------------------------------------------------------------
+
+# **Translational** baseline parameters to let the reference model follow the user-defined model (mu_baseline_tran)
+KP_tran:
+  scaling_factor: !!float 1.0
+  matrix: [[5, 0, 0],
+           [0, 5, 0],
+           [0, 0, 6]]
+
+KD_tran:
+  scaling_factor: !!float 1.0
+  matrix: [[8, 0, 0],
+           [0, 8, 0],
+           [0, 0, 3]]
+
+KI_tran:
+  scaling_factor: !!float 1.0
+  matrix: [[1, 0, 0],
+           [0, 1, 0],
+           [0, 0, 0.1]]
+
+# **Translational** parameters for the PD baseline controller (mu_PD_baseline_tran)
+KP_tran_PD_baseline:
+  scaling_factor: !!float 1.0
+  matrix: [[5, 0, 0],
+           [0, 5, 0],
+           [0, 0, 6]]
+
+KD_tran_PD_baseline:
+  scaling_factor: !!float 1.0
+  matrix: [[8, 0, 0],
+           [0, 8, 0],
+           [0, 0, 3]]
+
+# **Rotational** baseline parameters
+KP_rot:
+  scaling_factor: !!float 1.0
+  matrix: [[30, 0, 0],
+           [0, 30, 0],
+           [0, 0, 15]]
+
+KI_rot:
+  scaling_factor: !!float 1.0
+  matrix: [[2, 0, 0],
+           [0, 2, 0],
+           [0, 0, 2]]
+
+# **Rotational** parameters for the PI baseline controller (Moment_baseline_PI)
+KP_rot_PI_baseline:
+  scaling_factor: !!float 45.0
+  matrix: [[1, 0, 0],
+           [0, 1, 0],
+           [0, 0, 0.5]]
+
+KI_rot_PI_baseline:
+  scaling_factor: !!float 55.0
+  matrix: [[1, 0, 0],
+           [0, 1, 0],
+           [0, 0, 0.5]]
+
+K_P_omega_ref:
+  scaling_factor: !!float 38.0
+  matrix: [[0.8, 0, 0],
+           [0, 0.8, 0],
+           [0, 0, 1.2]]
+
+K_I_omega_ref:
+  scaling_factor: !!float 0.1
+  matrix: [[5, 0, 0],
+           [0, 5, 0],
+           [0, 0, 1]]
+
+# ----------------------------------------------------------------
+#                   Translational Parameters MRAC
+# ----------------------------------------------------------------
+
+# **Translational** adaptive parameters
+Gamma_x_tran:
+  scaling_factor: !!float 10.0
+  matrix: [[1, 0, 0, 0, 0, 0],
+           [0, 1, 0, 0, 0, 0],
+           [0, 0, 10, 0, 0, 0],
+           [0, 0, 0, 1, 0, 0],
+           [0, 0, 0, 0, 1, 0],
+           [0, 0, 0, 0, 0, 10]]
+
+Gamma_r_tran:
+  scaling_factor: !!float 0.03
+  matrix: [[1, 0, 0],
+           [0, 1, 0],
+           [0, 0, 4]]
+
+Gamma_Theta_tran:
+  scaling_factor: !!float 10.0
+  matrix: [[1, 0, 0, 0, 0, 0],
+           [0, 1, 0, 0, 0, 0],
+           [0, 0, 2, 0, 0, 0],
+           [0, 0, 0, 1, 0, 0],
+           [0, 0, 0, 0, 1, 0],
+           [0, 0, 0, 0, 0, 2]]
+
+# **Translational** parameters Lyapunov equation
+Q_tran:
+  scaling_factor: !!float 0.06
+  matrix: [[1, 0, 0, 0, 0, 0],
+           [0, 1, 0, 0, 0, 0],
+           [0, 0, 12, 0, 0, 0],
+           [0, 0, 0, 1, 0, 0],
+           [0, 0, 0, 0, 1, 0],
+           [0, 0, 0, 0, 0, 2]]
+
+# ----------------------------------------------------------------
+#                   Rotational Parameters MRAC
+# ----------------------------------------------------------------
+
+# **Rotational** parameters Lyapunov equation
+Q_rot:
+  scaling_factor: !!float 0.001
+  matrix: [[0.3333, 0, 0],
+           [0, 0.4, 0],
+           [0, 0, 0.6]]
+
+# **Rotational** adaptive parameters
+Gamma_x_rot:
+  scaling_factor: !!float 10000.0
+  matrix: [[1, 0, 0],
+           [0, 1, 0],
+           [0, 0, 1]]
+
+Gamma_r_rot:
+  scaling_factor: !!float 5.0
+  matrix: [[1, 0, 0],
+           [0, 1, 0],
+           [0, 0, 1]]
+
+Gamma_Theta_rot:
+  scaling_factor: !!float 2000.0
+  matrix: [[1, 0, 0, 0, 0, 0],
+           [0, 1, 0, 0, 0, 0],
+           [0, 0, 1, 0, 0, 0],
+           [0, 0, 0, 1, 0, 0],
+           [0, 0, 0, 0, 1, 0],
+           [0, 0, 0, 0, 0, 1]]
+
+# ----------------------------------------------------------------
+#                   Safety Mechanism Parameters
+# ----------------------------------------------------------------
+use_safety_mechanism: True
+
+# Mu - sphere intersection
+sphereEpsilon: !!float 1e-2
+maximumThrust: !!float 85 # [N] 85
+
+# Mu - elliptic cone intersection
+EllipticConeEpsilon: !!float 1e-2
+maximumRollAngle_deg: !!float 60  # [deg] 25 - 32
+maximumPitchAngle_deg: !!float 60 # [deg] 25 - 32
+
+# Mu - plane intersection
+planeEpsilon: !!float 1e-2
+alphaPlane: !!float 0.6 # [-] coefficient for setting the 'height' of the bottom plane. Must be >0 and <1.
+
+# ----------------------------------------------------------------
+#                  Dead-Zone modification Parameters
+# ----------------------------------------------------------------
+use_dead_zone_modification: True
+
+dead_zone_delta_tran: !!float 0.5
+dead_zone_e0_tran: !!float 0.01
+
+dead_zone_delta_rot: !!float 0.5
+dead_zone_e0_rot: !!float 0.002
+
+# ----------------------------------------------------------------
+#                  e-modification Parameters
+# ----------------------------------------------------------------
+use_e_modification: True
+
+sigma_x_tran: !!float 0.5
+sigma_r_tran: !!float 0.5
+sigma_Theta_tran: !!float 0.5
+
+sigma_x_rot: !!float 0.5
+sigma_r_rot: !!float 0.5
+sigma_Theta_rot: !!float 0.5
+
+# ----------------------------------------------------------------
+#                  Projection Operator Parameters
+# ----------------------------------------------------------------
+use_projection_operator: True
+
+# K_x_hat translational
+x_e_x_tran_transpose:
+  scaling_factor: !!float 0
+  matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+S_diagonal_x_tran_transpose:
+  scaling_factor: !!float 30
+  matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+alpha_x_tran: !!float 0.1
+
+# K_r_hat translational
+x_e_r_tran_transpose:
+  scaling_factor: !!float 0
+  matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1]]
+S_diagonal_r_tran_transpose:
+  scaling_factor: !!float 2.5
+  matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1]]
+alpha_r_tran: !!float 0.1
+
+# Theta_hat translational
+x_e_Theta_tran_transpose:
+  scaling_factor: !!float 0
+  matrix: [[[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]]
+S_diagonal_Theta_tran_transpose:
+  scaling_factor: !!float 7.5
+  matrix: [[[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]]
+alpha_Theta_tran: !!float 0.1
+
+# K_x_hat rotational
+x_e_x_rot_transpose:
+  scaling_factor: !!float 0
+  matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1]]
+S_diagonal_x_rot_transpose:
+  scaling_factor: !!float 5.0
+  matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1]]
+alpha_x_rot: !!float 0.1
+
+# K_r_hat rotational
+x_e_r_rot_transpose:
+  scaling_factor: !!float 0
+  matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1]]
+S_diagonal_r_rot_transpose:
+  scaling_factor: !!float 0.1
+  matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1]]
+alpha_r_rot: !!float 0.1
+
+# Theta_hat rotational
+x_e_Theta_rot_transpose:
+  scaling_factor: !!float 0
+  matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+S_diagonal_Theta_rot_transpose:
+  scaling_factor: !!float 10
+  matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+alpha_Theta_rot: !!float 0.1

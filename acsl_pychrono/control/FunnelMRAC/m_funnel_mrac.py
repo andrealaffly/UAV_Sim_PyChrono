@@ -234,3 +234,38 @@ class M_FunnelMRAC:
     eTranspose_P_B_funnel = (e.T * (P + M * Ve_function.item()) * B) / H_function
     eTranspose_P_B_funnel_norm = float(np.linalg.norm(eTranspose_P_B_funnel))
     return eTranspose_P_B_funnel, eTranspose_P_B_funnel_norm
+  
+  @staticmethod
+  def computeXiAndEtaDotFunnelOldRoMoCoMethod(
+    control_input,
+    control_input_max,
+    control_input_min,
+    Delta_control_input_min,
+    e: np.ndarray,
+    Q: np.ndarray,
+    Ve_function: float,
+    eta_funnel: float,
+    nu_funnel: float,
+    H_function: float
+  ) -> tuple[float, float]:
+    """
+    Compute xi with old RoMoCo on/off funnel method
+
+    Returns:
+      xi
+    """
+    xi_temp = M_FunnelMRAC.computeXiFunnel(control_input, control_input_max, control_input_min, Delta_control_input_min)
+
+    eT_Q_e = float(e.T @ Q @ e)
+    threshold = 2.0 * Ve_function * (eta_funnel ** 2) * xi_temp + nu_funnel
+
+    condition_active = ((eT_Q_e >= threshold) and (H_function > 0.0))
+
+    if condition_active:
+      xi = xi_temp
+    else:
+      xi = 0.0
+
+    eta_dot_funnel = eta_funnel * xi
+
+    return (xi, eta_dot_funnel)

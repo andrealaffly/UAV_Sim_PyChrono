@@ -23,3 +23,6 @@ __pycache__/
 
 assets/.DS_Store
 .DS_Store
+
+./load_pid_gains.py
+./experiments.py

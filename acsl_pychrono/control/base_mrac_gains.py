@@ -171,6 +171,7 @@ class BaseFunnelGains(ABC):
   u_min: float
   Delta_u_min: float
   nu_funnel_tran: float
+  use_funnel_romoco_old_tran: bool
   use_eigenvalue_lambda_sat_funnel_tran: bool
 
   Q_M_funnel_rot: np.ndarray

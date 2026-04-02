@@ -104,3 +104,4 @@ controller:
     HybridMRAC: "HybridMRAC.yaml"
     HybridTwoLayerMRAC: "HybridTwoLayerMRAC.yaml"
     NonAdaptiveEBCI: "NonAdaptiveEBCI.yaml"
+    FunnelTwoLayerMRAC: "FunnelTwoLayerMRAC.yaml"

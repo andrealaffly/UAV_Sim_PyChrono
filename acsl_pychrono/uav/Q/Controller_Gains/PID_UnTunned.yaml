@@ -1,0 +1,58 @@
+# ----------------------------------------------------------------
+#                     Baseline Parameters
+# ----------------------------------------------------------------
+
+# **Translational** PID parameters 
+KP_tran:
+  scaling_factor: 1
+  matrix: [[41.7459840366256, 0.0, 0.0],
+           [0.0, 96.92891955913798, 0.0],
+           [0.0, 0.0, 136.22591549306685]]
+
+KD_tran:
+  scaling_factor: 1
+  matrix: [[6.5330353479856385, 0.0, 0.0],
+           [0.0, 36.293927723218395, 0.0],
+           [0.0, 0.0, 69.86012977174632]]
+
+KI_tran:
+  scaling_factor: 1
+  matrix: [[54.03804686997348, 0.0, 0.0],
+           [0.0, 44.84498611121227, 0.0],
+           [0.0, 0.0, 148.64536744034626]]
+
+# **Rotational** PID parameters
+KP_rot:
+  scaling_factor: 1
+  matrix: [[44.73200724618061, 0.0, 0.0],
+           [0.0, 125.26114232438097, 0.0],
+           [0.0, 0.0, 87.909412398773]]
+
+KD_rot:
+  scaling_factor: 1
+  matrix: [[24.129575485416595, 0.0, 0.0],
+           [0.0, 11.849553652045046, 0.0],
+           [0.0, 0.0, 17.352188853531015]]
+
+KI_rot:
+  scaling_factor: 1
+  matrix: [[24.437983715052123, 0.0, 0.0],
+           [0.0, 6.825239069964738, 0.0],
+           [0.0, 0.0, 0.9517613629796529]]
+# ----------------------------------------------------------------
+#                   Safety Mechanism Parameters
+# ----------------------------------------------------------------
+use_safety_mechanism: true
+
+# Mu - sphere intersection
+sphereEpsilon: 0.01
+maximumThrust: 85 # [N] 85
+
+# Mu - elliptic cone intersection
+EllipticConeEpsilon: 0.01
+maximumRollAngle_deg: 60 # [deg] 25 - 32
+maximumPitchAngle_deg: 60 # [deg] 25 - 32
+
+# Mu - plane intersection
+planeEpsilon: 0.01
+alphaPlane: 0.6 # [-] coefficient for setting the 'height' of the bottom plane. Must be >0 and <1.

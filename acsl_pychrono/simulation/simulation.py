@@ -411,7 +411,7 @@ class Simulation:
       # Global coordinates of the origin of the drone frame containing just the position
       my_frame_pos_GLOB = self.m_frame.GetPos()
       # This gives the position of the auxillary csys imported from/defined in SolidWorks
-      # my_box_ref = my_box.GetFrame_REF_to_abs().GetCoord().pos 
+      # my_box_ref = my_box.GetFrameRefToAbs().GetCoordsys().pos 
       # Same as asking for .GetPos() --> meaning GetPos() refers to the COG position!!!!
       my_box_pos = self.m_box.GetFrameCOMToAbs().GetCoordsys().pos 
 

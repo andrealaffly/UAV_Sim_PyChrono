@@ -1,0 +1,59 @@
+# ----------------------------------------------------------------
+#                     Baseline Parameters
+# ----------------------------------------------------------------
+
+# **Translational** PID parameters 
+KP_tran:
+  scaling_factor: !!float 1.0
+  matrix: [[5, 0, 0],
+           [0, 5, 0],
+           [0, 0, 6]]
+
+KD_tran:
+  scaling_factor: !!float 1.0
+  matrix: [[8, 0, 0],
+           [0, 8, 0],
+           [0, 0, 3]]
+
+KI_tran:
+  scaling_factor: !!float 1.0
+  matrix: [[1, 0, 0],
+           [0, 1, 0],
+           [0, 0, 1]]
+
+# **Rotational** PID parameters
+KP_rot:
+  scaling_factor: !!float 1.0
+  matrix: [[10, 0, 0],
+           [0, 50, 0],
+           [0, 0, 20]]
+
+KD_rot:
+  scaling_factor: !!float 1.0
+  matrix: [[5, 0, 0],
+           [0, 5, 0],
+           [0, 0, 2]]
+
+KI_rot:
+  scaling_factor: !!float 1.0
+  matrix: [[1, 0, 0],
+           [0, 1, 0],
+           [0, 0, 1]]
+
+# ----------------------------------------------------------------
+#                   Safety Mechanism Parameters
+# ----------------------------------------------------------------
+use_safety_mechanism: True
+
+# Mu - sphere intersection
+sphereEpsilon: !!float 1e-2
+maximumThrust: !!float 85 # [N] 85
+
+# Mu - elliptic cone intersection
+EllipticConeEpsilon: !!float 1e-2
+maximumRollAngle_deg: !!float 32 # [rad]
+maximumPitchAngle_deg: !!float 32 # [rad]
+
+# Mu - plane intersection
+planeEpsilon: !!float 1e-2
+alphaPlane: !!float 0.95 # [-] coefficient for setting the 'height' of the bottom plane. Must be >0 and <1.

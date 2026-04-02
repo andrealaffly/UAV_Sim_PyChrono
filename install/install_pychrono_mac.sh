@@ -66,7 +66,7 @@ conda activate "$ENV_NAME"
 
 # === Step 4: Install dependencies ===
 echo "➡️  Installing dependencies..."
-conda install -y -c conda-forge numpy matplotlib irrlicht=1.8.5 pytz scipy pyyaml
+conda install -y -c conda-forge numpy=2.3.5 matplotlib irrlicht=1.8.5 pytz scipy pyyaml
 pip install ruamel.yaml deap pymoo
 
 # === Step 5: Ensure PyChrono tarball is available ===
