@@ -33,7 +33,7 @@ class SurvivalPenaltySettings:
 class GAConfig:
     """Central configuration for GA tuning runs."""
 
-    controller_type: str = "PID"  # 'PID', 'MRAC'
+    controller_type: str = "MRAC"  # 'PID', 'MRAC'
     algorithm: str = "PYMOO"  # 'DEAP' or 'PYMOO'
 
     population_size: int = 3

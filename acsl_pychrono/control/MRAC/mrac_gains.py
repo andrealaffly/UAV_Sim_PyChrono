@@ -32,7 +32,7 @@ class MRACGains(BaseMRACGains):
 
     # **Translational** parameters for the PD baseline controller (mu_PD_baseline_tran)
     self.KP_tran_PD_baseline = flight_params.get_scaled_matrix_from_config(gains_config_file, "KP_tran_PD_baseline")
-    self.KD_tran_PD_baseline = flight_params.get_scaled_matrix_from_config(gains_config_file, "KP_tran_PD_baseline")
+    self.KD_tran_PD_baseline = flight_params.get_scaled_matrix_from_config(gains_config_file, "KD_tran_PD_baseline")
 
     # **Rotational** baseline parameters
     self.KP_rot = flight_params.get_scaled_matrix_from_config(gains_config_file, "KP_rot")

@@ -2,106 +2,110 @@
 #                     Baseline Parameters
 # ----------------------------------------------------------------
 
-# **Translational** baseline parameters to let the reference model follow the user-defined model (mu_baseline_tran)
+# **Translational** baseline parameters
 KP_tran:
-  scaling_factor: !!float 1.0
-  matrix: [[5, 0, 0],
-           [0, 5, 0],
-           [0, 0, 6]]
+  scaling_factor: 1
+  matrix: [[20, 0, 0],
+           [0, 20, 0],
+           [0, 0, 20]]
 
 KD_tran:
-  scaling_factor: !!float 1.0
-  matrix: [[8, 0, 0],
-           [0, 8, 0],
-           [0, 0, 3]]
+  scaling_factor: 1
+  matrix: [[5, 0, 0],
+           [0, 10, 0],
+           [0, 0, 10]]
 
 KI_tran:
-  scaling_factor: !!float 1.0
-  matrix: [[1, 0, 0],
-           [0, 1, 0],
-           [0, 0, 0.1]]
+  scaling_factor: 1
+  matrix: [[15, 0, 0],
+           [0, 15, 0],
+           [0, 0, 15]]
 
-# **Translational** parameters for the PD baseline controller (mu_PD_baseline_tran)
+# **Translational** parameters for the PD baseline controller (mu_PD_baseline_tran) (PD of outerloop)
 KP_tran_PD_baseline:
-  scaling_factor: !!float 1.0
-  matrix: [[5, 0, 0],
-           [0, 5, 0],
-           [0, 0, 6]]
+  scaling_factor: 20.2
+  matrix: [[35, 0, 0],
+           [0, 35, 0],
+           [0, 0, 35]]
 
 KD_tran_PD_baseline:
-  scaling_factor: !!float 1.0
-  matrix: [[8, 0, 0],
-           [0, 8, 0],
-           [0, 0, 3]]
-
-# **Rotational** baseline parameters
-KP_rot:
-  scaling_factor: !!float 3.0
+  scaling_factor: 10
   matrix: [[10, 0, 0],
            [0, 10, 0],
-           [0, 0, 5]]
+           [0, 0, 25]]
+
+# **Rotational** baseline parameters (Tunes omega command)
+KP_rot:
+  scaling_factor: 0.1
+  matrix: [[7, 0, 0],
+           [0, 20, 0],
+           [0, 0, 7]]
 
 KI_rot:
-  scaling_factor: !!float 2.0
-  matrix: [[1, 0, 0],
+  scaling_factor: 0.5
+  matrix: [[1, 0, 0],   
            [0, 1, 0],
            [0, 0, 1]]
 
 # **Rotational** parameters for the PI baseline controller (Moment_baseline_PI)
+# (PI for Inner loop)
 KP_rot_PI_baseline:
-  scaling_factor: !!float 45.0
-  matrix: [[1, 0, 0],
-           [0, 1, 0],
-           [0, 0, 0.5]]
+  scaling_factor: 1
+  matrix: [[15, 0, 0],
+           [0, 40, 0],
+           [0, 0, 30]]
 
 KI_rot_PI_baseline:
-  scaling_factor: !!float 55.0
-  matrix: [[1, 0, 0],
-           [0, 1, 0],
-           [0, 0, 0.5]]
+  scaling_factor: 15
+  matrix: [[10, 0, 0],   
+           [0, 10, 0],
+           [0, 0, 30]]
 
+# (PI for the reference model) (How omega ref follows omega command)
 K_P_omega_ref:
-  scaling_factor: !!float 38.0
-  matrix: [[0.8, 0, 0],
-           [0, 0.8, 0],
+  scaling_factor: 27
+  matrix: [[2, 0, 0],
+           [0, 3, 0],
            [0, 0, 1.2]]
 
 K_I_omega_ref:
-  scaling_factor: !!float 0.1
-  matrix: [[5, 0, 0],
-           [0, 5, 0],
+  scaling_factor: 2
+  matrix: [[1, 0, 0],
+           [0, 1, 0],
            [0, 0, 1]]
 
 # ----------------------------------------------------------------
 #                   Translational Parameters MRAC
 # ----------------------------------------------------------------
 
+# **Translational** adaptive parameters
 Gamma_x_tran:
-  scaling_factor: !!float 10.0
+  scaling_factor: 1 # 10.0
   matrix: [[1, 0, 0, 0, 0, 0],
            [0, 1, 0, 0, 0, 0],
            [0, 0, 10, 0, 0, 0],
            [0, 0, 0, 1, 0, 0],
            [0, 0, 0, 0, 1, 0],
-           [0, 0, 0, 0, 0, 10]]
+           [0, 0, 0, 0, 0, 1]]
 
 Gamma_r_tran:
-  scaling_factor: !!float 0.03
+  scaling_factor: 1 #0.03
   matrix: [[1, 0, 0],
-           [0, 1, 0],
-           [0, 0, 4]]
+           [0, 10, 0],
+           [0, 0, 20]]
 
 Gamma_Theta_tran:
-  scaling_factor: !!float 10.0
+  scaling_factor: 1 # 10.0
   matrix: [[1, 0, 0, 0, 0, 0],
            [0, 1, 0, 0, 0, 0],
-           [0, 0, 2, 0, 0, 0],
+           [0, 0, 1, 0, 0, 0],
            [0, 0, 0, 1, 0, 0],
            [0, 0, 0, 0, 1, 0],
-           [0, 0, 0, 0, 0, 2]]
+           [0, 0, 0, 0, 0, 1]]
 
+# **Translational** parameters Lyapunov equation
 Q_tran:
-  scaling_factor: !!float 0.06
+  scaling_factor: 0.06
   matrix: [[1, 0, 0, 0, 0, 0],
            [0, 1, 0, 0, 0, 0],
            [0, 0, 12, 0, 0, 0],
@@ -115,26 +119,26 @@ Q_tran:
 
 # **Rotational** parameters Lyapunov equation
 Q_rot:
-  scaling_factor: !!float 0.001
+  scaling_factor: 0.001 #0.001
   matrix: [[0.3333, 0, 0],
            [0, 0.4, 0],
            [0, 0, 0.6]]
 
 # **Rotational** adaptive parameters
 Gamma_x_rot:
-  scaling_factor: !!float 10000.0
+  scaling_factor: 0.001 #!!float 10000.0
   matrix: [[1, 0, 0],
            [0, 1, 0],
            [0, 0, 1]]
 
 Gamma_r_rot:
-  scaling_factor: !!float 5.0
+  scaling_factor: 0.001 #!!float 5.0
   matrix: [[1, 0, 0],
            [0, 1, 0],
            [0, 0, 1]]
 
 Gamma_Theta_rot:
-  scaling_factor: !!float 2000.0
+  scaling_factor: 0.001 #!!float 2000.0
   matrix: [[1, 0, 0, 0, 0, 0],
            [0, 1, 0, 0, 0, 0],
            [0, 0, 1, 0, 0, 0],
@@ -148,43 +152,43 @@ Gamma_Theta_rot:
 
 # **Translational** Funnel parameters 
 Q_M_funnel_tran:
-  scaling_factor: !!float 1.5
+  scaling_factor: 0.01
   matrix:
-    [[2.000,  0.0,    0.0,    0.0,    0.0,   -0.001],
-     [0.0,    2.000,  0.0,   -0.001,  0.001,  0.002],
-     [0.0,    0.0,    2.000, -0.001,  0.002,  0.003],
-     [0.0,   -0.001, -0.001,  2.488,  0.0,    0.0],
-     [0.0,    0.001,  0.002,  0.0,    4.559,  0.001],
-     [-0.001, 0.002,  0.003,  0.0,    0.001,  5.725]]
+    [[1, 0, 0, 0, 0, 0],
+     [0, 1, 0, 0, 0, 0],
+     [0, 0, 1, 0, 0, 0],
+     [0, 0, 0, 1, 0, 0],
+     [0, 0, 0, 0, 1, 0],
+     [0, 0, 0, 0, 0, 1]]
 
 xi_bar_d_funnel_tran: !!float 1e-2
 e_min_funnel_tran: !!float 1e-4
-eta_max_funnel_tran: !!float 0.45
-delta_1_funnel_tran: !!float 0.1
-delta_2_funnel_tran: !!float 0.1
-delta_3_funnel_tran: !!float 0.15
-initial_cond_diameter_funnel_tran: !!float 0.25
+eta_max_funnel_tran: 0.045
+delta_1_funnel_tran: 0.01
+delta_2_funnel_tran: 0.01
+delta_3_funnel_tran: 0.015
+initial_cond_diameter_funnel_tran: !!float 0.025
 
-u_max: !!float 45.0
-u_min: !!float 2.4
-Delta_u_min: !!float 1.0
-nu_funnel_tran: !!float 0.0
+u_max: 0.45
+u_min: 0.24
+Delta_u_min: 0.1
+nu_funnel_tran: 0.0
 
 use_eigenvalue_lambda_sat_funnel_tran: True
 
 # **Rotational** Funnel parameters 
 Q_M_funnel_rot:
-  scaling_factor: !!float 0.001
+  scaling_factor: 0.001
   matrix: [[1, 0, 0],
            [0, 1, 0],
            [0, 0, 1]]
 
-xi_bar_d_funnel_rot: !!float 0.1
-e_min_funnel_rot : !!float 0.0032894736842105266
-eta_max_funnel_rot : !!float 1.006578947368421
-delta_1_funnel_rot : !!float 0.050328947368421056
-delta_2_funnel_rot : !!float 0.0032894736842105266
-delta_3_funnel_rot : !!float 0.053618421052631586
+xi_bar_d_funnel_rot: 0.1
+e_min_funnel_rot : 0.0032894736842105266
+eta_max_funnel_rot : 1.006578947368421
+delta_1_funnel_rot : 0.050328947368421056
+delta_2_funnel_rot : 0.0032894736842105266
+delta_3_funnel_rot : 0.053618421052631586
 
 Moment_max: !!float 5.0
 Moment_min: !!float 0.0

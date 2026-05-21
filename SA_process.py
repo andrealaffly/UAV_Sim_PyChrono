@@ -1,8 +1,8 @@
 import csv
 import pickle
 
-path = "salib_morris_multi_metric_20260203_064654.pkl"
-output_csv = "morris_full_table.csv"
+path = "mrac_sensitivity_results/salib_morris_multi_metric_20260508_020520.pkl"
+output_csv = "morris_quad.csv"
 
 with open(path, "rb") as f:
     data = pickle.load(f)
