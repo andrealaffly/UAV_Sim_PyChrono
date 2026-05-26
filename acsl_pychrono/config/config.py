@@ -34,7 +34,7 @@ class MissionConfig:
   # "HybridTwoLayerMRAC",
   # "NonAdaptiveEBCI",
   # "FunnelTwoLayerMRAC",
-  controller_type: str = "TwoLayerMRAC"
+  controller_type: str = "PID"
 
   # User-defined trajectory types:
   # "circular_trajectory",
@@ -49,7 +49,7 @@ class MissionConfig:
   # "bean_trajectory0p2.json"
   # "rollercoaster_trajectory1p2.json"
   # "stadium.json"
-  trajectory_data_path: str = "rollercoaster_trajectory1p2.json"
+  trajectory_data_path: str = "bean_trajectory0p2.json"
 
   # Time for which, after executing the "trajectory_data_path",
   # the vehicle is hovering before starting the landing phase
@@ -99,7 +99,7 @@ class VehicleConfig:
   # "Q"
   # "SQ"
   # "X8"
-  uav_name: str = "Q"
+  uav_name: str = "QUAD"
 
 @dataclass
 class EnvironmentConfig:

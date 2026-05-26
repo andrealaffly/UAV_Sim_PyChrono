@@ -39,7 +39,8 @@ def get_cli_args():
       "FunnelMRAC",
       "HybridMRAC",
       "HybridTwoLayerMRAC",
-      "NonAdaptiveEBCI"
+      "NonAdaptiveEBCI",
+      "FunnelTwoLayerMRAC",
       ],
     help="Instantiate controller from available type."
   )

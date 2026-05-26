@@ -84,8 +84,8 @@ class Simulation:
     self.cad_box             = uav_cfg["uav"]["cad"]["box"]
     
     self.pixhawk_local_pos = uav_cfg["uav"]["pixhawk"]["position_local"]
-    self.pixhawk_q_ned     = uav_cfg["uav"]["pixhawk"]["orientation_ned"]
-    self.pixhawk_q_yup     = uav_cfg["uav"]["pixhawk"]["orientation_yup"]
+    # self.pixhawk_q_ned     = uav_cfg["uav"]["pixhawk"]["orientation_ned"]
+    # self.pixhawk_q_yup     = uav_cfg["uav"]["pixhawk"]["orientation_yup"]
 
   def setGravitationalAcceleration(self, flight_params: FlightParams):
     self.m_sys.SetGravitationalAcceleration(chrono.ChVector3d(0,-flight_params.uav.G_acc,0))
@@ -180,7 +180,7 @@ class Simulation:
         motor = chrono.ChLinkMotorRotationSpeed()
         motor.Initialize(self.m_props[i], self.m_frame, frame)
         motor.SetSpindleConstraint(chrono.ChLinkMotorRotationSpeed.SpindleConstraint_CYLINDRICAL)
-        # motor.SetMotorFunction(chrono.ChFunction_Const(5.0 * chrono.CH_C_2PI))  # Uncomment if needed
+        # motor.SetMotorFunction(chrono.ChFunctionConst(5.0 * 2*np.pi))  # Uncomment if needed
         self.m_sys.Add(motor)
         self.m_motors.append(motor)
 
@@ -276,20 +276,24 @@ class Simulation:
     """
     Creates auxiliary coordinate systems (Pixhawk, global, frame, box) for the UAV.
     """
-    # 1) Extract configuration
+    # 1) Extract Pishawk position
     pos_pixhawk = chrono.ChVector3d(*self.pixhawk_local_pos)
-    q_ned = chrono.ChQuaterniond(*self.pixhawk_q_ned)
-    q_yup = chrono.ChQuaterniond(*self.pixhawk_q_yup)
-    # # position of the "pixhawk's center" wrt the COG of the drone frame
-    # position_pixhawk_fromCOG = chrono.ChVectorD(-0.0214807964657055, 0.0779592340719906, -0.0000487571767365452) 
     
     # 2) Define global reference frame
     self.global_coord = chrono.ChCoordsysd(
-        chrono.ChVector3d(0, 0, 0), 
-        chrono.ChQuaterniond(1, 0, 0, 0)
+        chrono.ChVector3d(0, 0, 0),       # Position
+        chrono.ChQuaterniond(1, 0, 0, 0)  # Orientation (Y-up)
     )
     
     # 3) Define Pixhawk coordinate systems
+    
+    # Chrono uses natively the (YUP - Y up) reference, same as solidworks
+    # So to create a reference frame (using yup) we just need the unit quaternion
+    q_yup = chrono.ChQuaterniond(1, 0, 0, 0)
+    # To create a reference frame in the (NED - North East Down - Z down)
+    # we need to rotate the x-axis at 90 degrees, wich we achieve with
+    q_ned = chrono.ChQuaterniond(0.70710678118, 0.70710678118, 0, 0)
+    
     self.pixhawk_csys = chrono.ChCoordsysd(pos_pixhawk, q_ned) # Coordinate System Pixhawk (NED - North East Down)
     pixhawk_csys_yup = chrono.ChCoordsysd(pos_pixhawk, q_yup)  # Coordinate System Pixhawk with (YUP - Y up)
 
@@ -592,7 +596,7 @@ class Simulation:
 
     self.m_frame.AccumulateForce(0,
       chrono.ChVector3d(aerodynamic_force[0].item(), aerodynamic_force[1].item(), aerodynamic_force[2].item()),
-      flight_params.uav.aerodynamic_force_application_point,
+      flight_params.uav.center_of_mass_estimated,
       True
     )
 
@@ -612,7 +616,7 @@ class Simulation:
     applicaion_point = chrono.ChVector3d(*wind_force_vector)
     self.m_frame.AccumulateForce(0,
       applicaion_point, 
-      flight_params.uav.aerodynamic_force_application_point, 
+      flight_params.uav.center_of_mass_estimated, 
       False
     )
 
@@ -653,7 +657,7 @@ class Simulation:
     for i, motor_idx in enumerate(motor_index_map):
       thrust_value = controller.motor_thrusts[motor_idx][0]
       force_vec = chrono.ChVector3d(0, thrust_value, 0)
-      # force_vec = chrono.ChVectorD(0, 0, 0) # For debugging
+      # force_vec = chrono.ChVector3d(0, 0, 0) # For debugging
 
       # Pick the position corresponding to this motor
       # If fewer positions are defined (e.g., symmetrical pairs), cycle through them
