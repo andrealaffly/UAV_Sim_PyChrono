@@ -28,3 +28,4 @@ assets/.DS_Store
 
 ./load_pid_gains.py
 ./experiments.py
+./copy_logs_to_drive.py
