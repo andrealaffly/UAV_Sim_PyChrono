@@ -45,14 +45,13 @@ class UAV (UAV_BASE) :
   def _load_inertia(self):
     # Inertia matrix of the system: (drone frame + box + propellers) espressed in Pixhawk coordinate sys (x-front, y-right, z-down), computed at the center of mass
     # Rotation Matrix that represents a fixed rotation of PI/2 rad about the X-Axis
-    RotMat_X_PI_2 = np.array([[1,  0,  0],
-                              [0,  0,  1],
-                              [0, -1,  0]])
+    RotMat_YUP_2_NED = np.array([[1,  0,  0],
+                                 [0,  0,  1],
+                                 [0, -1,  0]])
     # Rotation Matrix that represents a fixed rotation of -PI/2 rad around the X-Axis
-    RotMat_X_PI_2_tran = np.transpose(RotMat_X_PI_2)
+    RotMat_YUP_2_NED_tran = np.transpose(RotMat_YUP_2_NED)
     # Since the I_matrix_estimated was obtained in the Solidworks coordinate sys (yup), it needs to be transformed to (ned)
-    self.I_matrix_estimated = np.matrix(RotMat_X_PI_2 @ self.I_matrix_estimated @ RotMat_X_PI_2_tran)
-    # self.I_matrix_estimated = np.matrix(self.I_matrix_estimated)
+    self.I_matrix_estimated = np.matrix(RotMat_YUP_2_NED @ self.I_matrix_estimated @ RotMat_YUP_2_NED_tran)
 
   def _compute_estimated_parameters(self) -> None:
     # If sensitivity analyses are needed, the estimated parameters can be changed in this function
@@ -63,7 +62,8 @@ class UAV (UAV_BASE) :
 
     self.drag_coefficient_matrix_estimated = np.matrix(
       np.diag([self.drag_coefficient_estimated,
-                self.drag_coefficient_estimated, 0])
+               self.drag_coefficient_estimated,
+               self.drag_coefficient_estimated])
     )
     
   def _compute_mixer_matrix(self, cfg):

@@ -70,7 +70,8 @@ class UAV (UAV_BASE) :
 
     self.drag_coefficient_matrix_estimated = np.matrix(
       np.diag([self.drag_coefficient_estimated,
-                self.drag_coefficient_estimated, 0])
+               self.drag_coefficient_estimated,
+               self.drag_coefficient_estimated])
     )
     
   def _compute_mixer_matrix(self, cfg):

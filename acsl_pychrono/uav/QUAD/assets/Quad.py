@@ -36,7 +36,6 @@ body_1.SetFrameCOMToRef(chrono.ChFramed(chrono.ChVector3d(-0.00149597132207646,-
 # Visualization shape 
 body_1_1_shape = chrono.ChVisualShapeModelFile() 
 body_1_1_shape.SetFilename(shapes_dir +'body_1_1.obj')
-body_1_1_shape.SetColor(chrono.ChColor(0.1, 0.1, 0.1))
 body_1.AddVisualShape(body_1_1_shape, chrono.ChFramed(chrono.ChVector3d(0,0,0), chrono.ChQuaterniond(1,0,0,0)))
 
 # Collision Model
@@ -62,18 +61,14 @@ body_2 = chrono.ChBodyAuxRef()
 body_2.SetName('Propeller-2')
 body_2.SetPos(chrono.ChVector3d(0.0969022647597098,0.0243399999999998,-0.11071519630803))
 body_2.SetRot(chrono.ChQuaterniond(0.707106781186548,-0.707106781186547,2.46885013108226e-15,0))
-# body_2.SetMass(0.00364120675790278)
-# body_2.SetInertiaXX(chrono.ChVector3d(1.42060313992044e-06,2.81765034379699e-06,1.4208475579394e-06))
-# body_2.SetInertiaXY(chrono.ChVector3d(-1.1934266053721e-12,-2.69794196175028e-12,1.38379431338018e-13))
-body_2.SetMass(1e-12) # Modified by Xavier, the original is in the lines above
-body_2.SetInertiaXX(chrono.ChVector3d(1e-12,1e-12,1e-12)) # Modified by Xavier, the original is in the lines above
-body_2.SetInertiaXY(chrono.ChVector3d(0,0,0)) # Modified by Xavier, the original is in the lines above
+body_2.SetMass(0.00364120675790278)
+body_2.SetInertiaXX(chrono.ChVector3d(1.42060313992044e-06,2.81765034379699e-06,1.4208475579394e-06))
+body_2.SetInertiaXY(chrono.ChVector3d(-1.1934266053721e-12,-2.69794196175028e-12,1.38379431338018e-13))
 body_2.SetFrameCOMToRef(chrono.ChFramed(chrono.ChVector3d(-4.58230968281564e-08,-2.31695875227173e-07,-1.27309700361918e-08),chrono.ChQuaterniond(1,0,0,0)))
 
 # Visualization shape 
 body_2_1_shape = chrono.ChVisualShapeModelFile() 
 body_2_1_shape.SetFilename(shapes_dir +'body_2_1.obj')
-body_2_1_shape.SetColor(chrono.ChColor(1, 0, 0))
 body_2.AddVisualShape(body_2_1_shape, chrono.ChFramed(chrono.ChVector3d(0,0,0), chrono.ChQuaterniond(1,0,0,0)))
 
 exported_items.append(body_2)
@@ -85,17 +80,14 @@ body_3 = chrono.ChBodyAuxRef()
 body_3.SetName('Propeller-4')
 body_3.SetPos(chrono.ChVector3d(-0.0969022647597099,0.0243400000000004,0.11071519630803))
 body_3.SetRot(chrono.ChQuaterniond(0.707106781186548,-0.707106781186547,2.46885013108227e-15,0))
-# body_3.SetMass(0.00364120675790278)
-# body_3.SetInertiaXX(chrono.ChVector3d(1.42060313992044e-06,2.81765034379699e-06,1.4208475579394e-06))
-# body_3.SetInertiaXY(chrono.ChVector3d(-1.1934266053721e-12,-2.69794196175028e-12,1.38379431338018e-13))
-body_3.SetMass(1e-12) # Modified by Xavier, the original is in the lines above
-body_3.SetInertiaXX(chrono.ChVector3d(1e-12,1e-12,1e-12)) # Modified by Xavier, the original is in the lines above
-body_3.SetInertiaXY(chrono.ChVector3d(0,0,0)) # Modified by Xavier, the original is in the lines above
+body_3.SetMass(0.00364120675790278)
+body_3.SetInertiaXX(chrono.ChVector3d(1.42060313992044e-06,2.81765034379699e-06,1.4208475579394e-06))
+body_3.SetInertiaXY(chrono.ChVector3d(-1.1934266053721e-12,-2.69794196175028e-12,1.38379431338018e-13))
 body_3.SetFrameCOMToRef(chrono.ChFramed(chrono.ChVector3d(-4.58230968281564e-08,-2.31695875227173e-07,-1.27309700361918e-08),chrono.ChQuaterniond(1,0,0,0)))
 
 # Visualization shape 
-# body_2_1_shape = chrono.ChVisualShapeModelFile() 
-# body_2_1_shape.SetFilename(shapes_dir +'body_2_1.obj') 
+body_2_1_shape = chrono.ChVisualShapeModelFile() 
+body_2_1_shape.SetFilename(shapes_dir +'body_2_1.obj') 
 body_3.AddVisualShape(body_2_1_shape, chrono.ChFramed(chrono.ChVector3d(0,0,0), chrono.ChQuaterniond(1,0,0,0)))
 
 exported_items.append(body_3)
@@ -107,17 +99,14 @@ body_4 = chrono.ChBodyAuxRef()
 body_4.SetName('Propeller-3')
 body_4.SetPos(chrono.ChVector3d(0.0969022647597116,0.0243399999999996,0.110715196308029))
 body_4.SetRot(chrono.ChQuaterniond(0.707106781186548,-0.707106781186547,2.46885013108226e-15,0))
-# body_4.SetMass(0.00364120675790278)
-# body_4.SetInertiaXX(chrono.ChVector3d(1.42060313992044e-06,2.81765034379699e-06,1.4208475579394e-06))
-# body_4.SetInertiaXY(chrono.ChVector3d(-1.1934266053721e-12,-2.69794196175028e-12,1.38379431338018e-13))
-body_4.SetMass(1e-12) # Modified by Xavier, the original is in the lines above
-body_4.SetInertiaXX(chrono.ChVector3d(1e-12,1e-12,1e-12)) # Modified by Xavier, the original is in the lines above
-body_4.SetInertiaXY(chrono.ChVector3d(0,0,0)) # Modified by Xavier, the original is in the lines above
+body_4.SetMass(0.00364120675790278)
+body_4.SetInertiaXX(chrono.ChVector3d(1.42060313992044e-06,2.81765034379699e-06,1.4208475579394e-06))
+body_4.SetInertiaXY(chrono.ChVector3d(-1.1934266053721e-12,-2.69794196175028e-12,1.38379431338018e-13))
 body_4.SetFrameCOMToRef(chrono.ChFramed(chrono.ChVector3d(-4.58230968281564e-08,-2.31695875227173e-07,-1.27309700361918e-08),chrono.ChQuaterniond(1,0,0,0)))
 
 # Visualization shape 
-# body_2_1_shape = chrono.ChVisualShapeModelFile() 
-# body_2_1_shape.SetFilename(shapes_dir +'body_2_1.obj') 
+body_2_1_shape = chrono.ChVisualShapeModelFile() 
+body_2_1_shape.SetFilename(shapes_dir +'body_2_1.obj') 
 body_4.AddVisualShape(body_2_1_shape, chrono.ChFramed(chrono.ChVector3d(0,0,0), chrono.ChQuaterniond(1,0,0,0)))
 
 exported_items.append(body_4)
@@ -129,17 +118,14 @@ body_5 = chrono.ChBodyAuxRef()
 body_5.SetName('Propeller-1')
 body_5.SetPos(chrono.ChVector3d(-0.0969022647597108,0.0243400000000004,-0.110715196308028))
 body_5.SetRot(chrono.ChQuaterniond(0.707106781186548,-0.707106781186547,2.46885013108226e-15,0))
-# body_5.SetMass(0.00364120675790278)
-# body_5.SetInertiaXX(chrono.ChVector3d(1.42060313992044e-06,2.81765034379699e-06,1.4208475579394e-06))
-# body_5.SetInertiaXY(chrono.ChVector3d(-1.1934266053721e-12,-2.69794196175028e-12,1.38379431338018e-13))
-body_5.SetMass(1e-12) # Modified by Xavier, the original is in the lines above
-body_5.SetInertiaXX(chrono.ChVector3d(1e-12,1e-12,1e-12)) # Modified by Xavier, the original is in the lines above
-body_5.SetInertiaXY(chrono.ChVector3d(0,0,0)) # Modified by Xavier, the original is in the lines above
+body_5.SetMass(0.00364120675790278)
+body_5.SetInertiaXX(chrono.ChVector3d(1.42060313992044e-06,2.81765034379699e-06,1.4208475579394e-06))
+body_5.SetInertiaXY(chrono.ChVector3d(-1.1934266053721e-12,-2.69794196175028e-12,1.38379431338018e-13))
 body_5.SetFrameCOMToRef(chrono.ChFramed(chrono.ChVector3d(-4.58230968281564e-08,-2.31695875227173e-07,-1.27309700361918e-08),chrono.ChQuaterniond(1,0,0,0)))
 
 # Visualization shape 
-# body_2_1_shape = chrono.ChVisualShapeModelFile() 
-# body_2_1_shape.SetFilename(shapes_dir +'body_2_1.obj') 
+body_2_1_shape = chrono.ChVisualShapeModelFile() 
+body_2_1_shape.SetFilename(shapes_dir +'body_2_1.obj') 
 body_5.AddVisualShape(body_2_1_shape, chrono.ChFramed(chrono.ChVector3d(0,0,0), chrono.ChQuaterniond(1,0,0,0)))
 
 exported_items.append(body_5)
@@ -339,22 +325,22 @@ exported_items.append(link_16)
 marker_0_1 = chrono.ChMarker()
 marker_0_1.SetName('Coordinate System1')
 body_0.AddMarker(marker_0_1)
-marker_0_1.ImposeAbsoluteTransform(chrono.ChFramed(chrono.ChVector3d(-0.0969022647597109,0.0202000000000005,-0.110715196308028),chrono.ChQuaterniond(0.707106781186546,-0.707106781186549,0,0)))
+marker_0_1.ImposeAbsoluteTransform(chrono.ChFramed(chrono.ChVector3d(-0.0969022647597109,0.0202000000000005,-0.110715196308028),chrono.ChQuaterniond(1,0,0,0)))
 
 # Auxiliary marker (coordinate system feature)
 marker_0_2 = chrono.ChMarker()
 marker_0_2.SetName('Coordinate System2')
 body_0.AddMarker(marker_0_2)
-marker_0_2.ImposeAbsoluteTransform(chrono.ChFramed(chrono.ChVector3d(0.0969022647597098,0.0201999999999998,-0.11071519630803),chrono.ChQuaterniond(0.707106781186546,-0.707106781186549,0,0)))
+marker_0_2.ImposeAbsoluteTransform(chrono.ChFramed(chrono.ChVector3d(0.0969022647597098,0.0201999999999998,-0.11071519630803),chrono.ChQuaterniond(1,0,0,0)))
 
 # Auxiliary marker (coordinate system feature)
 marker_0_3 = chrono.ChMarker()
 marker_0_3.SetName('Coordinate System3')
 body_0.AddMarker(marker_0_3)
-marker_0_3.ImposeAbsoluteTransform(chrono.ChFramed(chrono.ChVector3d(0.0969022647597115,0.0201999999999998,0.110715196308029),chrono.ChQuaterniond(0.707106781186546,-0.707106781186549,0,0)))
+marker_0_3.ImposeAbsoluteTransform(chrono.ChFramed(chrono.ChVector3d(0.0969022647597115,0.0201999999999998,0.110715196308029),chrono.ChQuaterniond(1,0,0,0)))
 
 # Auxiliary marker (coordinate system feature)
 marker_0_4 = chrono.ChMarker()
 marker_0_4.SetName('Coordinate System4')
 body_0.AddMarker(marker_0_4)
-marker_0_4.ImposeAbsoluteTransform(chrono.ChFramed(chrono.ChVector3d(-0.0969022647597099,0.0202000000000005,0.11071519630803),chrono.ChQuaterniond(0.707106781186546,-0.707106781186549,0,0)))
+marker_0_4.ImposeAbsoluteTransform(chrono.ChFramed(chrono.ChVector3d(-0.0969022647597099,0.0202000000000005,0.11071519630803),chrono.ChQuaterniond(1,0,0,0)))

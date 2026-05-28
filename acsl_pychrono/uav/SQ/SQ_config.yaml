@@ -2,11 +2,21 @@ uav:
   number_of_propellers: 4
 
   cad:
-    pychono_export: "SIMPLE_QUAD_export.py" # Must match the name of the .py file exported from pychrono in the assets/vehicles folder
-    ground: "ground"
-    frame: "thruststand_uav"
-    box: ""
-    prop_prefix: ""
+    chono_scene_file: "SIMPLE_QUAD_export.py" # Must match the name of the .py file exported from pychrono in the assets/vehicles folder
+    parts:
+      ground: "ground"
+      frame:
+        name: "thruststand_uav"
+        color: [1, 0, 0] # For ChColor()
+        opacity: 1
+      propeller:
+        name: ""
+        color: [] # For ChColor()
+        opacity: 1
+      box:
+        name: ""
+        color: [] # For ChColor()
+        opacity: 1
 
   pixhawk:
     position_local : [0, 0.02905, 0] # for chrono vector 
@@ -28,7 +38,7 @@ uav:
     G_acc: 9.80665        # Gravitational acceleration
 
   aerodynamics:
-    surface_area: 0.07      # Surface area of the drone to account for drag [m^2] (get it from a cross section in Solidworks)
+    surface_area: 0.05      # Surface area of the drone to account for drag [m^2] (get it from a cross section in Solidworks)
     drag_coefficient: 1.28  # Drag coefficient (equal to that of a plate) [-]
 
   # FOR NOW, USE HIGH VALUES OF MAX AND MIN THRUST TO AVOID SATURATION (max_thrust = 100N)

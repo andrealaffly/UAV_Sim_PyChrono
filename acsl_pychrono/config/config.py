@@ -21,7 +21,7 @@ class MissionConfig:
   # "orbit"
   # "follow_smooth"
   # "topdown"
-  camera_mode: str = "fixed"
+  camera_mode: str = "fpv"
   # Simulation timestep used by Chrono
   timestep: float = 0.005 #0.005
 
@@ -34,7 +34,7 @@ class MissionConfig:
   # "HybridTwoLayerMRAC",
   # "NonAdaptiveEBCI",
   # "FunnelTwoLayerMRAC",
-  controller_type: str = "PID"
+  controller_type: str = "MRAC"
 
   # User-defined trajectory types:
   # "circular_trajectory",
@@ -49,11 +49,11 @@ class MissionConfig:
   # "bean_trajectory0p2.json"
   # "rollercoaster_trajectory1p2.json"
   # "stadium.json"
-  trajectory_data_path: str = "bean_trajectory0p2.json"
+  trajectory_data_path: str = "rollercoaster_trajectory1p2.json"
 
   # Time for which, after executing the "trajectory_data_path",
   # the vehicle is hovering before starting the landing phase
-  hover_after_trajectory_time_seconds: float = 5.0
+  hover_after_trajectory_time_seconds: float = 1.0
 
   # Flag to add or remove the payload from the simulation
   add_payload_flag: bool = False
@@ -75,7 +75,7 @@ class MissionConfig:
   
   # Motor Failure parameters
   apply_motor_failure: bool = False
-  motor_failure_time: float = 1.0 # 4.5
+  motor_failure_time: float = 5.0 # 4.5
   
   # Apply External Forces
   # Applying Aero-Dynamic force to the drone
@@ -109,6 +109,9 @@ class EnvironmentConfig:
   # "environment3/environment3.py" 
   # "environmentA/environmentA.py" 
   model_relative_path: str = "environmentA/environmentA.py"
+  floor_texture_path: str = "11.jpg"
+  floor_texture_scale_x: float = 100
+  floor_texture_scale_y: float = 100
 
 @dataclass
 class WrapperParams: # Add here the params to be sweeped by the wrapper with their default values

@@ -34,9 +34,6 @@ class UAV_BASE(ABC):
         self.K_omega = 0.0
         self.K_torque = 0.0
         
-        # --- Force positions (in each propeller) --- 
-        self.motor_force_positions = []
-        
         # --- Mass --- 
         self.mass_total = 0.0
         # --- Center of Mass ---
@@ -115,20 +112,26 @@ class UAV_BASE(ABC):
         self.K_omega = float(cfg["uav"]["motor"]["K_omega"])
         self.K_torque = float(cfg["uav"]["motor"]["K_torque"])
         
-        self.propellers_spin_directions = cfg["uav"]["thrust_realization"]["spin_directions"] # Motors' spin direction
-        self.motor_efficiency_matrix = np.matrix(np.diag(cfg["uav"]["thrust_realization"]["efficiency_matrix_diag"])) # Motor efficiency coefficients
-        self.motor_efficiency_matrix_after_failure = np.matrix(np.diag(cfg["uav"]["thrust_realization"]["efficiency_matrix_diag_after_failure"])) # Motor efficiency coefficients after failure
-
-        
         # Reorder or define coaxial stacking (OPTIONAL)
+        # If there is a custom mapping, you can define it in flight_params.uav.motor_index_map
         if "index_map" in cfg["uav"]["thrust_realization"]:
             self.motor_index_map = cfg["uav"]["thrust_realization"]["index_map"]
-        
-        # --- Force positions (in each propeller) --- 
-        self.motor_force_positions = tuple(
-            chrono.ChVector3d(*pos) for pos in cfg["uav"]["thrust_realization"]["force_positions"]
-        )
-        
+            if len(self.motor_index_map) != self.number_of_propellers:
+                raise ValueError(f"motor_index_map length ({len(self.motor_index_map)}) does not match number of motors ({self.number_of_propellers})")
+            else:
+                # Handle the efficiency matrices with new index map
+                PermutationMatrix = np.eye(self.number_of_propellers)[self.motor_index_map]
+                efficiency_matrix_diag = PermutationMatrix @ cfg["uav"]["thrust_realization"]["efficiency_matrix_diag"]
+                motor_efficiency_matrix_after_failure = PermutationMatrix @ cfg["uav"]["thrust_realization"]["efficiency_matrix_diag_after_failure"]
+        # Otherwise, assume 1:1 mapping
+        else:
+            self.motor_index_map = list(range(self.number_of_propellers))
+            efficiency_matrix_diag = cfg["uav"]["thrust_realization"]["efficiency_matrix_diag"]
+            motor_efficiency_matrix_after_failure = cfg["uav"]["thrust_realization"]["efficiency_matrix_diag_after_failure"]
+            
+        self.propellers_spin_directions = cfg["uav"]["thrust_realization"]["spin_directions"] # Motors' spin direction
+        self.motor_efficiency_matrix = np.matrix(np.diag(efficiency_matrix_diag)) # Motor efficiency coefficients
+        self.motor_efficiency_matrix_after_failure = np.matrix(np.diag(motor_efficiency_matrix_after_failure)) # Motor efficiency coefficients after failure
         
         # --------- CONTROLLER RELATED PARAMETERS ---------
         controller_cfg = cfg["controller"]

@@ -2,11 +2,21 @@ uav:
   number_of_propellers: 4
 
   cad:
-    pychono_export: "Q4.py" # Must match the name of the .py file exported from pychrono in the assets/vehicles folder
-    ground: "SLDW_GROUND"
-    frame: "UAV_Assembly_part_single"
-    box: ""
-    prop_prefix: "Propeller"
+    chono_scene_file: "Q4.py" # Must match the name of the .py file exported from pychrono in the assets/vehicles folder
+    parts:
+      ground: "SLDW_GROUND"
+      frame:
+        name: "UAV_Assembly_part_single"
+        color: [0.1, 0.1, 0.1] # For ChColor()
+        opacity: 1
+      propeller:
+        name: "Propeller"
+        color: [1, 0, 0] # For ChColor()
+        opacity: 1
+      box:
+        name: ""
+        color: [] # For ChColor()
+        opacity: 1
 
   pixhawk:
     position_local : [0, 0, 0]                 # for chrono vector 

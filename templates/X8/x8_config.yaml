@@ -2,11 +2,21 @@ uav:
   number_of_propellers: 8
 
   cad:
-    pychono_export: "x8copter.py" # Must match the name of the .py file exported from pychrono in the assets/vehicles folder
-    ground: "ground"
-    frame: "drone_big_box"
-    box: "box_big_200x200x100"
-    prop_prefix: "3_blade_prop"
+    chono_scene_file: "x8copter.py" # Must match the name of the .py file exported from pychrono in the assets/vehicles folder
+    parts:
+      ground: "ground"
+      frame:
+        name: "drone_big_box"
+        color: [1, 0, 0] # For ChColor()
+        opacity: 1
+      propeller:
+        name: "3_blade_prop"
+        color: [0, 1, 0] # For ChColor()
+        opacity: 1
+      box:
+        name: "box_big_200x200x100"
+        color: [1, 1, 1] # For ChColor()
+        opacity: 0.3
 
   pixhawk:
     position_local : [0.0293, 0.04925, 0]                 # for chrono vector 

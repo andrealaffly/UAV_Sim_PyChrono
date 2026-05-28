@@ -1,6 +1,7 @@
 import sys
 import numpy as np
 from numpy import linalg as LA
+import pychrono as chrono
 
 
 class Utils:
@@ -76,3 +77,40 @@ class Utils:
     # \r = carriage return, \033[K = clear line from cursor to end
     sys.stdout.write('\r\033[K' + out_str)
     sys.stdout.flush()
+    
+  @staticmethod
+  def getUavParams(uav_cfg):
+    """This function gets the """
+    number_of_propellers  = uav_cfg["uav"]["number_of_propellers"]
+    pixhawk_local_pos     = uav_cfg["uav"]["pixhawk"]["position_local"]
+    chono_scene_file      = uav_cfg["uav"]["cad"]["chono_scene_file"]
+    cad_ground_name       = uav_cfg["uav"]["cad"]["parts"]["ground"]
+    cad_frame_name        = uav_cfg["uav"]["cad"]["parts"]["frame"]["name"]
+    cad_propeller_name    = uav_cfg["uav"]["cad"]["parts"]["propeller"]["name"]
+    cad_box_name          = uav_cfg["uav"]["cad"]["parts"]["box"]["name"]
+    cad_frame_color       = uav_cfg["uav"]["cad"]["parts"]["frame"]["color"]
+    cad_propeller_color   = uav_cfg["uav"]["cad"]["parts"]["propeller"]["color"]
+    cad_box_color         = uav_cfg["uav"]["cad"]["parts"]["box"]["color"]
+    cad_frame_opacity     = uav_cfg["uav"]["cad"]["parts"]["frame"]["opacity"]
+    cad_propeller_opacity = uav_cfg["uav"]["cad"]["parts"]["propeller"]["opacity"]
+    cad_box_opacity       = uav_cfg["uav"]["cad"]["parts"]["box"]["opacity"]
+    motor_force_positions = tuple(
+      chrono.ChVector3d(*pos) for pos in uav_cfg["uav"]["thrust_realization"]["force_positions"]
+    )
+    
+    return (
+      number_of_propellers,
+      pixhawk_local_pos,
+      chono_scene_file,
+      cad_ground_name,
+      cad_frame_name,
+      cad_propeller_name,
+      cad_box_name,
+      cad_frame_color,
+      cad_propeller_color,
+      cad_box_color,
+      cad_frame_opacity,
+      cad_propeller_opacity,
+      cad_box_opacity,
+      motor_force_positions
+    )

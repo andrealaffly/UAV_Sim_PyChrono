@@ -2,11 +2,21 @@ uav:
   number_of_propellers: 4
 
   cad:
-    pychono_export: "SIMPLE_QUAD_export.py" # Must match the name of the .py file exported from pychrono in the assets/vehicles folder
-    ground: "ground"
-    frame: "thruststand_uav"
-    box: ""
-    prop_prefix: ""
+    chono_scene_file: "SIMPLE_QUAD_export.py" # Must match the name of the .py file exported from pychrono in the assets/vehicles folder
+    parts:
+      ground: "ground"
+      frame:
+        name: "thruststand_uav"
+        color: [1, 0, 1] # For ChColor()
+        opacity: 1
+      propeller:
+        name: ""
+        color: [] # For ChColor()
+        opacity: 1
+      box:
+        name: ""
+        color: [] # For ChColor()
+        opacity: 1
 
   pixhawk:
     position_local : [0, 0.02905, 0]                 # for chrono vector 
