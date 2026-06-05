@@ -10,7 +10,7 @@ class MissionConfig:
   # Run the simulator in Wrapper mode (more simulations automatically run sequentially)
   wrapper_flag: bool = False
   # If True, perform real-time rendering of the simulation with Irrlicht
-  visualization_flag: bool = True
+  visualization_flag: bool = False
   # Dynamic camera options:
   # "fixed"
   # "default",
@@ -34,7 +34,7 @@ class MissionConfig:
   # "HybridTwoLayerMRAC",
   # "NonAdaptiveEBCI",
   # "FunnelTwoLayerMRAC",
-  controller_type: str = "FunnelTwoLayerMRAC"
+  controller_type: str = "MRAC"
 
   # User-defined trajectory types:
   # "circular_trajectory",
@@ -49,20 +49,20 @@ class MissionConfig:
   # "bean_trajectory0p2.json"
   # "rollercoaster_trajectory1p2.json"
   # "stadium.json"
-  trajectory_data_path: str = "rollercoaster_trajectory1p2.json"
+  trajectory_data_path: str = "bean_trajectory0p2.json"
 
   # Time for which, after executing the "trajectory_data_path",
   # the vehicle is hovering before starting the landing phase
-  hover_after_trajectory_time_seconds: float = 5.0
+  hover_after_trajectory_time_seconds: float = 1.0
 
   # Flag to add or remove the payload from the simulation
-  add_payload_flag: bool = True
+  add_payload_flag: bool = False
   # Payload types: 
   # "two_steel_balls"
   # "ten_steel_balls_in_two_lines"
   # "many_steel_balls_in_random_position"
   # "sling_ball_payload"
-  payload_type: str = "two_steel_balls"
+  payload_type: str = "sling_ball_payload"
 
   # Payload Dropping (only for "two_steel_balls" payload type)
   drop_two_steel_balls: bool = False
@@ -99,7 +99,7 @@ class VehicleConfig:
   # "Q"
   # "SQ"
   # "X8"
-  uav_name: str = "X8"
+  uav_name: str = "QUAD"
 
 @dataclass
 class EnvironmentConfig:
@@ -109,6 +109,9 @@ class EnvironmentConfig:
   # "environment3/environment3.py" 
   # "environmentA/environmentA.py" 
   model_relative_path: str = "environmentA/environmentA.py"
+  floor_texture_path: str = "11.jpg"
+  floor_texture_scale_x: float = 100
+  floor_texture_scale_y: float = 100
 
 @dataclass
 class WrapperParams: # Add here the params to be sweeped by the wrapper with their default values

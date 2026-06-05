@@ -36,10 +36,10 @@ class GAConfig:
     controller_type: str = "PID"  # 'PID', 'MRAC'
     algorithm: str = "PYMOO"  # 'DEAP' or 'PYMOO'
 
-    population_size: int = 3
-    num_generations: int = 2
-    crossover_rate: float = 0.6
-    mutation_rate: float = 0.05
+    population_size: int = 100 #3
+    num_generations: int = 30 #2
+    crossover_rate: float = 0.8 #0.6
+    mutation_rate: float = 0.1 #0.05
 
     selection_method: str = "tournament"
     tournament_size: int = 5

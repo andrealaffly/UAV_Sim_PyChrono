@@ -20,9 +20,12 @@ __pycache__/
 *.bat text eol=crlf
 *.cmd text eol=crlf
 
+# Csv files
+*.csv text eol=LF
 
 assets/.DS_Store
 .DS_Store
 
-./load_pid_gains.py
-./experiments.py
+*load_pid_gains.py
+*experiments.py
+*copy_logs_to_drive.py

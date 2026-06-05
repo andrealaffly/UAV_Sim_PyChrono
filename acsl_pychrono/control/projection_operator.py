@@ -120,7 +120,7 @@ class ProjectionOperator:
         Contains h_function and dh_dx_jacobian.
       """
       x_diff = x - x_e
-      quadratic_term = float(x_diff.T @ S @ x_diff)
+      quadratic_term = (x_diff.T @ S @ x_diff).item()
       h_function = ((1.0 + epsilon) * quadratic_term - 1.0) / epsilon
       dh_dx_jacobian = (2.0 * (1.0 + epsilon) / epsilon) * (x_diff.T @ S)
       return ProjectionOperator.Types.ConvexFunctionOutput(h_function, dh_dx_jacobian)

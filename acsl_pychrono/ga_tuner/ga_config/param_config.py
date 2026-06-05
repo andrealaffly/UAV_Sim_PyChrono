@@ -31,7 +31,7 @@ from .param_utils import (
 # =============================================================================
 
 TUNING_SELECTIONS: Dict[str, Union[str, list, dict]] = {
-    "PID": "translational",
+    "PID": "all",
     
     # "MRAC": {
     #     "q_tran": "diagonal",

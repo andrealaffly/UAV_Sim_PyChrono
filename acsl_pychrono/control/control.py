@@ -224,11 +224,11 @@ class Control(ABC):
     cos_pitch = math.cos(pitch)
 
     J_dot = np.matrix(np.zeros((3, 3)))
-    J_dot[0, 2] = -cos_pitch * pitch_dot
-    J_dot[1, 1] = -sin_roll * roll_dot
-    J_dot[1, 2] = cos_roll * cos_pitch * roll_dot - sin_roll * sin_pitch * pitch_dot
-    J_dot[2, 1] = -cos_roll * roll_dot
-    J_dot[2, 2] = -cos_pitch * sin_roll * roll_dot - cos_roll * sin_pitch * pitch_dot
+    J_dot[0, 2] = (-cos_pitch * pitch_dot).item()
+    J_dot[1, 1] = (-sin_roll * roll_dot).item()
+    J_dot[1, 2] = (cos_roll * cos_pitch * roll_dot - sin_roll * sin_pitch * pitch_dot).item()
+    J_dot[2, 1] = (-cos_roll * roll_dot).item()
+    J_dot[2, 2] = (-cos_pitch * sin_roll * roll_dot - cos_roll * sin_pitch * pitch_dot).item()
 
     return J_dot
   

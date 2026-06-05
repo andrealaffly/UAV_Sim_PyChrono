@@ -4,15 +4,15 @@
 
 # **Translational** PID parameters 
 KP_tran:
-  scaling_factor: 1.5
-  matrix: [[20, 0, 0],
-           [0, 20, 0],
+  scaling_factor: 1.2
+  matrix: [[16, 0, 0],
+           [0, 18, 0],
            [0, 0, 40]]
 
 KD_tran:
-  scaling_factor: 1.5
-  matrix: [[5, 0, 0],
-           [0, 10, 0],
+  scaling_factor: 0.8
+  matrix: [[8, 0, 0],
+           [0, 7, 0],
            [0, 0, 25]]
 
 KI_tran:
@@ -24,14 +24,14 @@ KI_tran:
 # **Rotational** PID parameters
 KP_rot:
   scaling_factor: 1
-  matrix: [[300, 0, 0],
-           [0, 400, 0],
+  matrix: [[250, 0, 0],
+           [0, 345, 0],
            [0, 0, 110]]
 
 KD_rot:
   scaling_factor: 1
-  matrix: [[100, 0, 0],    
-           [0, 100, 0],
+  matrix: [[125, 0, 0],    
+           [0, 150, 0],
            [0, 0, 20]]
            
 KI_rot:
@@ -51,8 +51,8 @@ maximumThrust: 85 # [N] 85
 
 # Mu - elliptic cone intersection
 EllipticConeEpsilon: !!float 1e-2
-maximumRollAngle_deg: 60 # [deg] 25 - 32
-maximumPitchAngle_deg: 60 # [deg] 25 - 32
+maximumRollAngle_deg: 80 # [deg] 25 - 32
+maximumPitchAngle_deg: 80 # [deg] 25 - 32
 
 # Mu - plane intersection
 planeEpsilon: !!float 1e-2

@@ -240,7 +240,7 @@ def create_uav_structure(
     vehicle_assets_dir.mkdir(parents=True, exist_ok=True)
 
     # --- CAD Export py file ---
-    export_dest = vehicle_assets_dir / Path(get_yaml_value(cfg_dest, "uav.cad.pychono_export")).name #f"{uav_name}_export.py"
+    export_dest = vehicle_assets_dir / Path(get_yaml_value(cfg_dest, "uav.cad.chono_scene_file")).name #f"{uav_name}_export.py"
     if uav_chrono_py_path and Path(uav_chrono_py_path).exists():
         shutil.copy(uav_chrono_py_path, export_dest)
     else:

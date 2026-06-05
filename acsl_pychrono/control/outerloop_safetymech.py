@@ -22,6 +22,7 @@ class OuterLoopSafetyMechanism:
     """
     Apply the safety mechanism to a raw mu_tran vector.
     """
+    # DEBUG = True
     mu_x_raw = mu_tran_raw[0].item()
     mu_y_raw = mu_tran_raw[1].item()
     mu_z_raw = mu_tran_raw[2].item()
@@ -37,9 +38,13 @@ class OuterLoopSafetyMechanism:
                             LA.norm(mu_tran_raw)**2 * (self.gains.maximumThrust**2 - (self.gains.mass_total_estimated*self.G_acc)**2)))/LA.norm(mu_tran_raw)**2
         tSphereVector[1] = (mu_z_raw*self.gains.mass_total_estimated*self.G_acc - math.sqrt((mu_z_raw*self.gains.mass_total_estimated*self.G_acc)**2 +
                             LA.norm(mu_tran_raw)**2 * (self.gains.maximumThrust**2 - (self.gains.mass_total_estimated*self.G_acc)**2)))/LA.norm(mu_tran_raw)**2
+        # print(" YES!")
       else:
-        tSphereVector[0] = math.nan
-        tSphereVector[1] = math.nan
+        # print(" NO!")
+        # if DEBUG == True: print("[DEBUG] nan safety mech Mu - sphere intersection")
+        # tSphereVector[0] = math.nan
+        # tSphereVector[1] = math.nan
+        return mu_x_raw, mu_y_raw, mu_z_raw
       
       # Mu - elliptic cone intersection
       tEllipticConeVector = np.zeros((2,1))
@@ -48,6 +53,7 @@ class OuterLoopSafetyMechanism:
         tEllipticConeVector[0] = (self.gains.mass_total_estimated*self.G_acc)/(mu_z_raw + 
                                   math.sqrt((mu_x_raw/math.tan(self.gains.maximumPitchAngle))**2 + (mu_y_raw/math.tan(self.gains.maximumRollAngle))**2))
       else:
+        # if DEBUG == True: print("[DEBUG] nan safety mech Mu - elliptic cone intersection 1")
         tEllipticConeVector[0] = math.nan
           
       if abs(-mu_z_raw + math.sqrt((mu_x_raw/math.tan(self.gains.maximumPitchAngle))**2 +
@@ -55,18 +61,21 @@ class OuterLoopSafetyMechanism:
         tEllipticConeVector[1] = -(self.gains.mass_total_estimated*self.G_acc)/(-mu_z_raw + 
                                   math.sqrt((mu_x_raw/math.tan(self.gains.maximumPitchAngle))**2 + (mu_y_raw/math.tan(self.gains.maximumRollAngle))**2))
       else:
+        # if DEBUG == True: print("[DEBUG] nan safety mech Mu - elliptic cone intersection 2")
         tEllipticConeVector[1] = math.nan
           
       # Mu - plane intersection
       if abs(mu_z_raw) >= self.gains.planeEpsilon:
         tPlane = self.gains.alphaPlane*self.gains.mass_total_estimated*self.G_acc/mu_z_raw
       else:
+        # if DEBUG == True: print("[DEBUG] nan safety mech Mu - plane intersection 1")
         tPlane = math.nan
           
       tVector = np.array([tSphereVector[0].item(),tSphereVector[1].item(),
                           tEllipticConeVector[0].item(),tEllipticConeVector[1].item(),tPlane])
       for i in range(0,tVector.size):
         if tVector[i] < 0:
+          # if DEBUG == True: print("[DEBUG] nan safety mech Mu - plane intersection 2")
           tVector[i] = math.nan
               
       tValue = min(tVector)
@@ -78,5 +87,5 @@ class OuterLoopSafetyMechanism:
       mu_x = mu_tran[0].item()
       mu_y = mu_tran[1].item()
       mu_z = mu_tran[2].item()
-
+      
       return mu_x, mu_y, mu_z
