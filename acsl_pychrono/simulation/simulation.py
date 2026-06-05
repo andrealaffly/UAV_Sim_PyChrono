@@ -81,7 +81,7 @@ class Simulation:
       self.chono_scene_file,
       self.cad_ground_name,
       self.cad_frame_name,
-      self.cad_propeller_name,
+      self.cad_propeller_names,
       self.cad_box_name,
       self.cad_frame_color,
       self.cad_propeller_color,
@@ -141,16 +141,16 @@ class Simulation:
     
     # Propellers (optional)
     self.m_props = []
-    if self.cad_propeller_name != "":
-      for i in range(1, self.number_of_propellers + 1):
-        name = f"{self.cad_propeller_name}-{i}"
+    if self.cad_propeller_names != []:
+      for i, name in enumerate(self.cad_propeller_names):
+        # name = f"{self.cad_propeller_name}-{i}"
         prop: chrono.ChBody = self.m_sys.SearchBody(name)
         if not prop:
           print(f'[WARNING] Cannot find propeller "{name}" — skipping.')
         else:
           # Set Color and Opacity of the propellers
-          prop.GetVisualShape(0).SetColor(chrono.ChColor(*self.cad_propeller_color))
-          prop.GetVisualShape(0).SetOpacity(self.cad_propeller_opacity)
+          prop.GetVisualShape(0).SetColor(chrono.ChColor(*self.cad_propeller_color[i]))
+          prop.GetVisualShape(0).SetOpacity(self.cad_propeller_opacity[i])
           # Manually set the propeller mass and inertia properties close to zero
           prop.SetMass(1e-12)
           prop.SetInertiaXX(chrono.ChVector3d(1e-12,1e-12,1e-12))
@@ -214,7 +214,7 @@ class Simulation:
 
     # Otherwise, skip CAD model
     else:
-      print("[INFO] No propeller 3D models found — skipping propeller simulation.")
+      print("[WARNING] No propeller 3D models found — skipping propeller simulation.")
 
     print(f"[INFO] Added {len(self.m_motors)} motors to the UAV.")
 

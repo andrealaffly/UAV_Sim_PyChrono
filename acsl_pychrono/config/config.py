@@ -21,7 +21,7 @@ class MissionConfig:
   # "orbit"
   # "follow_smooth"
   # "topdown"
-  camera_mode: str = "fpv"
+  camera_mode: str = "fixed"
   # Simulation timestep used by Chrono
   timestep: float = 0.005 #0.005
 
@@ -49,7 +49,7 @@ class MissionConfig:
   # "bean_trajectory0p2.json"
   # "rollercoaster_trajectory1p2.json"
   # "stadium.json"
-  trajectory_data_path: str = "rollercoaster_trajectory1p2.json"
+  trajectory_data_path: str = "bean_trajectory0p2.json"
 
   # Time for which, after executing the "trajectory_data_path",
   # the vehicle is hovering before starting the landing phase
@@ -75,7 +75,7 @@ class MissionConfig:
   
   # Motor Failure parameters
   apply_motor_failure: bool = False
-  motor_failure_time: float = 5.0 # 4.5
+  motor_failure_time: float = 1.0 # 4.5
   
   # Apply External Forces
   # Applying Aero-Dynamic force to the drone

@@ -10,9 +10,9 @@ uav:
         color: [0.1, 0.1, 0.1] # For ChColor()
         opacity: 1
       propeller:
-        name: "Propeller"
-        color: [1, 0, 0] # For ChColor()
-        opacity: 1
+        name: ["Propeller-1", "Propeller-2", "Propeller-3", "Propeller-4"]
+        color: [[1, 1, 0], [1, 0, 0], [1, 0, 0], [1, 0, 0]] # For ChColor()
+        opacity: [1, 1, 1, 1]
       box:
         name: ""
         color: [] # For ChColor()

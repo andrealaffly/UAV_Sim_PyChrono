@@ -26,26 +26,26 @@ KP_tran_PD_baseline:
   scaling_factor: !!float 1.0
   matrix: [[5, 0, 0],
            [0, 5, 0],
-           [0, 0, 6]]
+           [0, 0, 10]]
 
 KD_tran_PD_baseline:
   scaling_factor: !!float 1.0
   matrix: [[8, 0, 0],
            [0, 8, 0],
-           [0, 0, 3]]
+           [0, 0, 4]]
 
 # **Rotational** baseline parameters
 KP_rot:
-  scaling_factor: !!float 3.0
-  matrix: [[10, 0, 0],
-           [0, 10, 0],
-           [0, 0, 5]]
+  scaling_factor: !!float 1.0
+  matrix: [[30, 0, 0],
+           [0, 30, 0],
+           [0, 0, 15]]
 
 KI_rot:
-  scaling_factor: !!float 2.0
-  matrix: [[1, 0, 0],
-           [0, 1, 0],
-           [0, 0, 1]]
+  scaling_factor: !!float 1.0
+  matrix: [[2, 0, 0],
+           [0, 2, 0],
+           [0, 0, 2]]
 
 # **Rotational** parameters for the PI baseline controller (Moment_baseline_PI)
 KP_rot_PI_baseline:
@@ -76,6 +76,7 @@ K_I_omega_ref:
 #                   Translational Parameters MRAC
 # ----------------------------------------------------------------
 
+# **Translational** adaptive parameters
 Gamma_x_tran:
   scaling_factor: !!float 10.0
   matrix: [[1, 0, 0, 0, 0, 0],
@@ -100,6 +101,7 @@ Gamma_Theta_tran:
            [0, 0, 0, 0, 1, 0],
            [0, 0, 0, 0, 0, 2]]
 
+# **Translational** parameters Lyapunov equation
 Q_tran:
   scaling_factor: !!float 0.06
   matrix: [[1, 0, 0, 0, 0, 0],

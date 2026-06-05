@@ -10,9 +10,9 @@ uav:
         color: [0.1, 0.1, 0.1] # For ChColor()
         opacity: 1
       propeller:
-        name: "Propeller"
-        color: [1, 0, 0] # For ChColor()
-        opacity: 1
+        name: ["Propeller-1", "Propeller-2", "Propeller-3", "Propeller-4"]
+        color: [[1, 1, 0], [1, 0, 0], [1, 0, 0], [1, 0, 1]] # For ChColor()
+        opacity: [1, 1, 1, 1]
       box:
         name: ""
         color: [] # For ChColor()
@@ -79,7 +79,7 @@ uav:
     efficiency_matrix_diag: [1,1,1,1]
     efficiency_matrix_diag_after_failure: [0,1,1,1]
     # Reorder or define coaxial stacking (OPTIONAL)
-    index_map: [0, 1, 2, 3] # if not defined, default is [0,1,2,3,...,n-1]
+    # index_map: [0, 1, 2, 3] # if not defined, default is [0,1,2,3,...,n-1]
     # Motors' rotation direction
     # Motor 1: CCW
     # Motor 2: CW

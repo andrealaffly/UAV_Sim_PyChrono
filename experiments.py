@@ -41,18 +41,18 @@ import time
 
 CONTROLLERS = [
     "PID", # Tuned
-    "MRAC", # Works - Not tuned
-    "HybridMRAC", # Works - Not tuned
-    "NonAdaptiveEBCI", #  Works - Not tuned
-    "TwoLayerMRAC", # Works on Rollercoaster only - Not tuned
-    "FunnelMRAC", # Works on Rollercoaster only - Not tuned
-    "HybridTwoLayerMRAC", # Works on bean_trajectory only - Not tuned
-    "FunnelTwoLayerMRAC" # Doesn't work - Not tuned
+    "MRAC", # Tuned
+    "HybridMRAC", # Tuned
+    "NonAdaptiveEBCI", # Tuned
+    "TwoLayerMRAC", # Tuned
+#     "FunnelMRAC", # Works on Rollercoaster only - Not tuned
+    "HybridTwoLayerMRAC", # Tuned
+#     "FunnelTwoLayerMRAC" # Doesn't work - Not tuned
 ]
 
 for controller in CONTROLLERS:
     run_experiment(
-        uav="X8",
+        uav="QUAD",
         controller=controller,
         visualize=True,
         # simulation_duration=3.5,
@@ -66,63 +66,3 @@ for controller in CONTROLLERS:
         trajectory_file="rollercoaster_trajectory1p2.json"
     )
     print("----------------------------------------")
-
-# TAJECTORIES = [
-#     "bean_trajectory0p2.json", # Tuned
-#     "rollercoaster_trajectory1p2", # Works - Not tuned
-# ]
-
-# for trajectory in TAJECTORIES:
-#     run_experiment(
-#         uav="QUAD",
-#         controller="MRAC",
-#         visualize=False,
-#         add_payload="False",
-#         trajectory_type="piecewise_polynomial_trajectory",
-#         trajectory_file=trajectory,
-#     )
-
-
-# UAVS = [
-#     # "SQ",
-#     # "Q",
-#     # "QUAD",
-#     # "X8",
-#     "X81",
-#     "Q1",
-#     "SQ1",
-# ]
-
-# for uav in UAVS:
-#     run_experiment(
-#         uav=uav,
-#         controller="PID",
-#         visualize=True,
-#         add_payload="False",
-#         trajectory_type="piecewise_polynomial_trajectory",
-#         trajectory_file="bean_trajectory0p2.json",
-#     )
-    
-
-# TEXTURES = [
-#     "grass0.jpg", #"1.jpg",
-#     "grass1.jpg", #"2.jpg",
-#     "grass2.jpg", #"6.jpg",
-#     "grass3.jpg", #"8.jpg",
-#     "grass4.jpg", #"9.jpg",
-#     "grass5.jpg", #"10.jpg",
-#     "grass6.jpg", #"11.jpg",
-#     "grass7.jpg", #"11.jpg",
-#     "grass8.jpg", #"11.jpg",
-# ]
-
-# for texture in TEXTURES:
-#     run_experiment(
-#         uav="QUAD",
-#         controller="PID",
-#         visualize=True,
-#         add_payload="False",
-#         floor_texture_path=texture,
-#         trajectory_type="piecewise_polynomial_trajectory",
-#         trajectory_file="rollercoaster_trajectory1p2.json",
-#     )

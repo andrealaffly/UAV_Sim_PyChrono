@@ -10,9 +10,25 @@ uav:
         color: [1, 0, 0] # For ChColor()
         opacity: 1
       propeller:
-        name: "3_blade_prop"
-        color: [0, 1, 0] # For ChColor()
-        opacity: 1
+        name:
+         - "3_blade_prop-1"
+         - "3_blade_prop-2"
+         - "3_blade_prop-3"
+         - "3_blade_prop-4"
+         - "3_blade_prop-5"
+         - "3_blade_prop-6"
+         - "3_blade_prop-7"
+         - "3_blade_prop-8"
+        color:
+         - [1, 0, 0]
+         - [0, 1, 0]
+         - [0, 1, 0]
+         - [0, 1, 0]
+         - [0, 1, 0]
+         - [0, 1, 0]
+         - [0, 1, 0]
+         - [0, 1, 1] # For ChColor()
+        opacity: [1,1,1,1,1,1,1,1]
       box:
         name: "box_big_200x200x100"
         color: [1, 1, 1] # For ChColor()
