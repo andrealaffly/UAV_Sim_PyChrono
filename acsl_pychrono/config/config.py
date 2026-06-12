@@ -99,7 +99,7 @@ class VehicleConfig:
   # "Q"
   # "SQ"
   # "X8"
-  uav_name: str = "QUAD"
+  uav_name: str = "X8"
 
 @dataclass
 class EnvironmentConfig:

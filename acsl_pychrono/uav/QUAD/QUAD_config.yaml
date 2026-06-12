@@ -79,7 +79,7 @@ uav:
     efficiency_matrix_diag: [1,1,1,1]
     efficiency_matrix_diag_after_failure: [0,1,1,1]
     # Reorder or define coaxial stacking (OPTIONAL)
-    # index_map: [0, 1, 2, 3] # if not defined, default is [0,1,2,3,...,n-1]
+    # index_map: [2,3,0,1] # if not defined, default is [0,1,2,3,...,n-1]
     # Motors' rotation direction
     # Motor 1: CCW
     # Motor 2: CW
@@ -105,10 +105,18 @@ controller:
   
   gain_yaml_files:  
     PID: "PID.yaml"
-    MRAC: "MRAC.yaml"
-    TwoLayerMRAC: "TwoLayerMRAC.yaml"
-    FunnelMRAC: "FunnelMRAC.yaml"
-    HybridMRAC: "HybridMRAC.yaml"
-    HybridTwoLayerMRAC: "HybridTwoLayerMRAC.yaml"
-    NonAdaptiveEBCI: "NonAdaptiveEBCI.yaml"
-    FunnelTwoLayerMRAC: "FunnelTwoLayerMRAC.yaml"
+    # MRAC: "MRAC.yaml"
+    # MRAC: "MRAC_GA_full.yaml"
+    MRAC: "MRAC_GA_diag.yaml"
+    # TwoLayerMRAC: "TwoLayerMRAC.yaml"
+    TwoLayerMRAC: "TwoLayerMRAC_GA.yaml"
+    # FunnelMRAC: "FunnelMRAC.yaml"
+    FunnelMRAC: "FunnelMRAC_GA.yaml"
+    # HybridMRAC: "HybridMRAC.yaml"
+    HybridMRAC: "HybridMRAC_GA.yaml"
+    # HybridTwoLayerMRAC: "HybridTwoLayerMRAC.yaml"
+    HybridTwoLayerMRAC: "HybridTwoLayerMRAC_GA.yaml"
+    # NonAdaptiveEBCI: "NonAdaptiveEBCI.yaml"
+    NonAdaptiveEBCI: "NonAdaptiveEBCI_GA.yaml"
+    # FunnelTwoLayerMRAC: "FunnelTwoLayerMRAC.yaml"
+    FunnelTwoLayerMRAC: "FunnelTwoLayerMRAC_GA.yaml"

@@ -1,5 +1,6 @@
 # Ignore .vs folder
 .vs/
+.vscode/
 
 # Ignore __pycache__ folder
 __pycache__/

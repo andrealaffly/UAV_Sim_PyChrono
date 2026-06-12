@@ -72,19 +72,18 @@ class UAV (UAV_BASE) :
     l_y = float(cfg["uav"]["thrust_realization"]["mixer_matrix"]["l_y"])
     c_t = float(cfg["uav"]["thrust_realization"]["mixer_matrix"]["c_t"])
 
-    # Mixer matrix for QUADcopter 
+    # Mixer matrix for QUADcopter
+    # You can either input the mixer and compute the 
+    # pseudo-inverse with the numpy package
     # U_mat = np.array([[ 1,    1,    1,    1  ], 
     #                   [ l_y,  l_y, -l_y, -l_y],
     #                   [-l_x,  l_x,  l_x, -l_x],
     #                   [-c_t,  c_t, -c_t,  c_t]])
 
-    # Mixer matrix for X8copter configuration
-    # [   1,   1,    1,    1,    1,    1,    1,    1]
-    # [ l_y, l_y, -l_y, -l_y,  l_y,  l_y, -l_y, -l_y]
-    # [-l_x, l_x,  l_x, -l_x, -l_x,  l_x,  l_x, -l_x]
-    # [-c_t, c_t, -c_t,  c_t,  c_t, -c_t,  c_t, -c_t]
-
-    # Moore-Penrose pseudo-inverse of X8copter mixer matrix
+    # self.U_mat_inv = np.linalg.pinv(U_mat)
+    
+    # Moore-Penrose pseudo-inverse of mixer matrix 
+    # or give an analytical expression and save computing time
     self.U_mat_inv = np.array([
       [1/4,  1/(4*l_y), -1/(4*l_x), -1/(4*c_t)],
       [1/4,  1/(4*l_y),  1/(4*l_x),  1/(4*c_t)],
