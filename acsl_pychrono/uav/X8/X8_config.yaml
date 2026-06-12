@@ -93,7 +93,7 @@ uav:
     efficiency_matrix_diag: [1,1,1,1,1,1,1,1]
     efficiency_matrix_diag_after_failure: [0,1,1,1,1,1,1,1]
     # Reorder or define coaxial stacking (OPTIONAL)
-    index_map: [2, 3, 0, 1, 6, 7, 4, 5]
+    # index_map: [2, 3, 0, 1, 6, 7, 4, 5]
     # Motors' rotation direction
     # Motor 1: CCW
     # Motor 2: CW

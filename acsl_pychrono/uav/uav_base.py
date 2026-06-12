@@ -42,6 +42,9 @@ class UAV_BASE(ABC):
         # (x-front, y-right, z-down), computed at the center of mass
         self.Inertia_mat_pixhawk = np.eye(3) # (Specific defined in each UAV subclass)
         
+        ## --- Inverse Mixer Matrix ---
+        self.U_mat_inv = np.array([])
+        
         # --------- CONTROLLER RELATED PARAMETERS ---------
         # Time after the start of simulation at which the controller is switched ON
         self.controller_start_time = 0.0

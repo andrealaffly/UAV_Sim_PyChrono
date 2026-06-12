@@ -697,14 +697,16 @@ class Simulation:
       # Pick the position corresponding to this motor
       # If fewer positions are defined (e.g., symmetrical pairs), cycle through them
       force_pos = force_positions[i % num_positions]
-      # print(f"\n[DEBUG] Applying thrust {thrust_value} at position {force_pos} for motor {motor_idx}\nForce vector: {force_vec}") 
+      # print(f"\n[DEBUG] For motor {motor_idx}, applying thrust T{motor_idx}(t) = {thrust_value}")
+      # print(f"At local position r{motor_idx}(t) = {force_pos}")
+      # print(f"Local force vector: {force_vec}") 
 
       # Apply physical force
       self.m_frame.AccumulateForce(
-        0,
-        force_vec,
-        force_pos,
-        True
+        idx=0,
+        force=force_vec,
+        appl_point=force_pos,
+        local=True
       )
 
   def applyPropellerReactionTorques(self, controller, flight_params: FlightParams):

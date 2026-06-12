@@ -78,38 +78,38 @@ K_I_omega_ref:
 
 # **Translational** adaptive parameters
 Gamma_x_tran:
-  scaling_factor: 1
-  matrix: [[5.30036794035327, 0, 0, 0, 0, 0],
-           [0, 0.284405500927184, 0, 0, 0, 0],
-           [0, 0, 225.018504496034, 0, 0, 0],
-           [0, 0, 0, 0.204191923573527, 0, 0],
-           [0, 0, 0, 0, 91.3539783091565, 0],
-           [0, 0, 0, 0, 0, 0.679893600740761]]
+  scaling_factor: !!float 10.0
+  matrix: [[1, 0, 0, 0, 0, 0],
+           [0, 1, 0, 0, 0, 0],
+           [0, 0, 10, 0, 0, 0],
+           [0, 0, 0, 1, 0, 0],
+           [0, 0, 0, 0, 1, 0],
+           [0, 0, 0, 0, 0, 10]]
 
 Gamma_r_tran:
-  scaling_factor: 1
-  matrix: [[2.09803794582570, 0, 0],
-           [0, 0.00309147342963244, 0],
-           [0, 0, 0.734139003047965]]
+  scaling_factor: !!float 0.03
+  matrix: [[1, 0, 0],
+           [0, 1, 0],
+           [0, 0, 4]]
 
 Gamma_Theta_tran:
-  scaling_factor: 1
-  matrix: [[45.6160150116290, 0, 0, 0, 0, 0],
-           [0, 4.93192061174393, 0, 0, 0, 0],
-           [0, 0, 862.171542378339, 0, 0, 0],
-           [0, 0, 0, 162.695851152457, 0, 0],
-           [0, 0, 0, 0, 5.55355069250269, 0],
-           [0, 0, 0, 0, 0, 19.4254397653713]]
+  scaling_factor: !!float 10.0
+  matrix: [[1, 0, 0, 0, 0, 0],
+           [0, 1, 0, 0, 0, 0],
+           [0, 0, 2, 0, 0, 0],
+           [0, 0, 0, 1, 0, 0],
+           [0, 0, 0, 0, 1, 0],
+           [0, 0, 0, 0, 0, 2]]
 
 # **Translational** parameters Lyapunov equation
 Q_tran:
-  scaling_factor: 1
-  matrix: [[0.0119001388250027, 0, 0, 0, 0, 0],
-           [0, 0.00476006178120820, 0, 0, 0, 0],
-           [0, 0, 0.0465210610123082, 0, 0, 0],
-           [0, 0, 0, 0.0265507596933726, 0, 0],
-           [0, 0, 0, 0, 0.00818736954065760, 0],
-           [0, 0, 0, 0, 0, 0.111937592563940]]
+  scaling_factor: !!float 0.06
+  matrix: [[1, 0, 0, 0, 0, 0],
+           [0, 1, 0, 0, 0, 0],
+           [0, 0, 12, 0, 0, 0],
+           [0, 0, 0, 1, 0, 0],
+           [0, 0, 0, 0, 1, 0],
+           [0, 0, 0, 0, 0, 2]]
 
 # ----------------------------------------------------------------
 #                   Rotational Parameters MRAC
@@ -117,49 +117,32 @@ Q_tran:
 
 # **Rotational** parameters Lyapunov equation
 Q_rot:
-  scaling_factor: 1
-  matrix: [[0.000519236196102463, 0, 0],
-           [0, 0.000327596153386594, 0],
-           [0, 0, 5.71267579932319e-05]]
+  scaling_factor: !!float 0.001
+  matrix: [[0.3333, 0, 0],
+           [0, 0.4, 0],
+           [0, 0, 0.6]]
 
 # **Rotational** adaptive parameters
 Gamma_x_rot:
-  scaling_factor: 1
-  matrix: [[57.5227145431120, 0, 0],
-           [0, 826.725487076517, 0],
-           [0, 0, 69188.1624455137]]
+  scaling_factor: !!float 10000.0
+  matrix: [[1, 0, 0],
+           [0, 1, 0],
+           [0, 0, 1]]
 
 Gamma_r_rot:
-  scaling_factor: 1
-  matrix: [[0.103722760035866, 0, 0],
-           [0, 24.6158597127644, 0],
-           [0, 0, 6.60210006866576]]
+  scaling_factor: !!float 5.0
+  matrix: [[1, 0, 0],
+           [0, 1, 0],
+           [0, 0, 1]]
 
 Gamma_Theta_rot:
-  scaling_factor: 1
-  matrix: [[19.1374271285829, 0, 0, 0, 0, 0],
-           [0, 18406.1359553568, 0, 0, 0, 0],
-           [0, 0, 60258.4911500782, 0, 0, 0],
-           [0, 0, 0, 174.970248142741, 0, 0],
-           [0, 0, 0, 0, 814.619673995081, 0],
-           [0, 0, 0, 0, 0, 25.2313058852601]]
-
-# **Translational** second layer parameters
-Gamma_g_tran:
-  scaling_factor: 10000
+  scaling_factor: !!float 2000.0
   matrix: [[1, 0, 0, 0, 0, 0],
            [0, 1, 0, 0, 0, 0],
            [0, 0, 1, 0, 0, 0],
            [0, 0, 0, 1, 0, 0],
            [0, 0, 0, 0, 1, 0],
            [0, 0, 0, 0, 0, 1]]
-
-# **Rotational** second layer parameters
-Gamma_g_rot:
-  scaling_factor: 100
-  matrix: [[2, 0, 0],
-           [0, 2, 0],
-           [0, 0, 1]]
 
 # ----------------------------------------------------------------
 #                   Safety Mechanism Parameters
@@ -168,7 +151,7 @@ use_safety_mechanism: True
 
 # Mu - sphere intersection
 sphereEpsilon: !!float 1e-2
-maximumThrust: !!float 85
+maximumThrust: !!float 85 # [N] 85
 
 # Mu - elliptic cone intersection
 EllipticConeEpsilon: !!float 1e-2
@@ -177,7 +160,7 @@ maximumPitchAngle_deg: !!float 60 # [deg] 25 - 32
 
 # Mu - plane intersection
 planeEpsilon: !!float 1e-2
-alphaPlane: !!float 0.6
+alphaPlane: !!float 0.6 # [-] coefficient for setting the 'height' of the bottom plane. Must be >0 and <1.
 
 # ----------------------------------------------------------------
 #                  Dead-Zone modification Parameters
@@ -198,12 +181,10 @@ use_e_modification: True
 sigma_x_tran: !!float 0.5
 sigma_r_tran: !!float 0.5
 sigma_Theta_tran: !!float 0.5
-sigma_g_tran: !!float 0.5
 
 sigma_x_rot: !!float 0.5
 sigma_r_rot: !!float 0.5
 sigma_Theta_rot: !!float 0.5
-sigma_g_rot: !!float 0.5
 
 # ----------------------------------------------------------------
 #                  Projection Operator Parameters
@@ -243,16 +224,16 @@ S_diagonal_Theta_tran_transpose:
 
 alpha_Theta_tran: !!float 0.1
 
-# K_g_hat translational
-x_e_g_tran_transpose:
+# Theta_hat translational
+x_e_Theta_tran_transpose:
   scaling_factor: !!float 0.0
   matrix: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
-S_diagonal_g_tran_transpose:
-  scaling_factor: !!float 60.0
+S_diagonal_Theta_tran_transpose:
+  scaling_factor: !!float 7.5
   matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
 
-alpha_g_tran: !!float 0.1
+alpha_Theta_tran: !!float 0.1
 
 # K_x_hat rotational
 x_e_x_rot_transpose:
@@ -280,42 +261,22 @@ alpha_r_rot: !!float 0.1
 x_e_Theta_rot_transpose:
   scaling_factor: !!float 0.0
   matrix: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+
 S_diagonal_Theta_rot_transpose:
   scaling_factor: !!float 10.0
   matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+
 alpha_Theta_rot: !!float 0.1
-
-# K_g_hat rotational
-x_e_g_rot_transpose:
-  scaling_factor: !!float 0.0
-  matrix: [[0, 0, 0, 0, 0, 0, 0, 0, 0]]
-
-S_diagonal_g_rot_transpose:
-  scaling_factor: !!float 10.0
-  matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1]]
-
-alpha_g_rot: !!float 0.1
 
 # ----------------------------------------------------------------
 #      Non-Adaptive Error Bounding Control Input Parameters
 # ----------------------------------------------------------------
 use_error_bounding_control_input: True
 
-xi_bar_d_tran: !!float 1.0e1 # 1.0e3
+xi_bar_d_tran: !!float 2.0e1
 lambda_bar_tran: !!float 1.0
 delta_ebci_tran: !!float 1.0e-5
 
-xi_bar_d_rot: !!float 1.0e1 # 2.0e2
+xi_bar_d_rot: !!float 1.0e1
 lambda_bar_rot: !!float 1.0
 delta_ebci_rot: !!float 1.0e-5
-
-# ----------------------------------------------------------------
-#                        Hybrid Parameters
-# ----------------------------------------------------------------
-use_hybrid: True
-
-alpha_hybrid_series_tran: !!float 1.001
-tolerance_time_reset_series_hybrid_tran: !!float 1.0e-1
-
-alpha_hybrid_series_rot: !!float 1.001
-tolerance_time_reset_series_hybrid_rot: !!float 1.0e-1

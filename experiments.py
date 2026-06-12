@@ -40,23 +40,23 @@ import time
 # ]
 
 CONTROLLERS = [
-    "PID", # Tuned
-    "MRAC", # Tuned
-    "HybridMRAC", # Tuned
-    "NonAdaptiveEBCI", # Tuned
+    # "PID", # Tuned
+    # "MRAC", # Tuned
+    # "HybridMRAC", # Tuned
+    # "NonAdaptiveEBCI", # Tuned
     "TwoLayerMRAC", # Tuned
-#     "FunnelMRAC", # Works on Rollercoaster only - Not tuned
+    "FunnelMRAC", # Works on Rollercoaster only - Not tuned
     "HybridTwoLayerMRAC", # Tuned
-#     "FunnelTwoLayerMRAC" # Doesn't work - Not tuned
+    "FunnelTwoLayerMRAC" # Doesn't work - Not tuned
 ]
 
 for controller in CONTROLLERS:
     run_experiment(
-        uav="QUAD",
+        uav="X8",
         controller=controller,
         visualize=True,
         # simulation_duration=3.5,
-        add_payload="False",
+        add_payload="True",
         payload_type="many_steel_balls_in_random_position",
         # payload_type="two_steel_balls", 
         # payload_type="ten_steel_balls_in_two_lines",

@@ -177,8 +177,11 @@ class Control(ABC):
     Returns:
       T (8x1 np.array): thrusts for 8 motors
     """
-    U = np.array([u1, u2, u3, u4])
-    motor_thrusts = np.matmul(fp.uav.U_mat_inv, U).reshape(fp.uav.number_of_propellers,1) # array of thrust of each motor (T1, T2, T3, T4, ...)
+    U = np.array([u1, u2, u3, u4]).reshape(4,1)
+    motor_thrusts = np.matmul(fp.uav.U_mat_inv, U) # array of thrust of each motor (T1, T2, T3, T4, ...)
+    # print(f"\n[DEBUG] u(t) = \n{U}")
+    # print(f"M+ = \n{fp.uav.U_mat_inv}")
+    # print(f"T(t) = \n{motor_thrusts}")
     return motor_thrusts
   
   @staticmethod

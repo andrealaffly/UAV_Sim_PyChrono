@@ -2,7 +2,7 @@
 #                     Baseline Parameters
 # ----------------------------------------------------------------
 
-# **Translational** baseline parameters to let the reference model follow the user-defined model (mu_baseline_tran)
+# **Translational** parameters to let the reference model follow the user-defined model (mu_baseline_tran)
 KP_tran:
   scaling_factor: !!float 1.0
   matrix: [[5, 0, 0],
@@ -21,7 +21,7 @@ KI_tran:
            [0, 1, 0],
            [0, 0, 0.1]]
 
-# **Translational** parameters for the PD baseline controller (mu_PD_baseline_tran)
+# **Translational** parameters for the PD baseline controller (mu_PD_baseline_tran) (PD of outerloop)
 KP_tran_PD_baseline:
   scaling_factor: !!float 1.0
   matrix: [[5, 0, 0],
@@ -34,7 +34,7 @@ KD_tran_PD_baseline:
            [0, 8, 0],
            [0, 0, 4]]
 
-# **Rotational** baseline parameters
+# **Rotational** baseline parameters (tunes omega command)
 KP_rot:
   scaling_factor: !!float 1.0
   matrix: [[30, 0, 0],
@@ -60,6 +60,7 @@ KI_rot_PI_baseline:
            [0, 1, 0],
            [0, 0, 0.5]]
 
+# (PI for the reference model) (How omega ref follows omega command)
 K_P_omega_ref:
   scaling_factor: !!float 38.0
   matrix: [[0.8, 0, 0],
@@ -144,6 +145,10 @@ Gamma_Theta_rot:
            [0, 0, 0, 0, 814.619673995081, 0],
            [0, 0, 0, 0, 0, 25.2313058852601]]
 
+# ----------------------------------------------------------------
+#                   Two-Layer MRAC Parameters
+# ----------------------------------------------------------------
+
 # **Translational** second layer parameters
 Gamma_g_tran:
   scaling_factor: 10000
@@ -186,14 +191,14 @@ use_dead_zone_modification: True
 
 dead_zone_delta_tran: !!float 0.5
 dead_zone_e0_tran: !!float 0.01
-
 dead_zone_delta_rot: !!float 0.5
+
 dead_zone_e0_rot: !!float 0.002
 
 # ----------------------------------------------------------------
 #                  e-modification Parameters
 # ----------------------------------------------------------------
-use_e_modification: True
+use_e_modification: False #True
 
 sigma_x_tran: !!float 0.5
 sigma_r_tran: !!float 0.5
@@ -214,66 +219,54 @@ use_projection_operator: True
 x_e_x_tran_transpose:
   scaling_factor: !!float 0.0
   matrix: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
-
 S_diagonal_x_tran_transpose:
   scaling_factor: !!float 30.0
   matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
-
 alpha_x_tran: !!float 0.1
 
 # K_r_hat translational
 x_e_r_tran_transpose:
   scaling_factor: !!float 0.0
   matrix: [[0, 0, 0, 0, 0, 0, 0, 0, 0]]
-
 S_diagonal_r_tran_transpose:
   scaling_factor: !!float 2.5
   matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1]]
-
 alpha_r_tran: !!float 0.1
 
 # Theta_hat translational
 x_e_Theta_tran_transpose:
   scaling_factor: !!float 0.0
   matrix: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
-
 S_diagonal_Theta_tran_transpose:
   scaling_factor: !!float 7.5
   matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
-
 alpha_Theta_tran: !!float 0.1
 
 # K_g_hat translational
 x_e_g_tran_transpose:
   scaling_factor: !!float 0.0
   matrix: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
-
 S_diagonal_g_tran_transpose:
   scaling_factor: !!float 60.0
   matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
-
 alpha_g_tran: !!float 0.1
 
 # K_x_hat rotational
 x_e_x_rot_transpose:
   scaling_factor: !!float 0.0
   matrix: [[0, 0, 0, 0, 0, 0, 0, 0, 0]]
-
 S_diagonal_x_rot_transpose:
   scaling_factor: !!float 5.0
   matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1]]
-
 alpha_x_rot: !!float 0.1
 
 # K_r_hat rotational
 x_e_r_rot_transpose:
   scaling_factor: !!float 0.0
   matrix: [[0, 0, 0, 0, 0, 0, 0, 0, 0]]
-
 S_diagonal_r_rot_transpose:
   scaling_factor: !!float 0.1
   matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1]]
-
 alpha_r_rot: !!float 0.1
 
 # Theta_hat rotational
@@ -289,33 +282,20 @@ alpha_Theta_rot: !!float 0.1
 x_e_g_rot_transpose:
   scaling_factor: !!float 0.0
   matrix: [[0, 0, 0, 0, 0, 0, 0, 0, 0]]
-
 S_diagonal_g_rot_transpose:
   scaling_factor: !!float 10.0
   matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1]]
-
 alpha_g_rot: !!float 0.1
 
 # ----------------------------------------------------------------
 #      Non-Adaptive Error Bounding Control Input Parameters
 # ----------------------------------------------------------------
-use_error_bounding_control_input: True
+use_error_bounding_control_input: False
 
-xi_bar_d_tran: !!float 1.0e1 # 1.0e3
+xi_bar_d_tran: !!float 2.0e1
 lambda_bar_tran: !!float 1.0
 delta_ebci_tran: !!float 1.0e-5
 
-xi_bar_d_rot: !!float 1.0e1 # 2.0e2
+xi_bar_d_rot: !!float 1.0e1
 lambda_bar_rot: !!float 1.0
 delta_ebci_rot: !!float 1.0e-5
-
-# ----------------------------------------------------------------
-#                        Hybrid Parameters
-# ----------------------------------------------------------------
-use_hybrid: True
-
-alpha_hybrid_series_tran: !!float 1.001
-tolerance_time_reset_series_hybrid_tran: !!float 1.0e-1
-
-alpha_hybrid_series_rot: !!float 1.001
-tolerance_time_reset_series_hybrid_rot: !!float 1.0e-1

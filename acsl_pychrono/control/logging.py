@@ -23,7 +23,8 @@ class Logging:
     if wrapper_flag and sim_cfg.mission_config.wrapper_batch_dir:
       dir_path = os.path.join(sim_cfg.mission_config.wrapper_batch_dir)
     else:
-      dir_path = os.path.join("logs", year, month, full_date, controller_type, "workspaces")
+      base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+      dir_path = os.path.join(base_dir, "logs", year, month, full_date, controller_type, "workspaces")
     os.makedirs(dir_path, exist_ok=True)  # Create all directories if not present
 
     return dir_path

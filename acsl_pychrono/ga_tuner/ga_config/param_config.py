@@ -31,7 +31,7 @@ from .param_utils import (
 # =============================================================================
 
 TUNING_SELECTIONS: Dict[str, Union[str, list, dict]] = {
-    "PID": "all",
+    # "PID": "all",
     
     # "MRAC": {
     #     "q_tran": "diagonal",
@@ -47,19 +47,26 @@ TUNING_SELECTIONS: Dict[str, Union[str, list, dict]] = {
     #     },
     #     "gamma_r_tran": "full",
     # },
-    # "MRAC": {
-    #     # Adaptive gain matrices (SPD - use Cholesky parameterization)
-    #     "gamma_x_tran": "diagonal",
-    #     "gamma_x_rot": "diagonal",
-    #     "gamma_r_tran": "diagonal",
-    #     "gamma_r_rot": "diagonal",
-    #     "gamma_theta_tran": "diagonal",
-    #     "gamma_theta_rot": "diagonal",
+    "MRAC": {
+        # Adaptive gain matrices (SPD - use Cholesky parameterization)
+        # "gamma_x_tran": "full",
+        # "gamma_x_rot": "full",
+        # "gamma_r_tran": "full",
+        # "gamma_r_rot": "full",
+        # "gamma_theta_tran": "full",
+        # "gamma_theta_rot": "full",
+                
+        "gamma_x_tran": "diagonal",
+        "gamma_x_rot": "diagonal",
+        "gamma_r_tran": "diagonal",
+        "gamma_r_rot": "diagonal",
+        "gamma_theta_tran": "diagonal",
+        "gamma_theta_rot": "diagonal",
         
-    #     # Lyapunov matrices (SPD - use Cholesky parameterization)
-    #     "q_tran": "diagonal",
-    #     "q_rot": "diagonal",
-    # }
+        # Lyapunov matrices (SPD - use Cholesky parameterization)
+        "q_tran": "diagonal",
+        "q_rot": "diagonal",
+    }
 }
 
 

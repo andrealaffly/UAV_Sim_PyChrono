@@ -144,26 +144,10 @@ Gamma_Theta_rot:
            [0, 0, 0, 0, 814.619673995081, 0],
            [0, 0, 0, 0, 0, 25.2313058852601]]
 
-# **Translational** second layer parameters
-Gamma_g_tran:
-  scaling_factor: 10000
-  matrix: [[1, 0, 0, 0, 0, 0],
-           [0, 1, 0, 0, 0, 0],
-           [0, 0, 1, 0, 0, 0],
-           [0, 0, 0, 1, 0, 0],
-           [0, 0, 0, 0, 1, 0],
-           [0, 0, 0, 0, 0, 1]]
-
-# **Rotational** second layer parameters
-Gamma_g_rot:
-  scaling_factor: 100
-  matrix: [[2, 0, 0],
-           [0, 2, 0],
-           [0, 0, 1]]
-
 # ----------------------------------------------------------------
 #                   Safety Mechanism Parameters
 # ----------------------------------------------------------------
+
 use_safety_mechanism: True
 
 # Mu - sphere intersection
@@ -172,13 +156,12 @@ maximumThrust: !!float 85
 
 # Mu - elliptic cone intersection
 EllipticConeEpsilon: !!float 1e-2
-maximumRollAngle_deg: !!float 60  # [deg] 25 - 32
-maximumPitchAngle_deg: !!float 60 # [deg] 25 - 32
+maximumRollAngle_deg: !!float 60
+maximumPitchAngle_deg: !!float 60
 
 # Mu - plane intersection
 planeEpsilon: !!float 1e-2
 alphaPlane: !!float 0.6
-
 # ----------------------------------------------------------------
 #                  Dead-Zone modification Parameters
 # ----------------------------------------------------------------
@@ -193,125 +176,93 @@ dead_zone_e0_rot: !!float 0.002
 # ----------------------------------------------------------------
 #                  e-modification Parameters
 # ----------------------------------------------------------------
-use_e_modification: True
+use_e_modification: False
 
 sigma_x_tran: !!float 0.5
 sigma_r_tran: !!float 0.5
 sigma_Theta_tran: !!float 0.5
-sigma_g_tran: !!float 0.5
 
 sigma_x_rot: !!float 0.5
 sigma_r_rot: !!float 0.5
 sigma_Theta_rot: !!float 0.5
-sigma_g_rot: !!float 0.5
 
 # ----------------------------------------------------------------
 #                  Projection Operator Parameters
 # ----------------------------------------------------------------
+
 use_projection_operator: True
 
 # K_x_hat translational
 x_e_x_tran_transpose:
-  scaling_factor: !!float 0.0
-  matrix: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+  scaling_factor: !!float 1.0
+  matrix: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 S_diagonal_x_tran_transpose:
   scaling_factor: !!float 30.0
-  matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+  matrix: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
 alpha_x_tran: !!float 0.1
 
 # K_r_hat translational
 x_e_r_tran_transpose:
-  scaling_factor: !!float 0.0
-  matrix: [[0, 0, 0, 0, 0, 0, 0, 0, 0]]
+  scaling_factor: !!float 1.0
+  matrix: [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 S_diagonal_r_tran_transpose:
   scaling_factor: !!float 2.5
-  matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1]]
+  matrix: [1, 1, 1, 1, 1, 1, 1, 1, 1]
 
 alpha_r_tran: !!float 0.1
 
 # Theta_hat translational
 x_e_Theta_tran_transpose:
-  scaling_factor: !!float 0.0
-  matrix: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+  scaling_factor: !!float 1.0
+  matrix: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 S_diagonal_Theta_tran_transpose:
   scaling_factor: !!float 7.5
-  matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+  matrix: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
 alpha_Theta_tran: !!float 0.1
 
-# K_g_hat translational
-x_e_g_tran_transpose:
-  scaling_factor: !!float 0.0
-  matrix: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
-
-S_diagonal_g_tran_transpose:
-  scaling_factor: !!float 60.0
-  matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
-
-alpha_g_tran: !!float 0.1
-
 # K_x_hat rotational
 x_e_x_rot_transpose:
-  scaling_factor: !!float 0.0
-  matrix: [[0, 0, 0, 0, 0, 0, 0, 0, 0]]
+  scaling_factor: !!float 1.0
+  matrix: [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 S_diagonal_x_rot_transpose:
   scaling_factor: !!float 5.0
-  matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1]]
+  matrix: [1, 1, 1, 1, 1, 1, 1, 1, 1]
 
 alpha_x_rot: !!float 0.1
 
 # K_r_hat rotational
 x_e_r_rot_transpose:
-  scaling_factor: !!float 0.0
-  matrix: [[0, 0, 0, 0, 0, 0, 0, 0, 0]]
+  scaling_factor: !!float 1.0
+  matrix: [0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 S_diagonal_r_rot_transpose:
   scaling_factor: !!float 0.1
-  matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1]]
+  matrix: [1, 1, 1, 1, 1, 1, 1, 1, 1]
 
 alpha_r_rot: !!float 0.1
 
 # Theta_hat rotational
 x_e_Theta_rot_transpose:
   scaling_factor: !!float 0.0
-  matrix: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+  matrix: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
 S_diagonal_Theta_rot_transpose:
   scaling_factor: !!float 10.0
-  matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+  matrix: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
 alpha_Theta_rot: !!float 0.1
 
-# K_g_hat rotational
-x_e_g_rot_transpose:
-  scaling_factor: !!float 0.0
-  matrix: [[0, 0, 0, 0, 0, 0, 0, 0, 0]]
-
-S_diagonal_g_rot_transpose:
-  scaling_factor: !!float 10.0
-  matrix: [[1, 1, 1, 1, 1, 1, 1, 1, 1]]
-
-alpha_g_rot: !!float 0.1
-
-# ----------------------------------------------------------------
-#      Non-Adaptive Error Bounding Control Input Parameters
-# ----------------------------------------------------------------
-use_error_bounding_control_input: True
-
-xi_bar_d_tran: !!float 1.0e1 # 1.0e3
-lambda_bar_tran: !!float 1.0
-delta_ebci_tran: !!float 1.0e-5
-
-xi_bar_d_rot: !!float 1.0e1 # 2.0e2
-lambda_bar_rot: !!float 1.0
-delta_ebci_rot: !!float 1.0e-5
 
 # ----------------------------------------------------------------
 #                        Hybrid Parameters
 # ----------------------------------------------------------------
+
 use_hybrid: True
 
 alpha_hybrid_series_tran: !!float 1.001
