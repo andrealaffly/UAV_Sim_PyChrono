@@ -151,7 +151,7 @@ class FunnelMRAC(BaseMRAC, Control):
       self.gains.delta_1_funnel_tran,
       self.gains.delta_2_funnel_tran,
       self.gains.delta_3_funnel_tran,
-      print_flag=True
+      print_flag=False
     )
 
     # Computes roll/pitch reference dot and ddot using state-space differentiators.

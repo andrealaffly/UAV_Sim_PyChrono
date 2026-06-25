@@ -175,7 +175,7 @@ class M_FunnelMRAC:
     Ve_function = Ve_function.item()
     H_function = H_function.item()
     matrix_saturation = (
-      Q + Ve_function * Q_M - ((2 * xi_bar) / e_norm) * (P + Ve_function * M)
+      Q + Ve_function * Q_M - ((2 * xi_bar) / (e_norm + 1e-15)) * (P + Ve_function * M)
     )
     if np.isnan(matrix_saturation).any() or np.isinf(matrix_saturation).any():
       return 0.0

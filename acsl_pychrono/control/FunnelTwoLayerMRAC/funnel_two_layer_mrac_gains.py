@@ -18,8 +18,6 @@ class FunnelTwoLayerMRACGains(BaseMRACGains):
 
     # Controller's numerical Parameters config filename
     gains_config_filename = str(flight_params.uav.controller_config_filename)
-
-    print("Controller config filename:", gains_config_filename)
     
     gains_config_file = flight_params.get_controller_config(gains_config_filename, flight_params.uav.name)
 
