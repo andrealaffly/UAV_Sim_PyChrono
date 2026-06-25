@@ -1,6 +1,6 @@
 """NonAdaptiveEBCI controller tuning interface using standard MRAC matrices."""
 
-from typing import Dict
+from typing import Dict, Any
 from acsl_pychrono.ga_tuner.tuners.base_mrac_tuning import BaseMRACTuning
 from acsl_pychrono.control.NonAdaptiveEBCI.nonadaptive_ebci_gains import NonAdaptiveEBCIGains
 
@@ -16,7 +16,7 @@ class NonAdaptiveEBCITuning(BaseMRACTuning):
     
     CONTROLLER_MODULE = "acsl_pychrono.control.NonAdaptiveEBCI"
     
-    def __init__(self):
+    def __init__(self, tuning_config: Dict[str, Any] = None):
         """Initialize NonAdaptiveEBCI tuning interface."""
         self.GAINS_CLASS = NonAdaptiveEBCIGains
-        super().__init__()
+        super().__init__(tuning_config)

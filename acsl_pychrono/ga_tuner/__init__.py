@@ -30,6 +30,7 @@ from .tuners.HybridTwoLayerMRAC import HybridTwoLayerMRACTuning
 from .tuners.FunnelMRAC import FunnelMRACTuning
 from .tuners.HybridMRAC import HybridMRACTuning
 from .tuners.NonAdaptiveEBCI import NonAdaptiveEBCITuning
+from .tuners.FunnelTwoLayerMRAC import FunnelTwoLayerMRACTuning
 
 # Import evaluators
 from .evaluators import InnerLoopEvaluator, OuterLoopEvaluator, CombinedEvaluator
@@ -42,6 +43,7 @@ tuning_classes = {
     'FunnelMRAC': FunnelMRACTuning,
     'HybridMRAC': HybridMRACTuning,
     'NonAdaptiveEBCI': NonAdaptiveEBCITuning,
+    'FunnelTwoLayerMRAC': FunnelTwoLayerMRACTuning,
 }
 
 evaluator_classes = {

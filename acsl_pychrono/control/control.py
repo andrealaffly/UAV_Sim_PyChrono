@@ -52,7 +52,10 @@ class Control(ABC):
     self.computePostIntegrationAlgorithm()
 
   @staticmethod
-  def computeU1RollPitchRef(mu_x, mu_y, mu_z, mass_total_estimated, G_acc, yaw_ref):
+  def computeU1RollPitchRef_algebraic_inversion(mu_x, mu_y, mu_z, mass_total_estimated, G_acc, yaw_ref):
+    ###########################
+    #       DEPRECATED
+    ###########################
 
     u1 = math.sqrt(mu_x ** 2 + mu_y ** 2 + (mass_total_estimated * G_acc - mu_z) ** 2)
     
@@ -61,6 +64,47 @@ class Control(ABC):
     
     pitch_ref = math.atan2(-(mu_x * math.cos(yaw_ref) + mu_y * math.sin(yaw_ref)),
                             (mass_total_estimated * G_acc - mu_z))
+    
+    return u1, roll_ref, pitch_ref
+  
+  @staticmethod
+  def computeU1RollPitchRef(mu_x, mu_y, mu_z, mass_total_estimated, G_acc, yaw_ref):
+    # This is a geometric reformulation that avoids the free-fall singularity
+    # When u1 -> 0 (mu_x = mu_y = 0 and mg = mu_z)
+    # the controller demands zero net force (a free-fall condition)
+    # Originally this condition caused "ZeroDivisionError" thanks to "1/u1"
+    # Now it returns (0,0,0) thanks to the property atan2(0,0) = 0
+
+    mu_x_dyn = mu_x
+    mu_y_dyn = mu_y
+    mu_z_dyn = mu_z - mass_total_estimated * G_acc
+    
+    u1 = math.sqrt(
+        mu_x_dyn ** 2
+      + mu_y_dyn ** 2
+      + mu_z_dyn ** 2
+    )
+    
+    #  Step 1: Rotate \mu^N by desired yaw only --> Heading Frame
+    cy = math.cos(yaw_ref)
+    sy = math.sin(yaw_ref)
+    v1_x = cy * mu_x_dyn + sy * mu_y_dyn
+    v1_y = -sy * mu_x_dyn + cy * mu_y_dyn
+    v1_z = mu_z_dyn
+
+    # Step 2: Pitch_ref from heading frame vector
+    pitch_ref = math.atan2(-v1_x, -v1_z)
+
+    # Step 3: Apply Pitch rotation, then extract roll_ref
+    cp = math.cos(pitch_ref)
+    sp = math.sin(pitch_ref)
+    v2_x = cp * v1_x - sp * v1_z
+    v2_y = v1_y
+    v2_z = sp * v1_x + cp * v1_z
+
+    roll_ref = math.atan2(v2_y, -v2_z)
+    
+    # print("[DEBUG] using Rot matrices")
     
     return u1, roll_ref, pitch_ref
   

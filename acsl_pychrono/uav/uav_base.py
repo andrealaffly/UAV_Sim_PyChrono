@@ -1,4 +1,6 @@
+import yaml
 import numpy as np
+from pathlib import Path 
 import pychrono as chrono
 from abc import ABC, abstractmethod
 
@@ -142,7 +144,14 @@ class UAV_BASE(ABC):
         self.controller_start_time = float(controller_cfg.get("controller_start_time", 0.0))
 
         # --- Derivative Filter Gains ---
-        derivative_filter_gains_cfg = controller_cfg.get("derivative_filter_gains", {})
+        # Link the filename to the file in params/derivative_filter_gains folder
+        derivative_filter_gains_filename = controller_cfg["derivative_filter_gains"]
+        derivative_filter_gains_path = Path.cwd() / "params/derivative_filter_gains" / derivative_filter_gains_filename
+        print(f"[INFO] Attempting to populate filter gains from file: {derivative_filter_gains_path}")
+        with open(derivative_filter_gains_path, "r") as f:
+            derivative_filter_gains_cfg = yaml.safe_load(f)
+            
+        # Load the gains
         self.A_phi_ref = np.matrix(derivative_filter_gains_cfg.get("A_phi_ref", np.zeros((1, 1))))
         self.B_phi_ref = np.array(derivative_filter_gains_cfg.get("B_phi_ref", np.zeros((1,))))
         self.C_phi_ref = np.matrix(derivative_filter_gains_cfg.get("C_phi_ref", np.zeros((1, 1))))

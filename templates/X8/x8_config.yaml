@@ -108,18 +108,10 @@ uav:
 
 controller:
   controller_start_time: 0.0 #0.1
-  derivative_filter_gains:
-    # Roll filters gains (from matlab)
-    A_phi_ref: [[-15, -225],[1, 0]]
-    B_phi_ref: [[1],[0]]
-    C_phi_ref: [225, 0]
-    D_phi_ref: 0
-    # Pitch filters gains (from matlab)
-    A_theta_ref: [[-15, -225],[1, 0]]
-    B_theta_ref: [[1],[0]]
-    C_theta_ref: [225, 0]
-    D_theta_ref: 0
-    
+
+  # Filename located on param/derivative_filter_gains
+  derivative_filter_gains: "derivative_filter_gains.yaml"
+  
   gain_yaml_files:  
     PID: "PID.yaml"
     MRAC: "MRAC.yaml"

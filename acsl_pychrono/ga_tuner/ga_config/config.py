@@ -135,6 +135,7 @@ def get_default_tuning_config() -> TuningConfig:
     from .param_config import get_tuned_parameters
     
     ga_config = GAConfig()
+    # print(get_tuned_parameters(ga_config.controller_type), "============")
     return TuningConfig(
         tuned_parameters=get_tuned_parameters(ga_config.controller_type),
         mission_overrides=MISSION_CONFIG,

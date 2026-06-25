@@ -177,8 +177,10 @@ class BaseMRACTuning(ControllerTuningInterface):
         
         # SPD matrices (Gamma/Q) with Cholesky parameterization - ALWAYS added to bounds
         # User configuration will filter which ones are actually tuned
+        # print("[DEBUG] base_mrac_tuning.py", self._baseline_gains.keys())
         for matrix_name, value in self._baseline_gains.items():
-            if not (matrix_name.startswith('Gamma_') or matrix_name in ('Q_tran', 'Q_rot')):
+            # if not (matrix_name.startswith('Gamma_') or matrix_name in ('Q_tran', 'Q_rot'))
+            if not (matrix_name.startswith('Gamma_') or matrix_name.startswith('Q_')):
                 continue
             if not isinstance(value, np.ndarray) or value.ndim != 2:
                 continue
@@ -186,6 +188,7 @@ class BaseMRACTuning(ControllerTuningInterface):
             prefix = matrix_name.replace('Gamma_', 'gamma_').lower() if matrix_name.startswith('Gamma_') else matrix_name.lower()
             baseline_matrix = value
             matrix_size = baseline_matrix.shape[0]
+            # print("[DEBUG] base_mrac_tuning.py", prefix, matrix_size)
             self.matrix_sizes[prefix] = matrix_size
             
             # Select bounds based on matrix type and search mode

@@ -13,7 +13,7 @@ MISSION_CONFIG: Dict[str, Any] = {
     # bean_trajectory0p2.json
     # rollercoaster_trajectory1p2.json
     "trajectory_data_path": "bean_trajectory0p2.json",
-    "simulation_duration_seconds": 31.5,
+    "simulation_duration_seconds": 23, #31.5,
     "visualization_flag": False,
     "wrapper_flag": True,
 }

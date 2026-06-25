@@ -39,7 +39,8 @@ def _discover_parameter_structure(gains: Dict[str, Any]) -> Tuple[Dict[str, Dict
     
     for name, value in gains.items():
         if isinstance(value, np.ndarray) and value.ndim == 2:
-            if name.startswith('Gamma_') or name in ('Q_tran', 'Q_rot'):
+            # if name.startswith('Gamma_') or name in ('Q_tran', 'Q_rot'):
+            if name.startswith('Gamma_') or name.startswith('Q_'):
                 prefix = name.replace('Gamma_', 'gamma_').lower() if name.startswith('Gamma_') else name.lower()
                 spd_matrices[name] = {
                     'prefix': prefix,
@@ -181,6 +182,7 @@ class ControllerParameterConverter:
         
         # Extract SPD matrices via Cholesky factorization
         for matrix_name, config in self._spd_matrix_configs.items():
+            # print(matrix_name, config,"====")
             if matrix_name not in gains:
                 continue
 
@@ -208,6 +210,13 @@ class ControllerParameterConverter:
                 params[scalar_name] = gains[scalar_name]
         
         # Convert to vector in correct order
+        # print(f"[DEBUG] parameter converter.py params:")
+        # print(f"\n\ngains: {gains.keys()}")
+        # print(f"\n\nparams.keys: {params.keys()}")
+        # print(f"\n\nparameter_names: {self.parameter_names}")
+        # print(f"\n\n_scalar_params: {self._scalar_params}")
+        # print(f"\n\nparameter_names: {self.parameter_names}")
+        # print(f"\n\n")
         return [params[name] for name in self.parameter_names]
     
     def get_reference_gains(self) -> Dict[str, Any]:

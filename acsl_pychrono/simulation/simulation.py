@@ -245,7 +245,7 @@ class Simulation:
 
     # Add all items to the physical system
     for item in self.exported_items_env:
-      print(item.GetName())
+      # print(f"[DEBUG] printing body name: {item.GetName()}")
       self.m_sys.Add(item)
 
     # Filter out 'ground' and only keep bodies
@@ -255,10 +255,10 @@ class Simulation:
     ]
 
     if len(bodies) != 1:
-      sys.exit(f"Error: Expected exactly 1 non-ground body in the environment model, found {len(bodies)}.")
+      sys.exit(f"[ERROR] Expected exactly 1 non-ground body in the environment model, found {len(bodies)}.")
 
     self.m_environment = bodies[0]
-    print(f"Environment body loaded: {self.m_environment.GetName()}")
+    print(f"[INFO] Environment body loaded: {self.m_environment.GetName()}")
 
   def setSolverAndCollisionModel(self):
     collision_type = chrono.ChCollisionSystem.Type_BULLET
