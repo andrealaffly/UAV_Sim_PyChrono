@@ -34,7 +34,7 @@ class MissionConfig:
   # "HybridTwoLayerMRAC",
   # "NonAdaptiveEBCI",
   # "FunnelTwoLayerMRAC",
-  controller_type: str = "MRAC"
+  controller_type: str = "TwoLayerMRAC"
 
   # User-defined trajectory types:
   # "circular_trajectory",

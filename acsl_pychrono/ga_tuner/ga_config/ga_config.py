@@ -41,14 +41,14 @@ class GAConfig:
     # 'HybridMRAC',
     # 'NonAdaptiveEBCI',
     # 'FunnelTwoLayerMRAC',
-    controller_type: str = "FunnelMRAC"
+    controller_type: str = "TwoLayerMRAC"
     algorithm: str = "PYMOO"  # 'DEAP' or 'PYMOO'
 
-    # Exploratory Setup
-    population_size: int = 3
-    num_generations: int = 2
-    crossover_rate: float = 0.6
-    mutation_rate: float = 0.05
+    # # Exploratory Setup
+    # population_size: int = 3
+    # num_generations: int = 2
+    # crossover_rate: float = 0.6
+    # mutation_rate: float = 0.05
     
     # Average Tunning Setup
     # population_size: int = 50 #40
@@ -57,10 +57,10 @@ class GAConfig:
     # mutation_rate: float = 0.15 #0.08
     
     # Deep FineTunning Setup
-    # population_size: int = 100
-    # num_generations: int = 30
-    # crossover_rate: float = 0.8
-    # mutation_rate: float = 0.1
+    population_size: int = 100
+    num_generations: int = 30
+    crossover_rate: float = 0.8
+    mutation_rate: float = 0.15
 
     selection_method: str = "tournament"
     tournament_size: int = 5

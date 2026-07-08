@@ -77,33 +77,28 @@ TUNING_SELECTIONS: Dict[str, Union[str, list, dict]] = {
     #     "q_rot": "diagonal",
     # }
     
-    "FunnelMRAC": {
-        # Adaptive gain matrices (SPD - use Cholesky parameterization)     
-        # "k_p_omega_ref": "full",
-        # "gamma_x_rot": {
-        #     "selection_matrix": [
-        #         [1],
-        #         [0, 1],
-        #         [0, 0, 0],
-        #     ]
-        # },
-        "gamma_x_rot": "diagonal",
-        "gamma_r_tran": "diagonal",
-        "gamma_r_rot": "diagonal",
-        "gamma_theta_tran": "diagonal",
-        "gamma_theta_rot": "diagonal",
+    "TwoLayerMRAC": {
+        # # Outer Loop Adaptive gains
+        # "gamma_x_tran": "diagonal",
+        # "gamma_r_tran": "diagonal",
+        # "gamma_theta_tran": "diagonal",
         
-        # Lyapunov matrices (SPD - use Cholesky parameterization)
-        "q_tran": "diagonal",
-        "q_rot": "diagonal",
+        # # Inner Loop Adaptive gains
+        # "gamma_x_rot": "diagonal",
+        # "gamma_r_rot": "diagonal",
+        # "gamma_theta_rot": "diagonal",
         
-        # # Two Layer Matrices
-        # "gamma_g_tran": "diagonal",
-        # "gamma_g_rot": "diagonal",
+        # # Lyapunov matrices (SPD - use Cholesky parameterization)
+        # "q_tran": "diagonal",
+        # "q_rot": "diagonal",
         
-        # Funnel matrices
-        "q_M_funnel_tran": "diagonal",
-        "q_M_funnel_rot": "diagonal",
+        # Two Layer Matrices
+        "gamma_g_tran": "diagonal",
+        "gamma_g_rot": "diagonal",
+        
+        # # Funnel matrices
+        # "q_M_funnel_tran": "diagonal",
+        # "q_M_funnel_rot": "diagonal",
     }
 }
 

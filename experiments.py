@@ -171,6 +171,5 @@ for uav in UAVS:
 #         trajectory_type=trajectory_type,
 #         trajectory_file=trajectory_file
 #     )
-#     time.sleep(.1)
 #     print("----------------------------------------")
 # ===================================================================
