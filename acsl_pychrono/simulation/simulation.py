@@ -294,7 +294,7 @@ class Simulation:
     else:
       print("[INFO] Using solver type: ",  solver_type)
       self.m_sys.SetSolver(self.m_solver)
-      self.m_solver.SetMaxIterations(1000) #600 #1000
+      self.m_solver.SetMaxIterations(200) #600 #1000
       self.m_solver.EnableWarmStart(True)
       chrono.ChCollisionModel.SetDefaultSuggestedEnvelope(0.001) #0.003 #0.001
       chrono.ChCollisionModel.SetDefaultSuggestedMargin(0.0005) #0.003 #0.0005

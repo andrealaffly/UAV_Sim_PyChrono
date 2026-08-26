@@ -28,13 +28,17 @@ class MissionConfig:
   # Controller types:
   # "PID",
   # "MRAC",
+  # "MRACwithRKHS",
   # "TwoLayerMRAC",
+  # "TwoLayerMRACwithRKHS",
   # "FunnelMRAC",
   # "HybridMRAC",
   # "HybridTwoLayerMRAC",
+  # "HybridMRACwithRKHS",
+  # "HybridTwoLayerMRACwithRKHS",
   # "NonAdaptiveEBCI",
   # "FunnelTwoLayerMRAC",
-  controller_type: str = "TwoLayerMRAC"
+  controller_type: str = "HybridTwoLayerMRACwithRKHS"
 
   # User-defined trajectory types:
   # "circular_trajectory",
