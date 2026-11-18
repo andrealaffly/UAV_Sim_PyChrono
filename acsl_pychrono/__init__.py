@@ -11,6 +11,7 @@ __description__ = "This repository presents a high-fidelity simulation environme
 
 import argparse
 from .config import config as Cfg
+from .control import available_controllers
 
 def str2bool(v):
   if isinstance(v, bool):
@@ -30,18 +31,11 @@ def get_cli_args():
 
   # UAV and Controller options
   parser.add_argument("--uav", help="Instantiate UAV from name.")
+  # Choices come from the controller packages found in acsl_pychrono/control,
+  # so newly added controllers are accepted without editing this list
   parser.add_argument(
     "--controller",
-    choices=[
-      "PID", 
-      "MRAC",
-      "TwoLayerMRAC",
-      "FunnelMRAC",
-      "HybridMRAC",
-      "HybridTwoLayerMRAC",
-      "NonAdaptiveEBCI",
-      "FunnelTwoLayerMRAC",
-      ],
+    choices=available_controllers(),
     help="Instantiate controller from available type."
   )
 
