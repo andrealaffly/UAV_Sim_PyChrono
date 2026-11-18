@@ -3,12 +3,15 @@ from pathlib import Path
 import importlib
 import pkgutil
 
+# Sub-packages that hold shared helpers rather than a controller
+_HELPER_PACKAGES = {"rkhs"}
+
 # Discover available controller modules dynamically
 _package_path = Path(__file__).parent
 _discovered_controllers = {
   m.name: m.name
   for m in pkgutil.iter_modules([str(_package_path)])
-  if m.ispkg and not m.name.startswith("__")
+  if m.ispkg and not m.name.startswith("__") and m.name not in _HELPER_PACKAGES
 }
 
 def get_controller_classes(controller_type: str):
