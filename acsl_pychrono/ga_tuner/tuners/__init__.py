@@ -9,7 +9,6 @@ from .HybridTwoLayerMRAC import HybridTwoLayerMRACTuning
 from .FunnelMRAC import FunnelMRACTuning
 from .HybridMRAC import HybridMRACTuning
 from .NonAdaptiveEBCI import NonAdaptiveEBCITuning
-from .FunnelTwoLayerMRAC import FunnelTwoLayerMRACTuning
 
 __all__ = [
     'PIDTuning', 
@@ -18,6 +17,5 @@ __all__ = [
     'HybridTwoLayerMRACTuning',
     'FunnelMRACTuning',
     'HybridMRACTuning',
-    'NonAdaptiveEBCITuning',
-    'FunnelTwoLayerMRACTuning',
+    'NonAdaptiveEBCITuning'
 ]

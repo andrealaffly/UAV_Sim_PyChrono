@@ -57,3 +57,62 @@ maximumPitchAngle_deg: 60 # [deg] 25 - 32
 # Mu - plane intersection
 planeEpsilon: !!float 1e-2
 alphaPlane: 0.6 # [-] coefficient for setting the 'height' of the bottom plane. Must be >0 and <1.
+# ----------------------------------------------------------------
+#                     Baseline Parameters
+# ----------------------------------------------------------------
+
+# **Translational** PID parameters 
+KP_tran:
+  scaling_factor: 1
+  matrix: [[77, 0, 0],
+           [0, 84, 0],
+           [0, 0, 35]]
+
+KD_tran:
+  scaling_factor: 1
+  matrix: [[34, 0, 0],
+           [0, 29, 0],
+           [0, 0, 6]]
+
+KI_tran:
+  scaling_factor: 1
+  matrix: [[129, 0, 0],
+           [0, 53, 0],
+           [0, 0, 53]]
+
+# **Rotational** PID parameters
+KP_rot:
+  scaling_factor: 1
+  matrix: [[100, 0, 0],
+           [0, 100, 0],
+           [0, 0, 50]]
+
+KD_rot:
+  scaling_factor: 1
+  matrix: [[50, 0, 0],
+           [0, 50, 0],
+           [0, 0, 50]]
+           
+KI_rot:
+  scaling_factor: 1
+  matrix: [[20, 0, 0],
+           [0, 20, 0],
+           [0, 0, 10]]
+
+# ----------------------------------------------------------------
+#                   Safety Mechanism Parameters
+# ----------------------------------------------------------------
+use_safety_mechanism: True
+
+# Mu - sphere intersection
+sphereEpsilon: !!float 1e-2
+maximumThrust: 85 # [N] 85
+
+# Mu - elliptic cone intersection
+EllipticConeEpsilon: !!float 1e-2
+maximumRollAngle_deg: 60 # [deg] 25 - 32
+maximumPitchAngle_deg: 60 # [deg] 25 - 32
+
+# Mu - plane intersection
+planeEpsilon: !!float 1e-2
+alphaPlane: 0.6 # [-] coefficient for setting the 'height' of the bottom plane. Must be >0 and <1.

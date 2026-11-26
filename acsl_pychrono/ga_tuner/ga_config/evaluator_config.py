@@ -9,10 +9,10 @@ Users configure:
 from typing import Dict, Any, Literal
 
 # Evaluator type determines which metrics are optimized
-EVALUATOR_TYPE: Literal["inner", "outer", "combined"] = "combined"
+EVALUATOR_TYPE: Literal["inner", "outer", "combined"] = "outer"
 
 # Directory where simulation logs will be saved
-LOG_DIRECTORY: str = "simulation_logs/combined_diag_nsga3"
+LOG_DIRECTORY: str = "simulation_logs/outer_diag_nsga3"
 
 # Parallel evaluation configuration
 PARALLEL_CONFIG: Dict[str, Any] = {

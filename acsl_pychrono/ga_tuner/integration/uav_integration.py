@@ -11,7 +11,7 @@ import numpy as np
 
 from acsl_pychrono.simulation.simulation import Simulation
 from acsl_pychrono.control.logging import Logging
-from acsl_pychrono.config.config import MissionConfig, WrapperParams, SimulationConfig
+from acsl_pychrono.config.config import MissionConfig, WrapperParams, SimulationConfig, applyFlightstackTrajectoryOverride
 
 from ..evaluators import InnerLoopEvaluator, OuterLoopEvaluator, CombinedEvaluator
 from ..algorithms.deap_ga import DEAPGATuner
@@ -239,17 +239,22 @@ def create_uav_ga_tuner(
     tuned_parameters: Optional[Sequence[str]] = None,
     mission_overrides: Optional[Dict[str, Any]] = None,
     uav_adapter: Optional[UAVModelAdapter] = None,
+    sil_mode: bool = False,
 ):
     """
     Factory function to create a GA tuner configured for UAV simulations.
-    
+
     Args:
         ga_config: GA algorithm configuration
         evaluator_config: Evaluator configuration (type, metrics, log directory, etc.)
         tuned_parameters: Optional list of parameter names to tune (None = all parameters)
         mission_overrides: Optional dict of mission config overrides
         uav_adapter: Optional UAV adapter instance (created if None)
-        
+        sil_mode: If True, evaluate each candidate against the real C++ flightstack
+            (restart-per-candidate) instead of the pure-Python controller
+            reimplementation. Only supported for controller_type="PID" and
+            evaluator_type="outer" so far (see ga_tuner/integration/sil/).
+
     Returns:
         Configured GA tuner
     """
@@ -259,15 +264,41 @@ def create_uav_ga_tuner(
     metrics_config = evaluator_config.metrics
     log_directory = evaluator_config.log_directory
     parallel_config = evaluator_config.parallel_config
-    
+
+    if sil_mode:
+        if controller != "PID":
+            raise NotImplementedError(
+                f"sil_mode is only wired up for controller_type='PID' so far, got {controller!r}."
+            )
+        if evaluator_type != "outer":
+            raise ValueError(
+                f"sil_mode only supports evaluator_type='outer' so far (inner-loop metrics read "
+                f"log fields that are zeroed under the SIL bridge), got {evaluator_type!r}."
+            )
+        if parallel_config.get("enabled", False):
+            raise ValueError(
+                "sil_mode requires parallel_config['enabled']=False — evaluations share a single "
+                "flightstack container and must run serially."
+            )
+
     # Create UAV adapter if not provided
     if uav_adapter is None:
-        uav_adapter = UAVModelAdapter()
-    
+        if sil_mode:
+            from .sil.sil_adapter import SILUAVModelAdapter
+            uav_adapter = SILUAVModelAdapter()
+        else:
+            uav_adapter = UAVModelAdapter()
+
     # Apply mission overrides
     if mission_overrides:
         _apply_mission_overrides(uav_adapter, mission_overrides)
-    
+
+    if sil_mode:
+        # config.json (mounted into the ga_tuner container, see docker-compose.yml) is the
+        # single source of truth for trajectory selection - mirror it into the GA's
+        # MissionConfig instead of requiring it to be kept in sync by hand.
+        applyFlightstackTrajectoryOverride(uav_adapter.base_config["mission"])
+
     # Determine objective count based on evaluator type
     if metrics_config.multi_objective:
         objective_count = {
@@ -544,5 +575,77 @@ def save_pareto_front_logs(tuner, result, max_solutions: int = None, clean_eval_
                 removed_count += 1
         if removed_count > 0:
             print(f"  Removed {removed_count} evaluation folder(s)")
-    
+
     print(f"Done. Pareto solution logs saved in: {pareto_dir}")
+
+
+def plot_pareto_front(tuner, result, save_path: Optional[str] = None, show: bool = True) -> None:
+    """Plot the Pareto front as pairwise objective scatter plots.
+
+    Args:
+        tuner: The tuner returned by create_uav_ga_tuner
+        result: The OptimizationResult from tuner.optimize()
+        save_path: Optional path to save the figure (e.g. "simulation_logs/.../pareto_front.png")
+        show: Whether to display the plot (set False on headless/containerized runs)
+    """
+    if result.pareto_front is None or len(result.pareto_front) == 0:
+        print("No Pareto front to plot (single-objective run or empty result).")
+        return
+
+    try:
+        import matplotlib
+        matplotlib.use("Agg")  # headless-safe; savefig still works, show() is a no-op without a display
+        import matplotlib.pyplot as plt
+        import itertools
+    except ImportError:
+        print("matplotlib is required for plotting")
+        return
+
+    evaluator_type = getattr(tuner, '_evaluator_type', 'outer')
+    metric_names = {
+        "inner": ["Attitude error", "Angular velocity error", "Rotational effort"],
+        "outer": ["Position error", "Velocity error", "Translational effort"],
+        "combined": ["Attitude error", "Angular velocity error", "Rotational effort",
+                     "Position error", "Velocity error", "Translational effort"],
+    }.get(evaluator_type, [f"Objective {i + 1}" for i in range(len(result.pareto_fitnesses[0]))])
+
+    # Convert normalized metrics back to raw values, same as summarize_tuner_result
+    evaluator = getattr(tuner, 'fitness_evaluator', None)
+    normalizer = getattr(evaluator, 'normalizer', None) if evaluator else None
+    fitnesses = np.array(result.pareto_fitnesses)
+    if normalizer and hasattr(normalizer, 'inverse_transform'):
+        fitnesses = np.array([normalizer.inverse_transform(np.array(m)) for m in fitnesses])
+
+    n_obj = fitnesses.shape[1]
+    if n_obj < 2:
+        print("Single-objective result - nothing to plot as a Pareto front.")
+        return
+
+    pairs = list(itertools.combinations(range(n_obj), 2))
+    ncols = min(3, len(pairs))
+    nrows = (len(pairs) + ncols - 1) // ncols
+    fig, axes = plt.subplots(nrows, ncols, figsize=(5 * ncols, 4.5 * nrows), squeeze=False)
+
+    for idx, (i, j) in enumerate(pairs):
+        ax = axes[idx // ncols][idx % ncols]
+        ax.scatter(fitnesses[:, i], fitnesses[:, j], s=60, c="#2a78d6", edgecolors="white", linewidths=1.2, zorder=3)
+        for k in range(len(fitnesses)):
+            ax.annotate(f"S{k + 1}", (fitnesses[k, i], fitnesses[k, j]), textcoords="offset points", xytext=(6, 4), fontsize=8)
+        ax.set_xlabel(metric_names[i])
+        ax.set_ylabel(metric_names[j])
+        ax.set_title(f"{metric_names[i]} vs {metric_names[j]}")
+        ax.grid(True, alpha=0.3)
+
+    for idx in range(len(pairs), nrows * ncols):
+        axes[idx // ncols][idx % ncols].axis("off")
+
+    fig.suptitle(f"Pareto front ({len(fitnesses)} solutions)")
+    fig.tight_layout()
+
+    if save_path:
+        fig.savefig(save_path, dpi=150, bbox_inches="tight")
+        print(f"Pareto front plot saved to: {save_path}")
+    if show:
+        plt.show()
+    else:
+        plt.close(fig)

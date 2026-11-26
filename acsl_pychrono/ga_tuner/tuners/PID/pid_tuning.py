@@ -9,7 +9,6 @@ import numpy as np
 
 from ...core.controller_tuning import ControllerTuningInterface
 from ...core.parameter_bounds import ParameterBounds
-# from acsl_pychrono.control.PID.pid_gains import PIDGains
 
 
 class PIDTuning(ControllerTuningInterface):
@@ -36,9 +35,9 @@ class PIDTuning(ControllerTuningInterface):
 
         # Define parameter bounds for translational and rotational gains
         translational_bounds = {
-            'KP': [0.0, 150.0],
-            'KI': [0.0, 150.0],
-            'KD': [0.0, 150.0],
+            'KP': [3.0, 12.5],
+            'KI': [0.0, 4.0],
+            'KD': [2.0, 12.5],
         }
         rotational_bounds = {
             'KP': [0.0, 200.0],
@@ -167,18 +166,12 @@ class PIDTuning(ControllerTuningInterface):
         return vector
     
     def get_default_gains(self) -> Dict[str, Any]:
-        """Get default PID gains."""
+        """Get default PID gains (working values from gains_pid.json, scaling_coef baked in)."""
         return {
-            # 'KP_tran': np.diag([77.0, 84.0, 35.0]),
-            # 'KI_tran': np.diag([129.0, 53.0, 53.0]),
-            # 'KD_tran': np.diag([34.0, 29.0, 6.0]),
-            # 'KP_rot': np.diag([100.0, 100.0, 50.0]),
-            # 'KI_rot': np.diag([20.0, 20.0, 10.0]),
-            # 'KD_rot': np.diag([50.0, 50.0, 50.0]),
-            'KP_tran': np.diag([15, 15, 15]),
-            'KI_tran': np.diag([15, 15, 15]),
-            'KD_tran': np.diag([1, 1, 1]),
-            'KP_rot': np.diag([10, 10, 10]),
-            'KI_rot': np.diag([10, 10, 10]),
-            'KD_rot': np.diag([1, 1, 1]),
+            'KP_tran': np.diag([3.75, 3.75, 4.5]),
+            'KI_tran': np.diag([0.5, 0.5, 0.5]),
+            'KD_tran': np.diag([2.5, 2.5, 1.75]),
+            'KP_rot': np.diag([45.0, 45.0, 22.5]),
+            'KI_rot': np.diag([8.0, 8.0, 4.0]),
+            'KD_rot': np.diag([8.7, 11.6, 8.7]),
         }

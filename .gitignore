@@ -1,6 +1,5 @@
 # Ignore .vs folder
 .vs/
-.vscode/
 
 # Ignore __pycache__ folder
 __pycache__/
@@ -21,12 +20,13 @@ __pycache__/
 *.bat text eol=crlf
 *.cmd text eol=crlf
 
-# Csv files
-*.csv text eol=LF
 
 assets/.DS_Store
 .DS_Store
 
-*load_pid_gains.py
-*experiments.py
-*copy_logs_to_drive.py
+./load_pid_gains.py
+./experiments.py
+logs/
+__pycache__/
+*.pyc
+simulation_logs/

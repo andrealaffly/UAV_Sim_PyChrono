@@ -4,37 +4,37 @@
 
 # **Translational** baseline parameters to let the reference model follow the user-defined model (mu_baseline_tran)
 KP_tran:
-  scaling_factor: 1.0
+  scaling_factor: !!float 1.0
   matrix: [[5, 0, 0],
            [0, 5, 0],
            [0, 0, 6]]
 
 KD_tran:
-  scaling_factor: 1.0
+  scaling_factor: !!float 1.0
   matrix: [[8, 0, 0],
            [0, 8, 0],
            [0, 0, 3]]
 
 KI_tran:
-  scaling_factor: 1.0
+  scaling_factor: !!float 1.0
   matrix: [[1, 0, 0],
            [0, 1, 0],
            [0, 0, 0.1]]
 
-# **Translational** parameters for the PD baseline controller (mu_PD_baseline_tran) (PD of outerloop)
+# **Translational** parameters for the PD baseline controller (mu_PD_baseline_tran)
 KP_tran_PD_baseline:
-  scaling_factor: !!float 10
+  scaling_factor: !!float 1.0
   matrix: [[5, 0, 0],
            [0, 5, 0],
            [0, 0, 6]]
 
 KD_tran_PD_baseline:
-  scaling_factor: !!float 1
+  scaling_factor: !!float 1.0
   matrix: [[8, 0, 0],
            [0, 8, 0],
            [0, 0, 3]]
 
-# **Rotational** baseline parameters (Tunes omega command)
+# **Rotational** baseline parameters
 KP_rot:
   scaling_factor: !!float 3.0
   matrix: [[10, 0, 0],
@@ -60,7 +60,6 @@ KI_rot_PI_baseline:
            [0, 1, 0],
            [0, 0, 0.5]]
 
-# (PI for the reference model) (How omega ref follows omega command)
 K_P_omega_ref:
   scaling_factor: !!float 38.0
   matrix: [[0.8, 0, 0],
@@ -79,11 +78,11 @@ K_I_omega_ref:
 
 Gamma_x_tran:
   scaling_factor: !!float 10.0
-  matrix: [[10, 0, 0, 0, 0, 0],
-           [0, 10, 0, 0, 0, 0],
+  matrix: [[1, 0, 0, 0, 0, 0],
+           [0, 1, 0, 0, 0, 0],
            [0, 0, 10, 0, 0, 0],
-           [0, 0, 0, 10, 0, 0],
-           [0, 0, 0, 0, 10, 0],
+           [0, 0, 0, 1, 0, 0],
+           [0, 0, 0, 0, 1, 0],
            [0, 0, 0, 0, 0, 10]]
 
 Gamma_r_tran:
@@ -264,8 +263,8 @@ alpha_Theta_rot: !!float 0.1
 
 use_hybrid: True
 
-alpha_hybrid_series_tran: 1.001
-tolerance_time_reset_series_hybrid_tran: 0.1
+alpha_hybrid_series_tran: !!float 1.001
+tolerance_time_reset_series_hybrid_tran: !!float 1.0e-1
 
-alpha_hybrid_series_rot: 1.001
-tolerance_time_reset_series_hybrid_rot: 0.1
+alpha_hybrid_series_rot: !!float 1.001
+tolerance_time_reset_series_hybrid_rot: !!float 1.0e-1

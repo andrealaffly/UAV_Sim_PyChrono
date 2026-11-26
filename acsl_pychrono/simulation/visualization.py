@@ -10,14 +10,14 @@ class Visualization:
   def setup(self):
     if not self.sim.mission_config.visualization_flag:
       return # Exit early if visualization is disabled
-    
+
     # Create the Irrlicht visualization
     vis = irr.ChVisualSystemIrrlicht()
     vis.AttachSystem(self.sim.m_sys)
     vis.SetWindowSize(1280,960) # (1024,768), (1536,1152)
     vis.SetWindowTitle(self.sim.uav_name + '-Copter - Controller: ' + self.sim.mission_config.controller_type)
     vis.Initialize()
-    vis.AddLogo(chrono.GetChronoDataPath() + 'logo_chrono_alpha.png')
+    vis.AddLogo(chrono.GetChronoDataPath() + 'logo_pychrono_alpha.png')
     vis.AddSkyBox()
     vis.AddCamera(
       chrono.ChVector3d(self.sim.m_frame.GetPos().x, 0, self.sim.m_frame.GetPos().z)
@@ -31,17 +31,17 @@ class Visualization:
       5,                          # radius (power), (12)
       1,8,                        # near, far planes, (1,11)
       55                          # angle of FOV (55)
-    )                
+    )
     vis.BindAll()
     self.sim.vis = vis
 
   def update(self) -> bool:
     if not self.sim.mission_config.visualization_flag or self.sim.vis is None:
       return True # Continue simulation even if visualization is off
-    
+
     if not self.sim.vis.Run():
       return False # Signal to stop simulation loop
-    
+
     self.sim.vis.BeginScene()
 
     # Camera switching logic
@@ -69,17 +69,9 @@ class Visualization:
     # Draw coordinate systems
     irr.drawCoordsys(self.sim.vis, self.sim.marker_pixhawk.GetAbsCoordsys(), 0.5)  # Pixhawk NED
     irr.drawCoordsys(self.sim.vis, self.sim.global_coord, 1.0)                  # Global frame
-    # Debug, center of motors
-    # for i in range(self.sim.number_of_propellers):
-    #   frame = self.sim.m_markers[i].GetAbsCoordsys()
-    # # global_coord = chrono.ChCoordsysd(
-    # #     chrono.ChVector3d(0, 0, 0),       # Position
-    # #     chrono.ChQuaterniond(1, 0, 0, 0)  # Orientation (Y-up)
-    # # )
-    #   irr.drawCoordsys(self.sim.vis, frame, 0.3)  
     self.sim.vis.EndScene()
     return True # Continue simulation
-  
+
   def _update_camera_default(self):
     uav_pos = self.sim.m_frame.GetPos()
     camera_position = chrono.ChVector3d(uav_pos.x, 0, uav_pos.z) + chrono.ChVector3d(-1.5, 2, 1.5)

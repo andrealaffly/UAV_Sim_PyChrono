@@ -59,7 +59,7 @@ exported_items.append(body_0)
 body_1 = chrono.ChBodyAuxRef()
 body_1.SetName('drone_big_box-1')
 body_1.SetPos(chrono.ChVector3d(0,0,0))
-body_1.SetRot(chrono.ChQuaterniond(1,0,0,0))
+body_1.SetRot(chrono.ChQuaterniond(-3.49148133884313e-15,0,1,0))
 body_1.SetMass(1.63968293969252)
 body_1.SetInertiaXX(chrono.ChVector3d(0.0122167030253919,0.0116911012087672,0.0116160019886084))
 body_1.SetInertiaXY(chrono.ChVector3d(0.000641340821426451,5.93052909440443e-06,-3.40029434725524e-06))
@@ -67,7 +67,7 @@ body_1.SetFrameCOMToRef(chrono.ChFramed(chrono.ChVector3d(-0.00781920353429442,-
 
 body_1_1_shape = chrono.ChVisualShapeModelFile() 
 body_1_1_shape.SetFilename(shapes_dir +'body_1_1.obj')
-body_1_1_shape.SetColor(chrono.ChColor(0.1, 0.1, 0.1))
+body_1_1_shape.SetColor(chrono.ChColor(1, 0.2, 0.2))
 body_1.AddVisualShape(body_1_1_shape, chrono.ChFramed(chrono.ChVector3d(0,0,0), chrono.ChQuaterniond(1,0,0,0)))
 
 # Collision Model
@@ -109,6 +109,7 @@ body_2.SetFrameCOMToRef(chrono.ChFramed(chrono.ChVector3d(-4.58230968281564e-08,
 
 body_2_1_shape = chrono.ChVisualShapeModelFile() 
 body_2_1_shape.SetFilename(shapes_dir +'body_2_1.obj')
+body_2_1_shape.SetColor(chrono.ChColor(0, 1, 0))
 body_2.AddVisualShape(body_2_1_shape, chrono.ChFramed(chrono.ChVector3d(0,0,0), chrono.ChQuaterniond(1,0,0,0)))
 
 exported_items.append(body_2)
@@ -128,8 +129,8 @@ body_3.SetInertiaXX(chrono.ChVector3d(1e-12,1e-12,1e-12)) # Modified by Mattia, 
 body_3.SetInertiaXY(chrono.ChVector3d(0,0,0)) # Modified by Mattia, the original is in the lines above
 body_3.SetFrameCOMToRef(chrono.ChFramed(chrono.ChVector3d(-4.58230968281564e-08,-2.31695875227173e-07,-1.27309700361918e-08),chrono.ChQuaterniond(1,0,0,0)))
 
-body_2_1_shape = chrono.ChVisualShapeModelFile() 
-body_2_1_shape.SetFilename(shapes_dir +'body_2_1.obj') 
+# body_2_1_shape = chrono.ChVisualShapeModelFile() 
+# body_2_1_shape.SetFilename(shapes_dir +'body_2_1.obj') 
 body_3.AddVisualShape(body_2_1_shape, chrono.ChFramed(chrono.ChVector3d(0,0,0), chrono.ChQuaterniond(1,0,0,0)))
 
 exported_items.append(body_3)
@@ -150,8 +151,8 @@ body_4.SetInertiaXY(chrono.ChVector3d(0,0,0)) # Modified by Mattia, the original
 body_4.SetFrameCOMToRef(chrono.ChFramed(chrono.ChVector3d(-4.58230968281564e-08,-2.31695875227173e-07,-1.27309700361918e-08),chrono.ChQuaterniond(1,0,0,0)))
 
 
-body_2_1_shape = chrono.ChVisualShapeModelFile() 
-body_2_1_shape.SetFilename(shapes_dir +'body_2_1.obj') 
+# body_2_1_shape = chrono.ChVisualShapeModelFile() 
+# body_2_1_shape.SetFilename(shapes_dir +'body_2_1.obj') 
 body_4.AddVisualShape(body_2_1_shape, chrono.ChFramed(chrono.ChVector3d(0,0,0), chrono.ChQuaterniond(1,0,0,0)))
 
 exported_items.append(body_4)
@@ -172,8 +173,8 @@ body_5.SetInertiaXY(chrono.ChVector3d(0,0,0)) # Modified by Mattia, the original
 body_5.SetFrameCOMToRef(chrono.ChFramed(chrono.ChVector3d(-4.58230968281564e-08,-2.31695875227173e-07,-1.27309700361918e-08),chrono.ChQuaterniond(1,0,0,0)))
 
 
-body_2_1_shape = chrono.ChVisualShapeModelFile() 
-body_2_1_shape.SetFilename(shapes_dir +'body_2_1.obj') 
+# body_2_1_shape = chrono.ChVisualShapeModelFile() 
+# body_2_1_shape.SetFilename(shapes_dir +'body_2_1.obj') 
 body_5.AddVisualShape(body_2_1_shape, chrono.ChFramed(chrono.ChVector3d(0,0,0), chrono.ChQuaterniond(1,0,0,0)))
 
 exported_items.append(body_5)
@@ -194,8 +195,8 @@ body_6.SetInertiaXY(chrono.ChVector3d(0,0,0)) # Modified by Mattia, the original
 body_6.SetFrameCOMToRef(chrono.ChFramed(chrono.ChVector3d(-4.58230968281564e-08,-2.31695875227173e-07,-1.27309700361918e-08),chrono.ChQuaterniond(1,0,0,0)))
 
 
-body_2_1_shape = chrono.ChVisualShapeModelFile() 
-body_2_1_shape.SetFilename(shapes_dir +'body_2_1.obj') 
+# body_2_1_shape = chrono.ChVisualShapeModelFile() 
+# body_2_1_shape.SetFilename(shapes_dir +'body_2_1.obj') 
 body_6.AddVisualShape(body_2_1_shape, chrono.ChFramed(chrono.ChVector3d(0,0,0), chrono.ChQuaterniond(1,0,0,0)))
 
 exported_items.append(body_6)
@@ -223,7 +224,7 @@ body_7.SetFrameCOMToRef(chrono.ChFramed(chrono.ChVector3d(-1.46498601287635e-16,
 
 body_7_1_shape = chrono.ChVisualShapeModelFile() 
 body_7_1_shape.SetFilename(shapes_dir +'body_7_1.obj') 
-body_7_1_shape.SetOpacity(0.3)
+body_7_1_shape.SetOpacity(0.1)
 body_7.AddVisualShape(body_7_1_shape, chrono.ChFramed(chrono.ChVector3d(0,0,0), chrono.ChQuaterniond(1,0,0,0)))
 
 # Collision Model
@@ -295,8 +296,8 @@ body_8.SetInertiaXX(chrono.ChVector3d(1e-12,1e-12,1e-12)) # Modified by Mattia, 
 body_8.SetInertiaXY(chrono.ChVector3d(0,0,0)) # Modified by Mattia, the original is in the lines above
 body_8.SetFrameCOMToRef(chrono.ChFramed(chrono.ChVector3d(-4.58230968281564e-08,-2.31695875227173e-07,-1.27309700361918e-08),chrono.ChQuaterniond(1,0,0,0)))
 
-body_2_1_shape = chrono.ChVisualShapeModelFile() 
-body_2_1_shape.SetFilename(shapes_dir +'body_2_1.obj') 
+# body_2_1_shape = chrono.ChVisualShapeModelFile() 
+# body_2_1_shape.SetFilename(shapes_dir +'body_2_1.obj') 
 body_8.AddVisualShape(body_2_1_shape, chrono.ChFramed(chrono.ChVector3d(0,0,0), chrono.ChQuaterniond(1,0,0,0)))
 
 exported_items.append(body_8)
@@ -316,8 +317,8 @@ body_9.SetInertiaXX(chrono.ChVector3d(1e-12,1e-12,1e-12)) # Modified by Mattia, 
 body_9.SetInertiaXY(chrono.ChVector3d(0,0,0)) # Modified by Mattia, the original is in the lines above
 body_9.SetFrameCOMToRef(chrono.ChFramed(chrono.ChVector3d(-4.58230968281564e-08,-2.31695875227173e-07,-1.27309700361918e-08),chrono.ChQuaterniond(1,0,0,0)))
 
-body_2_1_shape = chrono.ChVisualShapeModelFile() 
-body_2_1_shape.SetFilename(shapes_dir +'body_2_1.obj') 
+# body_2_1_shape = chrono.ChVisualShapeModelFile() 
+# body_2_1_shape.SetFilename(shapes_dir +'body_2_1.obj') 
 body_9.AddVisualShape(body_2_1_shape, chrono.ChFramed(chrono.ChVector3d(0,0,0), chrono.ChQuaterniond(1,0,0,0)))
 
 exported_items.append(body_9)
@@ -337,8 +338,8 @@ body_10.SetInertiaXX(chrono.ChVector3d(1e-12,1e-12,1e-12)) # Modified by Mattia,
 body_10.SetInertiaXY(chrono.ChVector3d(0,0,0)) # Modified by Mattia, the original is in the lines above
 body_10.SetFrameCOMToRef(chrono.ChFramed(chrono.ChVector3d(-4.58230968281564e-08,-2.31695875227173e-07,-1.27309700361918e-08),chrono.ChQuaterniond(1,0,0,0)))
 
-body_2_1_shape = chrono.ChVisualShapeModelFile() 
-body_2_1_shape.SetFilename(shapes_dir +'body_2_1.obj') 
+# body_2_1_shape = chrono.ChVisualShapeModelFile() 
+# body_2_1_shape.SetFilename(shapes_dir +'body_2_1.obj') 
 body_10.AddVisualShape(body_2_1_shape, chrono.ChFramed(chrono.ChVector3d(0,0,0), chrono.ChQuaterniond(1,0,0,0)))
 
 exported_items.append(body_10)

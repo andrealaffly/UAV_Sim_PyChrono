@@ -8,8 +8,16 @@ from acsl_pychrono.simulation.ode_input import OdeInput
 from acsl_pychrono.simulation.flight_params import FlightParams
 from acsl_pychrono.ga_tuner.integration.controller_factory import instantiateControllerWithGA
 
+
+# - Isolate SIL Modifications ----------------------------------------
+import rclpy
+import os
+# - Isolate SIL Modifications ----------------------------------------
+
 def simulateMission(sim: Simulation, git_info: dict | None = None):
-  
+    
+  is_sil_mode = False  # safe default — guaranteed to exist in finally
+
   # Instantiation of the UAV object
   uav = UAV_Module.instantiateUAV(
     sim.vehicle_config.uav_name,
@@ -49,6 +57,22 @@ def simulateMission(sim: Simulation, git_info: dict | None = None):
       sim.mission_config.timestep
     )
 
+    # - Isolate SIL Modifications ----------------------------------------
+  # Inject the bridge dynamically on top of the standard setup if SIL is requested
+  is_sil_mode = os.environ.get('UAV_SIL_MODE', '').lower() == 'true'
+  
+  if is_sil_mode:
+    from acsl_pychrono.control.flighstack_client import FlightStackServiceBridge
+    if not rclpy.ok():
+      rclpy.init()
+    node = rclpy.create_node('flightstack_bridge_node')
+    
+    # CRITICAL CHANGE: Overwrite the 'controller' variable
+    # The Simulation object will now use the Bridge instead of the PID class
+    controller = FlightStackServiceBridge(node, sim)
+  # - Isolate SIL Modifications ----------------------------------------
+
+  # Now, when this is called, it assigns the Bridge object as the simulator's controller
   sim.assignInstances(
     flight_params,
     ode_input,
@@ -72,5 +96,10 @@ def simulateMission(sim: Simulation, git_info: dict | None = None):
       sim.simulation_config,
       git_info
     )
+
+    # - Isolate SIL Modifications ----------------------------------------
+    if is_sil_mode and rclpy.ok():
+      rclpy.shutdown()
+    # - Isolate SIL Modifications ----------------------------------------
 
   return log_dict

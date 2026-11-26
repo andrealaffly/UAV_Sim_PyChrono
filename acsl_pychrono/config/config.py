@@ -1,6 +1,12 @@
+import json
 import warnings
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any
+
+# In SIL mode, this file is bind-mounted read-only from the flightstack container's
+# own config so the simulator flies the same trajectory the C++ controller is tracking.
+FLIGHTSTACK_CONFIG_PATH = Path("/ros2_ws/src/flightstack/params/config/config.json")
 
 
 @dataclass
@@ -10,7 +16,7 @@ class MissionConfig:
   # Run the simulator in Wrapper mode (more simulations automatically run sequentially)
   wrapper_flag: bool = False
   # If True, perform real-time rendering of the simulation with Irrlicht
-  visualization_flag: bool = False
+  visualization_flag: bool = True
   # Dynamic camera options:
   # "fixed"
   # "default",
@@ -28,17 +34,13 @@ class MissionConfig:
   # Controller types:
   # "PID",
   # "MRAC",
-  # "MRACwithRKHS",
   # "TwoLayerMRAC",
-  # "TwoLayerMRACwithRKHS",
   # "FunnelMRAC",
   # "HybridMRAC",
   # "HybridTwoLayerMRAC",
-  # "HybridMRACwithRKHS",
-  # "HybridTwoLayerMRACwithRKHS",
   # "NonAdaptiveEBCI",
   # "FunnelTwoLayerMRAC",
-  controller_type: str = "HybridTwoLayerMRACwithRKHS"
+  controller_type: str = "FunnelTwoLayerMRAC"
 
   # User-defined trajectory types:
   # "circular_trajectory",
@@ -53,11 +55,11 @@ class MissionConfig:
   # "bean_trajectory0p2.json"
   # "rollercoaster_trajectory1p2.json"
   # "stadium.json"
-  trajectory_data_path: str = "bean_trajectory0p2.json"
+  trajectory_data_path: str = "rollercoaster_trajectory1p2.json"
 
   # Time for which, after executing the "trajectory_data_path",
   # the vehicle is hovering before starting the landing phase
-  hover_after_trajectory_time_seconds: float = 1.0
+  hover_after_trajectory_time_seconds: float = 5.0
 
   # Flag to add or remove the payload from the simulation
   add_payload_flag: bool = False
@@ -66,7 +68,7 @@ class MissionConfig:
   # "ten_steel_balls_in_two_lines"
   # "many_steel_balls_in_random_position"
   # "sling_ball_payload"
-  payload_type: str = "sling_ball_payload"
+  payload_type: str = "two_steel_balls"
 
   # Payload Dropping (only for "two_steel_balls" payload type)
   drop_two_steel_balls: bool = False
@@ -100,9 +102,10 @@ class MissionConfig:
 @dataclass
 class VehicleConfig:
   # UAV types:
-  # "QUAD"
+  # "Q"
+  # "SQ"
   # "X8"
-  uav_name: str = "QUAD"
+  uav_name: str = "X8"
 
 @dataclass
 class EnvironmentConfig:
@@ -112,9 +115,6 @@ class EnvironmentConfig:
   # "environment3/environment3.py" 
   # "environmentA/environmentA.py" 
   model_relative_path: str = "environmentA/environmentA.py"
-  floor_texture_path: str = "11.jpg"
-  floor_texture_scale_x: float = 100
-  floor_texture_scale_y: float = 100
 
 @dataclass
 class WrapperParams: # Add here the params to be sweeped by the wrapper with their default values
@@ -130,4 +130,25 @@ class SimulationConfig:
   vehicle_config: VehicleConfig = field(default_factory=VehicleConfig)
   environment_config: EnvironmentConfig = field(default_factory=EnvironmentConfig)
   wrapper_params: WrapperParams = field(default_factory=WrapperParams)
-  
+
+
+def applyFlightstackTrajectoryOverride(mission_config: MissionConfig) -> None:
+  """
+  Mirror the flightstack's trajectory selection (params/config/config.json,
+  field "user_defined_trajectory_file") into the simulator's MissionConfig,
+  so both sides fly the same reference trajectory in SIL mode.
+  """
+  if not FLIGHTSTACK_CONFIG_PATH.is_file():
+    raise FileNotFoundError(
+      f"SIL mode requires the flightstack config to be mounted at {FLIGHTSTACK_CONFIG_PATH} "
+      "(see docker-compose.yml)."
+    )
+
+  with open(FLIGHTSTACK_CONFIG_PATH) as f:
+    flightstack_config = json.load(f)
+
+  trajectory_file = flightstack_config.get("user_defined_trajectory_file")
+  if trajectory_file:
+    mission_config.trajectory_type = "piecewise_polynomial_trajectory"
+    mission_config.trajectory_data_path = trajectory_file
+

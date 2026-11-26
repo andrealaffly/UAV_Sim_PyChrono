@@ -134,8 +134,14 @@ def get_default_tuning_config() -> TuningConfig:
     # Import here to avoid circular import
     from .param_config import get_tuned_parameters
     
-    ga_config = GAConfig()
-    # print(get_tuned_parameters(ga_config.controller_type), "============")
+    ga_config = GAConfig(
+        # Single seed: known-good gains manually injected into gains_pid.json
+        # (effective = scaling_coef * matrix), order: [KP_x, KI_x, KD_x, KP_y, KI_y, KD_y, KP_z, KI_z, KD_z]
+        seed_with_default_gains=False,
+        additional_seed_vectors=[
+            [3.75, 0.5, 2.5, 3.75, 0.5, 2.5, 4.5, 0.5, 1.75],
+        ],
+    )
     return TuningConfig(
         tuned_parameters=get_tuned_parameters(ga_config.controller_type),
         mission_overrides=MISSION_CONFIG,

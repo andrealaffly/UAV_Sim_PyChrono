@@ -10,6 +10,7 @@ __description__ = "This repository presents a high-fidelity simulation environme
                   " provided. A wrapper allows performing a user-defined number of tests automatically."
 
 import argparse
+import os
 from .config import config as Cfg
 
 def str2bool(v):
@@ -39,8 +40,7 @@ def get_cli_args():
       "FunnelMRAC",
       "HybridMRAC",
       "HybridTwoLayerMRAC",
-      "NonAdaptiveEBCI",
-      "FunnelTwoLayerMRAC",
+      "NonAdaptiveEBCI"
       ],
     help="Instantiate controller from available type."
   )
@@ -152,28 +152,9 @@ def get_cli_args():
   )
   parser.add_argument(
     "--environment_path",
-    type=str,
     choices=["environmentA/environmentA.py", "environment3/environment3.py"],
     help="Path to the environment script, relative to 'assets/environments'."
-  )
-  
-  parser.add_argument(
-    "--floor_texture_path",
-    type=str,
-    help="Path to the texture files script, relative to 'assets/textures/floor'."
-  )
-  
-  parser.add_argument(
-    "--floor_texture_scale_x",
-    type=float,
-    help="Floor texture scaling on the x direction'."
-  )
-  
-  parser.add_argument(
-    "--floor_texture_scale_y",
-    type=float,
-    help="Floor texture scaling on the y direction'."
-  )
+    )
   
   # # Wrapper Flag options 
   # parser.add_argument(
@@ -196,6 +177,9 @@ def update_cfg_from_cli_args(sim_cfg: Cfg.SimulationConfig, cli_args):
     
   if cli_args.controller:
     sim_cfg.mission_config.controller_type = cli_args.controller
+  elif os.environ.get('CONTROLLER_TYPE'):
+    # Inherit the controller type selected for the flightstack (see CONTROLLER_TYPE in docker-compose.yml)
+    sim_cfg.mission_config.controller_type = os.environ['CONTROLLER_TYPE']
     
   # Payload options
   if cli_args.add_payload:
@@ -262,15 +246,6 @@ def update_cfg_from_cli_args(sim_cfg: Cfg.SimulationConfig, cli_args):
   if cli_args.environment_path:
     sim_cfg.environment_config.model_relative_path = cli_args.environment_path
     
-  if cli_args.floor_texture_path:
-    sim_cfg.environment_config.floor_texture_path = cli_args.floor_texture_path
-    
-  if cli_args.floor_texture_scale_x:
-    sim_cfg.environment_config.floor_texture_scale_x = cli_args.floor_texture_scale_x
-    
-  if cli_args.floor_texture_scale_y:
-    sim_cfg.environment_config.floor_texture_scale_y = cli_args.floor_texture_scale_y
-  
   # # Wrapper mode
   # if cli_args.wrapper_mode:
   #   sim_cfg.mission_config.wrapper_flag = str2bool(cli_args.wrapper_mode)

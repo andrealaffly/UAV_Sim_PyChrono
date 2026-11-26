@@ -33,33 +33,12 @@ class SurvivalPenaltySettings:
 class GAConfig:
     """Central configuration for GA tuning runs."""
 
-    # "PID",
-    # 'MRAC', 
-    # 'TwoLayerMRAC', 
-    # 'HybridTwoLayerMRAC',
-    # 'FunnelMRAC',
-    # 'HybridMRAC',
-    # 'NonAdaptiveEBCI',
-    # 'FunnelTwoLayerMRAC',
-    controller_type: str = "TwoLayerMRAC"
+    controller_type: str = "PID"  # 'PID', 'MRAC'
     algorithm: str = "PYMOO"  # 'DEAP' or 'PYMOO'
 
-    # # Exploratory Setup
-    # population_size: int = 3
-    # num_generations: int = 2
-    # crossover_rate: float = 0.6
-    # mutation_rate: float = 0.05
-    
-    # Average Tunning Setup
-    # population_size: int = 50 #40
-    # num_generations: int = 35 #30
-    # crossover_rate: float = 0.7 #0.8
-    # mutation_rate: float = 0.15 #0.08
-    
-    # Deep FineTunning Setup
-    population_size: int = 100
-    num_generations: int = 30
-    crossover_rate: float = 0.8
+    population_size: int = 12
+    num_generations: int = 6
+    crossover_rate: float = 0.6
     mutation_rate: float = 0.15
 
     selection_method: str = "tournament"

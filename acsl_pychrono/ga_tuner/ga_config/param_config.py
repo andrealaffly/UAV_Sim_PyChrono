@@ -20,7 +20,6 @@ Note: Controllers with SPD matrices MUST use dict-based selection (option 3).
 """
 
 from typing import Any, Dict, Union
-from ..core.controller_tuning import ControllerTuningInterface
 
 from .param_utils import (
     expand_pid_tuning_selection,
@@ -32,15 +31,7 @@ from .param_utils import (
 # =============================================================================
 
 TUNING_SELECTIONS: Dict[str, Union[str, list, dict]] = {
-    # "PID": "all",
-     
-    # 'MRAC', 
-    # 'TwoLayerMRAC', 
-    # 'HybridTwoLayerMRAC',
-    # 'FunnelMRAC',
-    # 'HybridMRAC',
-    # 'NonAdaptiveEBCI',
-    # 'FunnelTwoLayerMRAC',
+    "PID": "translational",
     
     # "MRAC": {
     #     "q_tran": "diagonal",
@@ -58,13 +49,6 @@ TUNING_SELECTIONS: Dict[str, Union[str, list, dict]] = {
     # },
     # "MRAC": {
     #     # Adaptive gain matrices (SPD - use Cholesky parameterization)
-    #     # "gamma_x_tran": "full",
-    #     # "gamma_x_rot": "full",
-    #     # "gamma_r_tran": "full",
-    #     # "gamma_r_rot": "full",
-    #     # "gamma_theta_tran": "full",
-    #     # "gamma_theta_rot": "full",
-                
     #     "gamma_x_tran": "diagonal",
     #     "gamma_x_rot": "diagonal",
     #     "gamma_r_tran": "diagonal",
@@ -76,30 +60,6 @@ TUNING_SELECTIONS: Dict[str, Union[str, list, dict]] = {
     #     "q_tran": "diagonal",
     #     "q_rot": "diagonal",
     # }
-    
-    "TwoLayerMRAC": {
-        # # Outer Loop Adaptive gains
-        # "gamma_x_tran": "diagonal",
-        # "gamma_r_tran": "diagonal",
-        # "gamma_theta_tran": "diagonal",
-        
-        # # Inner Loop Adaptive gains
-        # "gamma_x_rot": "diagonal",
-        # "gamma_r_rot": "diagonal",
-        # "gamma_theta_rot": "diagonal",
-        
-        # # Lyapunov matrices (SPD - use Cholesky parameterization)
-        # "q_tran": "diagonal",
-        # "q_rot": "diagonal",
-        
-        # Two Layer Matrices
-        "gamma_g_tran": "diagonal",
-        "gamma_g_rot": "diagonal",
-        
-        # # Funnel matrices
-        # "q_M_funnel_tran": "diagonal",
-        # "q_M_funnel_rot": "diagonal",
-    }
 }
 
 
@@ -116,9 +76,8 @@ def get_tuned_parameters(controller_type: str):
         raise ValueError(f"Unknown controller type: {controller_type}. Available: {list(tuning_classes.keys())}")
     
     # Get all available parameters from the tuning class
-    tuning_instance: ControllerTuningInterface = tuning_classes[controller_type]()
+    tuning_instance = tuning_classes[controller_type]()
     bounds = tuning_instance.get_parameter_bounds()
-    # print("[DEBUG] param_config.py", bounds)
     all_params = list(bounds.parameter_names)
     
     # Check if there's a selection config for this controller
@@ -140,14 +99,12 @@ def get_tuned_parameters(controller_type: str):
     if isinstance(selection, dict):
         # Get matrix sizes directly from tuning class (if available)
         matrix_sizes = tuning_instance.get_matrix_sizes() if hasattr(tuning_instance, 'get_matrix_sizes') else {}
-        # print("[DEBUG] param_config.py", tuning_instance.get_matrix_sizes())
         selected = expand_matrix_selection(selection, matrix_sizes)
         # Validate that all selected params exist and filter to only configured ones
         valid_selected = [p for p in selected if p in all_params]
         if len(valid_selected) != len(selected):
             missing = set(selected) - set(all_params)
-            print(f"[Warning] Some configured parameters not found in {controller_type}: {missing}")
-        # print(f"[DEBUG] valid_selected: {valid_selected} \ntotal: {len(valid_selected)}")
+            print(f"Warning: Some configured parameters not found in {controller_type}: {missing}")
         return valid_selected
     
     # If it's a string (PID presets like "translational"), use PID expansion

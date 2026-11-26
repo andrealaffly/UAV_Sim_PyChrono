@@ -2,6 +2,11 @@
 
 Genetic algorithm-based parameter tuning for UAV control systems (PID and MRAC variants).
 
+By default this evaluates candidates against the pure-Python controller
+reimplementation (fast, parallelizable). To instead tune the real C++
+flightstack running under Docker SIL (PID only, serial, restart-per-candidate),
+see [`GA_TUNER_SIL.md`](GA_TUNER_SIL.md).
+
 ## Installation
 
 ```bash
